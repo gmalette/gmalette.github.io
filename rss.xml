@@ -17,7 +17,7 @@
         
         
         
-        <lastBuildDate>Tue, 23 Jun 2020 14:33:53 -0400</lastBuildDate>
+        <lastBuildDate>Tue, 23 Jun 2020 14:43:46 -0400</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://gmalette.dev/rss.xml" />
         
@@ -32,66 +32,151 @@
                 
                     <description>&lt;p&gt;A few months ago, I found myself trying to explain type variance to a coworker whose experience is mainly Ruby. Dynamically typed languages such as Ruby don&amp;rsquo;t ask the developers to specify the type variance. I found that while they develop an instinct of what usages are acceptable and which aren&amp;rsquo;t, these developers don&amp;rsquo;t codify it in the same way developers in statically typed languages do. In trying to explain, I had great difficulty driving home the difference between covariance and contravariance. Their good instinct made it hard for me to fill the gap in their understanding. After a while, I remembered the way Simon Génier first explained it to me, and that way was a success.&lt;/p&gt;
 &lt;p&gt;This post is how I would explain type variance to a Ruby developer, without throwing the entire Computer Science manual at them. Throughout the post, we will suppose a typical &lt;code&gt;Animal&lt;/code&gt; type hierarchy, with &lt;code&gt;Dog&lt;/code&gt; and &lt;code&gt;Cat&lt;/code&gt; as subtypes.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;class Animal
-  def age
-    @age
-  end
-end
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ruby&#34; data-lang=&#34;ruby&#34;&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Animal&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;age&lt;/span&gt;
+    &lt;span class=&#34;vi&#34;&gt;@age&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
 
-class Cat
-  def purr
-    puts &amp;quot;Purr&amp;quot;
-  end
-end
+&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Cat&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;purr&lt;/span&gt;
+    &lt;span class=&#34;nb&#34;&gt;puts&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Purr&amp;#34;&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
 
-class Dog
-  def fetch(ball)
-    puts &amp;quot;Fetching the ball&amp;quot;
-  end
-end
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;type-variance&#34;&gt;Type Variance&lt;/h2&gt;
+&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Dog&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;fetch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ball&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;nb&#34;&gt;puts&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Fetching the ball&amp;#34;&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;type-variance&#34;&gt;Type Variance&lt;/h2&gt;
 &lt;p&gt;In computer programming, we can divide types into simple types (ex: &lt;code&gt;Integer&lt;/code&gt;, &lt;code&gt;String&lt;/code&gt;, &lt;code&gt;Symbol&lt;/code&gt;), and types composed of other members (ex: &lt;code&gt;Array&lt;/code&gt;, &lt;code&gt;Hash&lt;/code&gt;, &lt;code&gt;Enumerable&lt;/code&gt;). This composition is often called &lt;em&gt;parameterization&lt;/em&gt;. An &lt;code&gt;Array&amp;lt;Integer&amp;gt;&lt;/code&gt; (an &lt;code&gt;Array&lt;/code&gt; of &lt;code&gt;Integer&lt;/code&gt;) said to be parameterized by the &lt;code&gt;Integer&lt;/code&gt; type.&lt;/p&gt;
 &lt;p&gt;Type variance allows us to describe the relationship between the composed type and its members. Intuitively, we know that &lt;code&gt;Enumerable&amp;lt;Cat&amp;gt;&lt;/code&gt; is a subtype of &lt;code&gt;Enumerable&amp;lt;Animal&amp;gt;&lt;/code&gt;, but it&amp;rsquo;s harder to understand that &lt;code&gt;Logger&amp;lt;Animal&amp;gt;&lt;/code&gt; is a subtype of &lt;code&gt;Logger&amp;lt;Cat&amp;gt;&lt;/code&gt;. I&amp;rsquo;ll explain why that&amp;rsquo;s the case, but first, let&amp;rsquo;s talk about Arrays.&lt;/p&gt;
 &lt;h2 id=&#34;the-curious-case-of-arrays&#34;&gt;The Curious Case of Arrays&lt;/h2&gt;
 &lt;p&gt;In dynamically typed languages as well as in languages that added generics after-the-fact, Arrays are weird.&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s examine a &lt;code&gt;print_age&lt;/code&gt; method takes an Array of Animals and prints their age.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# @params animals Array&amp;lt;Animal&amp;gt;
-def print_age(animals)
-  animals.each { |a| puts(a.age) }
-end
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The &lt;code&gt;print_age&lt;/code&gt; method can be called an array containing any animal:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# Array&amp;lt;Dog&amp;gt;
-dog_array = [Dog.new, Dog.new]
-print_age(dog_array)
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ruby&#34; data-lang=&#34;ruby&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# @params animals Array&amp;lt;Animal&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;print_age&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;animals&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;animals&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;each&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;puts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;age&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;The &lt;code&gt;print_age&lt;/code&gt; method can be called an array containing any animal:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ruby&#34; data-lang=&#34;ruby&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Array&amp;lt;Dog&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;dog_array&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;no&#34;&gt;Dog&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;no&#34;&gt;Dog&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;print_age&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dog_array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 
-# Array&amp;lt;Cat&amp;gt;
-cat_array = [Cat.new, Cat.new]
-print_age(cat_array)
+&lt;span class=&#34;c1&#34;&gt;# Array&amp;lt;Cat&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;cat_array&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;no&#34;&gt;Cat&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;no&#34;&gt;Cat&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;print_age&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cat_array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 
-# Array&amp;lt;Animal&amp;gt;
-animal_array = [Dog.new, Cat.new]
-print_age(animal_array)
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We can also have another method named &lt;code&gt;adopt&lt;/code&gt;  that adds animals to the list:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# @params into_animals Array&amp;lt;Animal&amp;gt;
-def adopt(into_animals)
-  into_animals.push(Dog.new)
-end
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now can you &lt;code&gt;adopt&lt;/code&gt; in the same arrays? Let&amp;rsquo;s see.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# Array&amp;lt;Animal&amp;gt;
-animal_array = [Dog.new, Cat.new]
-adopt(animal_array)
-# animal_array is still an `Array&amp;lt;Animal&amp;gt;`, no problem
+&lt;span class=&#34;c1&#34;&gt;# Array&amp;lt;Animal&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;animal_array&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;no&#34;&gt;Dog&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;no&#34;&gt;Cat&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;print_age&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;animal_array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;We can also have another method named &lt;code&gt;adopt&lt;/code&gt;  that adds animals to the list:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ruby&#34; data-lang=&#34;ruby&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# @params into_animals Array&amp;lt;Animal&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;adopt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;into_animals&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;into_animals&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;push&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;no&#34;&gt;Dog&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Now can you &lt;code&gt;adopt&lt;/code&gt; in the same arrays? Let&amp;rsquo;s see.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ruby&#34; data-lang=&#34;ruby&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Array&amp;lt;Animal&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;animal_array&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;no&#34;&gt;Dog&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;no&#34;&gt;Cat&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;adopt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;animal_array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# animal_array is still an `Array&amp;lt;Animal&amp;gt;`, no problem&lt;/span&gt;
 
-# Array&amp;lt;Cat&amp;gt;
-cat_array = [Cat.new, Cat.new]
-adopt(cat_array)
-# OH NO!!! [Cat, Cat, Dog]. This is no longer an `Array&amp;lt;Cat&amp;gt;`
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The answer is no: &lt;code&gt;adopt&lt;/code&gt; cannot use the same arrays as &lt;code&gt;print_age&lt;/code&gt;.  However, the &lt;code&gt;adopt&lt;/code&gt; has a property that &lt;code&gt;print_age&lt;/code&gt; did not have, it accepts &lt;code&gt;Array&amp;lt;Object&amp;gt;&lt;/code&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# Array&amp;lt;Object&amp;gt;
-object_array = [Dog.new, Object.new]
-adopt(object_array)
-# This is fine too! [Dog, Object] is a valid `Array&amp;lt;Object&amp;gt;`.
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We can also notice that we cannot send &lt;code&gt;object_array&lt;/code&gt; into &lt;code&gt;print_age&lt;/code&gt;, because &lt;code&gt;Object&lt;/code&gt; doesn&amp;rsquo;t define the &lt;code&gt;age&lt;/code&gt; method.&lt;/p&gt;
+&lt;span class=&#34;c1&#34;&gt;# Array&amp;lt;Cat&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;cat_array&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;no&#34;&gt;Cat&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;no&#34;&gt;Cat&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;adopt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cat_array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# OH NO!!! [Cat, Cat, Dog]. This is no longer an `Array&amp;lt;Cat&amp;gt;`&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;The answer is no: &lt;code&gt;adopt&lt;/code&gt; cannot use the same arrays as &lt;code&gt;print_age&lt;/code&gt;.  However, the &lt;code&gt;adopt&lt;/code&gt; has a property that &lt;code&gt;print_age&lt;/code&gt; did not have, it accepts &lt;code&gt;Array&amp;lt;Object&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ruby&#34; data-lang=&#34;ruby&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Array&amp;lt;Object&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;object_array&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;no&#34;&gt;Dog&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;no&#34;&gt;Object&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;adopt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;object_array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# This is fine too! [Dog, Object] is a valid `Array&amp;lt;Object&amp;gt;`.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;We can also notice that we cannot send &lt;code&gt;object_array&lt;/code&gt; into &lt;code&gt;print_age&lt;/code&gt;, because &lt;code&gt;Object&lt;/code&gt; doesn&amp;rsquo;t define the &lt;code&gt;age&lt;/code&gt; method.&lt;/p&gt;
 &lt;p&gt;What can we learn from this? Depending if you read from the array or write to it, the type doesn&amp;rsquo;t behave the same.&lt;/p&gt;
 &lt;h2 id=&#34;sources-are-covariant&#34;&gt;Sources are Covariant&lt;/h2&gt;
 &lt;p&gt;Composed types from which you can exclusively read or take stuff are called sources. Examples include &lt;code&gt;Enumerable&lt;/code&gt; and &lt;code&gt;Reader&lt;/code&gt;. These become more specific as their type members become more specific. As a result of &lt;code&gt;Dog&lt;/code&gt; being a subtype of &lt;code&gt;Animal&lt;/code&gt;, &lt;code&gt;Enumerable&amp;lt;Dog&amp;gt;&lt;/code&gt; is a subtype of &lt;code&gt;Enumerable&amp;lt;Animal&amp;gt;&lt;/code&gt;; you can pass an &lt;code&gt;Enumerable&amp;lt;Dog&amp;gt;&lt;/code&gt; to any method that expects an &lt;code&gt;Enumerable&amp;lt;Animal&amp;gt;&lt;/code&gt;.&lt;/p&gt;
@@ -289,7 +374,6 @@ adopt(object_array)
 &lt;p&gt;Opinions may vary, but in mine, we haven&amp;rsquo;t sacrificed ergonomics by the slightest to get here, either.&lt;/p&gt;
 &lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;In the first post of this series, I showed a few ways in which common APIs allow their users to make mistakes. My goal was to help you take notice of the problem, so that you can find similar problems (and more) in your own APIs. In the second post, we saw how others have solved the same problems, to help you see ways to remove the affordance you give. In this final post, I went through an example, and explained how I design APIs, and how I try to make it easy for my users to make no error. I sincerely hope you can take something away from this series, and that you start taking notice of, and start removing, the affordance for errors in your APIs.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/gmalette/gmalette.github.io/pull/10&#34;&gt;Comment or Like&lt;/a&gt;&lt;/p&gt;
 </description>
                 
                 
@@ -926,7 +1010,6 @@ adopt(object_array)
 &lt;li&gt;Using of structureless markup languages (YAML)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;If you wish to contribute with more examples, please share them in the comments.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/gmalette/gmalette.github.io/pull/7&#34;&gt;Comment or Like&lt;/a&gt;&lt;/p&gt;
 </description>
                 
                 
@@ -1534,7 +1617,7 @@ I suspect this happens when folks find it hard to understand the difference betw
 &lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;Hopefully this post has proven that removing occurrences of &lt;code&gt;ActiveSupport::Concern&lt;/code&gt; is generally easy, if not trivial. Often it can be removed without further changes. Other times, it just requires understanding the difference between &lt;code&gt;include&lt;/code&gt; and &lt;code&gt;extend&lt;/code&gt;, or knowing if methods can be used instead of &amp;ldquo;macros&amp;rdquo;. Sometimes it&amp;rsquo;s about getting to a better OOP design, but mostly, it&amp;rsquo;s about combining objects rathern than piling more layers of metaprogramming.&lt;/p&gt;
 &lt;p&gt;And sometimes, you just have to give up and add another layer of metaprogramming, in which case feel free to use &lt;code&gt;AS::C&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/gmalette/gmalette.github.io/pull/6&#34;&gt;Comment or React&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gmalette/gmalette.github.io-src/pull/6&#34;&gt;Comment or React&lt;/a&gt;&lt;/p&gt;
 </description>
                 
                 
@@ -1568,7 +1651,7 @@ I suspect this happens when folks find it hard to understand the difference betw
 &lt;p&gt;I&amp;rsquo;ve since switched to using Jekyll and Github Pages. I like that all revisions of my posts will be available to everyone. I like that it&amp;rsquo;s a property I (almost) control: I&amp;rsquo;ll soon switch to my own domain name.&lt;/p&gt;
 &lt;p&gt;From Medium I miss the editor (although coming back to Vim feels nice), and most definitely the easy analytics. I&amp;rsquo;ll try to use Google Analytics, but I&amp;rsquo;m somewhat apprehensive of how that&amp;rsquo;ll go. I&amp;rsquo;ll miss the &amp;ldquo;Claps&amp;rdquo;. For this I&amp;rsquo;ll ask readers to react on the GitHub; I&amp;rsquo;ll create a pull request for each new post. Comments can live there too. I&amp;rsquo;ll miss the subscriptions, but for this I&amp;rsquo;ll use releases on the repository.&lt;/p&gt;
 &lt;p&gt;Hoping this&amp;rsquo;ll stick!&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/gmalette/gmalette.github.io/pull/3&#34;&gt;Comment or React&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gmalette/gmalette.github.io-src/pull/3&#34;&gt;Comment or React&lt;/a&gt;&lt;/p&gt;
 </description>
                 
                 
@@ -2385,7 +2468,6 @@ I suspect this happens when folks find it hard to understand the difference betw
 &lt;li&gt;&lt;code&gt;prepend&lt;/code&gt; and &lt;code&gt;include&lt;/code&gt; affect the behaviour offered by the receiver.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;extend&lt;/code&gt; affects the behaviour of the receiver, through its singleton class.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/gmalette/gmalette.github.io/pull/1&#34;&gt;Comment or Like&lt;/a&gt;&lt;/p&gt;
 </description>
                 
                 
@@ -2849,7 +2931,7 @@ I’ve reworded my reply where it made sense.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;I agree that this still isn’t the greatest OO design, but at least it’s radically simpler.&lt;/p&gt;
 &lt;p&gt;Because I struggle to find a single case in which using &lt;code&gt;AS::C&lt;/code&gt; actually provides a better design than not using it, I am a hardliner of never using it.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/gmalette/gmalette.github.io/pull/4&#34;&gt;Comment or React&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gmalette/gmalette.github.io-src/pull/4&#34;&gt;Comment or React&lt;/a&gt;&lt;/p&gt;
 </description>
                 
                 
@@ -2920,7 +3002,7 @@ I’ve reworded my reply where it made sense.&lt;/p&gt;
 &lt;p&gt;A simple solution would be to avoid the single user login &lt;code&gt;git@service.com&lt;/code&gt;, and use that as identification, for example &lt;code&gt;gmalette@service.com&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;To leave you with a simple takeaway, identification and authentication serve a fundamentally different purpose. Thinking they can be interchanged can lead to frustrating issues for users. Please understand what the difference is, and build systems accordingly.&lt;/p&gt;
 &lt;p&gt;Thanks to Lydia Krupp Hunter and Richard McGain.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/gmalette/gmalette.github.io/pull/5&#34;&gt;Comment or React&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gmalette/gmalette.github.io-src/pull/5&#34;&gt;Comment or React&lt;/a&gt;&lt;/p&gt;
 </description>
                 
                 

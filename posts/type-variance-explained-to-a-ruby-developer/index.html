@@ -60,7 +60,7 @@
         "description": "A few months ago, I found myself trying to explain type variance to a coworker whose experience is mainly Ruby. Dynamically typed languages such as Ruby don’t ask the developers to specify the type variance. I found that while they develop an instinct of what usages are acceptable and which aren’t, these developers don’t codify it in the same way developers in statically typed languages do.",
         "inLanguage" : "en",
         "articleSection": "posts",
-        "wordCount":  727 ,
+        "wordCount":  776 ,
         "image": "https://gmalette.dev/icons/apple-touch-icon.png",
         "author": {
             "@type": "Person",
@@ -215,7 +215,7 @@
     
     
         
-        <span class="post-meta-item wordcount"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>&nbsp;727</span>
+        <span class="post-meta-item wordcount"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>&nbsp;776</span>
     
     
         
@@ -230,66 +230,151 @@
             <div class="post-body">
               <p>A few months ago, I found myself trying to explain type variance to a coworker whose experience is mainly Ruby. Dynamically typed languages such as Ruby don&rsquo;t ask the developers to specify the type variance. I found that while they develop an instinct of what usages are acceptable and which aren&rsquo;t, these developers don&rsquo;t codify it in the same way developers in statically typed languages do. In trying to explain, I had great difficulty driving home the difference between covariance and contravariance. Their good instinct made it hard for me to fill the gap in their understanding. After a while, I remembered the way Simon Génier first explained it to me, and that way was a success.</p>
 <p>This post is how I would explain type variance to a Ruby developer, without throwing the entire Computer Science manual at them. Throughout the post, we will suppose a typical <code>Animal</code> type hierarchy, with <code>Dog</code> and <code>Cat</code> as subtypes.</p>
-<pre><code>class Animal
-  def age
-    @age
-  end
-end
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Animal</span>
+  <span class="k">def</span> <span class="nf">age</span>
+    <span class="vi">@age</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-class Cat
-  def purr
-    puts &quot;Purr&quot;
-  end
-end
+<span class="k">class</span> <span class="nc">Cat</span>
+  <span class="k">def</span> <span class="nf">purr</span>
+    <span class="nb">puts</span> <span class="s2">&#34;Purr&#34;</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-class Dog
-  def fetch(ball)
-    puts &quot;Fetching the ball&quot;
-  end
-end
-</code></pre><h2 id="type-variance"><a href="#type-variance" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Type Variance</h2>
+<span class="k">class</span> <span class="nc">Dog</span>
+  <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="n">ball</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="s2">&#34;Fetching the ball&#34;</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><h2 id="type-variance"><a href="#type-variance" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Type Variance</h2>
 <p>In computer programming, we can divide types into simple types (ex: <code>Integer</code>, <code>String</code>, <code>Symbol</code>), and types composed of other members (ex: <code>Array</code>, <code>Hash</code>, <code>Enumerable</code>). This composition is often called <em>parameterization</em>. An <code>Array&lt;Integer&gt;</code> (an <code>Array</code> of <code>Integer</code>) said to be parameterized by the <code>Integer</code> type.</p>
 <p>Type variance allows us to describe the relationship between the composed type and its members. Intuitively, we know that <code>Enumerable&lt;Cat&gt;</code> is a subtype of <code>Enumerable&lt;Animal&gt;</code>, but it&rsquo;s harder to understand that <code>Logger&lt;Animal&gt;</code> is a subtype of <code>Logger&lt;Cat&gt;</code>. I&rsquo;ll explain why that&rsquo;s the case, but first, let&rsquo;s talk about Arrays.</p>
 <h2 id="the-curious-case-of-arrays"><a href="#the-curious-case-of-arrays" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>The Curious Case of Arrays</h2>
 <p>In dynamically typed languages as well as in languages that added generics after-the-fact, Arrays are weird.</p>
 <p>Let&rsquo;s examine a <code>print_age</code> method takes an Array of Animals and prints their age.</p>
-<pre><code># @params animals Array&lt;Animal&gt;
-def print_age(animals)
-  animals.each { |a| puts(a.age) }
-end
-</code></pre><p>The <code>print_age</code> method can be called an array containing any animal:</p>
-<pre><code># Array&lt;Dog&gt;
-dog_array = [Dog.new, Dog.new]
-print_age(dog_array)
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># @params animals Array&lt;Animal&gt;</span>
+<span class="k">def</span> <span class="nf">print_age</span><span class="p">(</span><span class="n">animals</span><span class="p">)</span>
+  <span class="n">animals</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">a</span><span class="o">|</span> <span class="nb">puts</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">age</span><span class="p">)</span> <span class="p">}</span>
+<span class="k">end</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>The <code>print_age</code> method can be called an array containing any animal:</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># Array&lt;Dog&gt;</span>
+<span class="n">dog_array</span> <span class="o">=</span> <span class="o">[</span><span class="no">Dog</span><span class="o">.</span><span class="n">new</span><span class="p">,</span> <span class="no">Dog</span><span class="o">.</span><span class="n">new</span><span class="o">]</span>
+<span class="n">print_age</span><span class="p">(</span><span class="n">dog_array</span><span class="p">)</span>
 
-# Array&lt;Cat&gt;
-cat_array = [Cat.new, Cat.new]
-print_age(cat_array)
+<span class="c1"># Array&lt;Cat&gt;</span>
+<span class="n">cat_array</span> <span class="o">=</span> <span class="o">[</span><span class="no">Cat</span><span class="o">.</span><span class="n">new</span><span class="p">,</span> <span class="no">Cat</span><span class="o">.</span><span class="n">new</span><span class="o">]</span>
+<span class="n">print_age</span><span class="p">(</span><span class="n">cat_array</span><span class="p">)</span>
 
-# Array&lt;Animal&gt;
-animal_array = [Dog.new, Cat.new]
-print_age(animal_array)
-</code></pre><p>We can also have another method named <code>adopt</code>  that adds animals to the list:</p>
-<pre><code># @params into_animals Array&lt;Animal&gt;
-def adopt(into_animals)
-  into_animals.push(Dog.new)
-end
-</code></pre><p>Now can you <code>adopt</code> in the same arrays? Let&rsquo;s see.</p>
-<pre><code># Array&lt;Animal&gt;
-animal_array = [Dog.new, Cat.new]
-adopt(animal_array)
-# animal_array is still an `Array&lt;Animal&gt;`, no problem
+<span class="c1"># Array&lt;Animal&gt;</span>
+<span class="n">animal_array</span> <span class="o">=</span> <span class="o">[</span><span class="no">Dog</span><span class="o">.</span><span class="n">new</span><span class="p">,</span> <span class="no">Cat</span><span class="o">.</span><span class="n">new</span><span class="o">]</span>
+<span class="n">print_age</span><span class="p">(</span><span class="n">animal_array</span><span class="p">)</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>We can also have another method named <code>adopt</code>  that adds animals to the list:</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># @params into_animals Array&lt;Animal&gt;</span>
+<span class="k">def</span> <span class="nf">adopt</span><span class="p">(</span><span class="n">into_animals</span><span class="p">)</span>
+  <span class="n">into_animals</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="no">Dog</span><span class="o">.</span><span class="n">new</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>Now can you <code>adopt</code> in the same arrays? Let&rsquo;s see.</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># Array&lt;Animal&gt;</span>
+<span class="n">animal_array</span> <span class="o">=</span> <span class="o">[</span><span class="no">Dog</span><span class="o">.</span><span class="n">new</span><span class="p">,</span> <span class="no">Cat</span><span class="o">.</span><span class="n">new</span><span class="o">]</span>
+<span class="n">adopt</span><span class="p">(</span><span class="n">animal_array</span><span class="p">)</span>
+<span class="c1"># animal_array is still an `Array&lt;Animal&gt;`, no problem</span>
 
-# Array&lt;Cat&gt;
-cat_array = [Cat.new, Cat.new]
-adopt(cat_array)
-# OH NO!!! [Cat, Cat, Dog]. This is no longer an `Array&lt;Cat&gt;`
-</code></pre><p>The answer is no: <code>adopt</code> cannot use the same arrays as <code>print_age</code>.  However, the <code>adopt</code> has a property that <code>print_age</code> did not have, it accepts <code>Array&lt;Object&gt;</code>.</p>
-<pre><code># Array&lt;Object&gt;
-object_array = [Dog.new, Object.new]
-adopt(object_array)
-# This is fine too! [Dog, Object] is a valid `Array&lt;Object&gt;`.
-</code></pre><p>We can also notice that we cannot send <code>object_array</code> into <code>print_age</code>, because <code>Object</code> doesn&rsquo;t define the <code>age</code> method.</p>
+<span class="c1"># Array&lt;Cat&gt;</span>
+<span class="n">cat_array</span> <span class="o">=</span> <span class="o">[</span><span class="no">Cat</span><span class="o">.</span><span class="n">new</span><span class="p">,</span> <span class="no">Cat</span><span class="o">.</span><span class="n">new</span><span class="o">]</span>
+<span class="n">adopt</span><span class="p">(</span><span class="n">cat_array</span><span class="p">)</span>
+<span class="c1"># OH NO!!! [Cat, Cat, Dog]. This is no longer an `Array&lt;Cat&gt;`</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>The answer is no: <code>adopt</code> cannot use the same arrays as <code>print_age</code>.  However, the <code>adopt</code> has a property that <code>print_age</code> did not have, it accepts <code>Array&lt;Object&gt;</code>.</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># Array&lt;Object&gt;</span>
+<span class="n">object_array</span> <span class="o">=</span> <span class="o">[</span><span class="no">Dog</span><span class="o">.</span><span class="n">new</span><span class="p">,</span> <span class="no">Object</span><span class="o">.</span><span class="n">new</span><span class="o">]</span>
+<span class="n">adopt</span><span class="p">(</span><span class="n">object_array</span><span class="p">)</span>
+<span class="c1"># This is fine too! [Dog, Object] is a valid `Array&lt;Object&gt;`.</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>We can also notice that we cannot send <code>object_array</code> into <code>print_age</code>, because <code>Object</code> doesn&rsquo;t define the <code>age</code> method.</p>
 <p>What can we learn from this? Depending if you read from the array or write to it, the type doesn&rsquo;t behave the same.</p>
 <h2 id="sources-are-covariant"><a href="#sources-are-covariant" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Sources are Covariant</h2>
 <p>Composed types from which you can exclusively read or take stuff are called sources. Examples include <code>Enumerable</code> and <code>Reader</code>. These become more specific as their type members become more specific. As a result of <code>Dog</code> being a subtype of <code>Animal</code>, <code>Enumerable&lt;Dog&gt;</code> is a subtype of <code>Enumerable&lt;Animal&gt;</code>; you can pass an <code>Enumerable&lt;Dog&gt;</code> to any method that expects an <code>Enumerable&lt;Animal&gt;</code>.</p>
