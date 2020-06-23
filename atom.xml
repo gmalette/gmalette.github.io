@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title type="text">Guillaume&#39;s Horrible Code-Along Blog</title>
     <subtitle type="html">MemE is a powerful and highly customizable GoHugo theme for personal blogs.</subtitle>
-    <updated>2020-06-23T14:43:46-04:00</updated>
+    <updated>2020-06-23T14:51:06-04:00</updated>
     <id>https://gmalette.dev/</id>
     <link rel="alternate" type="text/html" href="https://gmalette.dev/" />
     <link rel="self" type="application/atom&#43;xml" href="https://gmalette.dev/atom.xml" />
@@ -174,11 +174,11 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;We can also notice that we cannot send &lt;code&gt;object_array&lt;/code&gt; into &lt;code&gt;print_age&lt;/code&gt;, because &lt;code&gt;Object&lt;/code&gt; doesn&amp;rsquo;t define the &lt;code&gt;age&lt;/code&gt; method.&lt;/p&gt;
 &lt;p&gt;What can we learn from this? Depending if you read from the array or write to it, the type doesn&amp;rsquo;t behave the same.&lt;/p&gt;
-&lt;h2 id=&#34;sources-are-covariant&#34;&gt;Sources are Covariant&lt;/h2&gt;
+&lt;h2 id=&#34;sources-are-covariant&#34;&gt;Sources Are Covariant&lt;/h2&gt;
 &lt;p&gt;Composed types from which you can exclusively read or take stuff are called sources. Examples include &lt;code&gt;Enumerable&lt;/code&gt; and &lt;code&gt;Reader&lt;/code&gt;. These become more specific as their type members become more specific. As a result of &lt;code&gt;Dog&lt;/code&gt; being a subtype of &lt;code&gt;Animal&lt;/code&gt;, &lt;code&gt;Enumerable&amp;lt;Dog&amp;gt;&lt;/code&gt; is a subtype of &lt;code&gt;Enumerable&amp;lt;Animal&amp;gt;&lt;/code&gt;; you can pass an &lt;code&gt;Enumerable&amp;lt;Dog&amp;gt;&lt;/code&gt; to any method that expects an &lt;code&gt;Enumerable&amp;lt;Animal&amp;gt;&lt;/code&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;sinks-are-contravariant&#34;&gt;Sinks are Contravariant&lt;/h2&gt;
+&lt;h2 id=&#34;sinks-are-contravariant&#34;&gt;Sinks Are Contravariant&lt;/h2&gt;
 &lt;p&gt;Sinks are the opposite of sources: they&amp;rsquo;re types to which you can exclusively write or put stuff in. Examples include &lt;code&gt;Logger&lt;/code&gt; or &lt;code&gt;Writer&lt;/code&gt;. Perhaps counter-intuitively, these become more specific as their type member become less specific! That means that &lt;strong&gt;&lt;code&gt;Logger&amp;lt;Animal&amp;gt;&lt;/code&gt; is in fact a subtype of &lt;code&gt;Logger&amp;lt;Dog&amp;gt;&lt;/code&gt;&lt;/strong&gt; (because &lt;code&gt;Logger&amp;lt;Animal&amp;gt;&lt;/code&gt; will be able to log for any &lt;code&gt;Dog&lt;/code&gt; as well.&lt;/p&gt;
-&lt;h2 id=&#34;read-and-write-put-and-take&#34;&gt;Read And Write, Put And Take&lt;/h2&gt;
+&lt;h2 id=&#34;read-and-write-put-and-take&#34;&gt;Read and Write, Put and Take&lt;/h2&gt;
 &lt;p&gt;What if a method needs to do both? Read and write, put and take? It would appear that they are at the intersection of covariance and contravariance&amp;hellip; and that&amp;rsquo;s exactly right: they&amp;rsquo;re &lt;strong&gt;invariant&lt;/strong&gt;. No subtyping is possible.&lt;/p&gt;
 &lt;p&gt;In an ideal world, &lt;code&gt;Array&amp;lt;Dog&amp;gt;&lt;/code&gt; is neither a subtype nor a supertype of &lt;code&gt;Array&amp;lt;Animal&amp;gt;&lt;/code&gt;. In practice, even if &lt;code&gt;Array&lt;/code&gt;, &lt;code&gt;HashMap&lt;/code&gt; and other read/write containers &lt;strong&gt;should be invariant&lt;/strong&gt;, many languages will consider them covariant because of historic reasons. &lt;/p&gt;
 &lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
