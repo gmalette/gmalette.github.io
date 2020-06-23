@@ -14,11 +14,11 @@
 
     <title>Revoking the (Parentheses) Privilege | Guillaume&#39;s Horrible Code-Along Blog</title>
 
-    <link rel="stylesheet" href="/css/meme.min.d91968747c971f78eef1f05b597f005f0631691e21147b156cd1ce6995b9f95b.css" integrity="sha256-2RlodHyXH3ju8fBbWX8AXwYxaR4hFHsVbNHOaZW5&#43;Vs=" />
+    <link rel="stylesheet" href="/css/meme.min.6f0bc58825f5d717c9a702acbceaf4f2d3318d61c30f2e32ccd0b3fcada62ab1.css" integrity="sha256-bwvFiCX11xfJpwKsvOr08tMxjWHDDy4yzNCz/K2mKrE=" />
 
     
     
-        <script src="/js/meme.min.6dfa7c4f3e60a3dabf6e14fc56011a69a288f23da6f54225b21620832a7a3b04.js" integrity="sha256-bfp8Tz5go9q/bhT8VgEaaaKI8j2m9UIlshYggyp6OwQ="></script>
+        <script src="/js/meme.min.bcbfd1615d39587df5581ddd1d2990d5193966e6647a4059879574e0a16d10a8.js" integrity="sha256-vL/RYV05WH31WB3dHSmQ1Rk5ZuZkekBZh5V04KFtEKg="></script>
 
     
 
@@ -230,7 +230,7 @@
             
 
             <div class="post-body">
-              <p style="text-indent:0"><span class="drop-cap">F</span>or years, Rubyists (including where I work) have enjoyed the privilege of omitting parenthesis around method call arguments. Last week, we merged a pull request to our style guide revoking that privilege: parenthesis will become mandatory for all method calls with arguments.</p>
+              <p>For years, Rubyists (including where I work) have enjoyed the privilege of omitting parenthesis around method call arguments. Last week, we merged a pull request to our style guide revoking that privilege: parenthesis will become mandatory for all method calls with arguments.</p>
 <hr>
 <p>Don&rsquo;t let anyone fool you, Ruby is a complicated language. It&rsquo;s syntax is full of quirks, pitfalls, and gotchas. It&rsquo;s a minefield for newcomers and veterans alike. Despite that, it <em>can</em> be an elegant language; we just have to choose which subet of the language to use. We chose that this subset doesn&rsquo;t allow omitting parentheses on methods which have parameters.</p>
 <p>The discussion on wheter to enforce parentheses or not was a recurrent one. The arguments in favour of enforcing were generally around predictiblity, or removing the surface for mistakes. The arguments against cited that enforced usage of parentheses is inconsistent with Ruby in the wild, it&rsquo;s not idiomatic. While arguments against have prevailed until now, the tipping point has been reached this week. Let&rsquo;s examine what happened.</p>
@@ -581,6 +581,10 @@
                     </li>
                 
                     <li class="related-item">
+                        <a href="/posts/type-variance-explained-to-a-ruby-developer/" class="related-link">Type Variance Explained To a Ruby Developer</a>
+                    </li>
+                
+                    <li class="related-item">
                         <a href="/posts/affordance-for-errors-pt3/" class="related-link">Affordance for Errors, part 3</a>
                     </li>
                 
@@ -590,10 +594,6 @@
                 
                     <li class="related-item">
                         <a href="/posts/affordance-for-errors-pt1/" class="related-link">Affordance for Errors, part 1</a>
-                    </li>
-                
-                    <li class="related-item">
-                        <a href="/posts/refactoring-common-activesupport-concern-patterns/" class="related-link">Refactoring Common ActiveSupport::Concern Patterns</a>
                     </li>
                 
             </ul>
@@ -638,6 +638,22 @@
 
 
         
+    
+
+        <div class="load-comments">
+            <div id="load-comments">Load Comments?</div>
+        </div>
+
+        
+
+        
+
+        
+            <div id="utterances"></div>
+        
+
+    
+
 
 
     </div>
@@ -688,6 +704,33 @@
 
 
 
+
+    
+
+        
+
+        
+
+        
+            <script>
+    function loadComments() {
+        (function() {
+            var utterances = document.getElementById("utterances");
+            var script = document.createElement('script');
+            script.src = 'https://utteranc.es/client.js';
+            script.async = true;
+            script.crossOrigin = 'anonymous';
+            script.setAttribute('repo', 'gmalette\/gmalette.github.io-src');
+            script.setAttribute('issue-term', 'title');
+            script.setAttribute('theme', 'github-light');
+            
+            utterances.appendChild(script);
+        })();
+    }
+</script>
+        
+
+    
 
 
 

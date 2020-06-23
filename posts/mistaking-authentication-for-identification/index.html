@@ -14,11 +14,11 @@
 
     <title>Mistaking Authentication for Identification | Guillaume&#39;s Horrible Code-Along Blog</title>
 
-    <link rel="stylesheet" href="/css/meme.min.d91968747c971f78eef1f05b597f005f0631691e21147b156cd1ce6995b9f95b.css" integrity="sha256-2RlodHyXH3ju8fBbWX8AXwYxaR4hFHsVbNHOaZW5&#43;Vs=" />
+    <link rel="stylesheet" href="/css/meme.min.6f0bc58825f5d717c9a702acbceaf4f2d3318d61c30f2e32ccd0b3fcada62ab1.css" integrity="sha256-bwvFiCX11xfJpwKsvOr08tMxjWHDDy4yzNCz/K2mKrE=" />
 
     
     
-        <script src="/js/meme.min.6dfa7c4f3e60a3dabf6e14fc56011a69a288f23da6f54225b21620832a7a3b04.js" integrity="sha256-bfp8Tz5go9q/bhT8VgEaaaKI8j2m9UIlshYggyp6OwQ="></script>
+        <script src="/js/meme.min.bcbfd1615d39587df5581ddd1d2990d5193966e6647a4059879574e0a16d10a8.js" integrity="sha256-vL/RYV05WH31WB3dHSmQ1Rk5ZuZkekBZh5V04KFtEKg="></script>
 
     
 
@@ -230,7 +230,7 @@
 
             <div class="post-body">
               <p><em>Disclaimer: I am not a security expert, nor a systems expert. The following text is tinted by my understanding and experience, and probably contains mistakes or misunderstandings.</em></p>
-<p style="text-indent:0"><span class="drop-cap">E</span>arlier this year, I accidentally uncovered a flaw in GitHub, Heroku and many other similar providers. The flaw essentially allows a denial of service to some users with little effort from the attacker. The situation has not been fixed, and it likely will not be. At the center of the problem is the fundamental mistake of thinking that authentication can be a substitute for identification.</p>
+<p>Earlier this year, I accidentally uncovered a flaw in GitHub, Heroku and many other similar providers. The flaw essentially allows a denial of service to some users with little effort from the attacker. The situation has not been fixed, and it likely will not be. At the center of the problem is the fundamental mistake of thinking that authentication can be a substitute for identification.</p>
 <p><strong>Identification</strong> is a process through which one claims an identity. One person may have several identities. For example, GitHub knows me under the identity of <em>gmalette</em>. My gamer tag on Steam is <em>Wako</em>. Anyone can claim those identities; anyone can try to login on GitHub using <em>gmalette</em> or on Steam using <em>Wako</em>. We need a way to verify the authenticity of that identity claim, a way to make sure the user really is who they pretend to be.</p>
 <p><strong>Authentication</strong> is the process through which one verifies a claimed identity. Typically, the person being authenticated will produce a document that assures they own the identity. Such documents can be a passport, a credit card’s CVV code, a password, etc.</p>
 <p>On the internet, we generally use password authentication. That is, when you connect to a website, you provide your identity (username, email address, etc). The server will find the account matching that identity, and use a password for authentication.</p>
@@ -391,6 +391,22 @@
 
 
         
+    
+
+        <div class="load-comments">
+            <div id="load-comments">Load Comments?</div>
+        </div>
+
+        
+
+        
+
+        
+            <div id="utterances"></div>
+        
+
+    
+
 
 
     </div>
@@ -441,6 +457,33 @@
 
 
 
+
+    
+
+        
+
+        
+
+        
+            <script>
+    function loadComments() {
+        (function() {
+            var utterances = document.getElementById("utterances");
+            var script = document.createElement('script');
+            script.src = 'https://utteranc.es/client.js';
+            script.async = true;
+            script.crossOrigin = 'anonymous';
+            script.setAttribute('repo', 'gmalette\/gmalette.github.io-src');
+            script.setAttribute('issue-term', 'title');
+            script.setAttribute('theme', 'github-light');
+            
+            utterances.appendChild(script);
+        })();
+    }
+</script>
+        
+
+    
 
 
 

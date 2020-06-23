@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title type="text">Guillaume&#39;s Horrible Code-Along Blog</title>
     <subtitle type="html">MemE is a powerful and highly customizable GoHugo theme for personal blogs.</subtitle>
-    <updated>2020-06-22T20:32:28-04:00</updated>
+    <updated>2020-06-23T14:33:53-04:00</updated>
     <id>https://gmalette.dev/</id>
     <link rel="alternate" type="text/html" href="https://gmalette.dev/" />
     <link rel="self" type="application/atom&#43;xml" href="https://gmalette.dev/atom.xml" />
@@ -14,6 +14,110 @@
             </author>
     
     <generator uri="https://gohugo.io/" version="0.72.0">Hugo</generator>
+        <entry>
+            <title type="text">Type Variance Explained To a Ruby Developer</title>
+            <link rel="alternate" type="text/html" href="https://gmalette.dev/posts/type-variance-explained-to-a-ruby-developer/" />
+            <id>https://gmalette.dev/posts/type-variance-explained-to-a-ruby-developer/</id>
+            <updated>0001-01-01T00:00:00&#43;00:00</updated>
+            <published>2020-06-21T20:00:00&#43;04:00</published>
+            <author>
+                    <name>Guillaume Malette</name>
+                    <uri>https://gmalette.dev</uri>
+                    </author>
+            <summary type="html">A few months ago, I found myself trying to explain type variance to a coworker whose experience is mainly Ruby. Dynamically typed languages such as Ruby don&amp;rsquo;t ask the developers to specify the type variance. I found that while they develop an instinct of what usages are acceptable and which aren&amp;rsquo;t, these developers don&amp;rsquo;t codify it in the same way developers in statically typed languages do.</summary>
+            
+                <content type="html">&lt;p&gt;A few months ago, I found myself trying to explain type variance to a coworker whose experience is mainly Ruby. Dynamically typed languages such as Ruby don&amp;rsquo;t ask the developers to specify the type variance. I found that while they develop an instinct of what usages are acceptable and which aren&amp;rsquo;t, these developers don&amp;rsquo;t codify it in the same way developers in statically typed languages do. In trying to explain, I had great difficulty driving home the difference between covariance and contravariance. Their good instinct made it hard for me to fill the gap in their understanding. After a while, I remembered the way Simon Génier first explained it to me, and that way was a success.&lt;/p&gt;
+&lt;p&gt;This post is how I would explain type variance to a Ruby developer, without throwing the entire Computer Science manual at them. Throughout the post, we will suppose a typical &lt;code&gt;Animal&lt;/code&gt; type hierarchy, with &lt;code&gt;Dog&lt;/code&gt; and &lt;code&gt;Cat&lt;/code&gt; as subtypes.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class Animal
+  def age
+    @age
+  end
+end
+
+class Cat
+  def purr
+    puts &amp;quot;Purr&amp;quot;
+  end
+end
+
+class Dog
+  def fetch(ball)
+    puts &amp;quot;Fetching the ball&amp;quot;
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;type-variance&#34;&gt;Type Variance&lt;/h2&gt;
+&lt;p&gt;In computer programming, we can divide types into simple types (ex: &lt;code&gt;Integer&lt;/code&gt;, &lt;code&gt;String&lt;/code&gt;, &lt;code&gt;Symbol&lt;/code&gt;), and types composed of other members (ex: &lt;code&gt;Array&lt;/code&gt;, &lt;code&gt;Hash&lt;/code&gt;, &lt;code&gt;Enumerable&lt;/code&gt;). This composition is often called &lt;em&gt;parameterization&lt;/em&gt;. An &lt;code&gt;Array&amp;lt;Integer&amp;gt;&lt;/code&gt; (an &lt;code&gt;Array&lt;/code&gt; of &lt;code&gt;Integer&lt;/code&gt;) said to be parameterized by the &lt;code&gt;Integer&lt;/code&gt; type.&lt;/p&gt;
+&lt;p&gt;Type variance allows us to describe the relationship between the composed type and its members. Intuitively, we know that &lt;code&gt;Enumerable&amp;lt;Cat&amp;gt;&lt;/code&gt; is a subtype of &lt;code&gt;Enumerable&amp;lt;Animal&amp;gt;&lt;/code&gt;, but it&amp;rsquo;s harder to understand that &lt;code&gt;Logger&amp;lt;Animal&amp;gt;&lt;/code&gt; is a subtype of &lt;code&gt;Logger&amp;lt;Cat&amp;gt;&lt;/code&gt;. I&amp;rsquo;ll explain why that&amp;rsquo;s the case, but first, let&amp;rsquo;s talk about Arrays.&lt;/p&gt;
+&lt;h2 id=&#34;the-curious-case-of-arrays&#34;&gt;The Curious Case of Arrays&lt;/h2&gt;
+&lt;p&gt;In dynamically typed languages as well as in languages that added generics after-the-fact, Arrays are weird.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s examine a &lt;code&gt;print_age&lt;/code&gt; method takes an Array of Animals and prints their age.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# @params animals Array&amp;lt;Animal&amp;gt;
+def print_age(animals)
+  animals.each { |a| puts(a.age) }
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The &lt;code&gt;print_age&lt;/code&gt; method can be called an array containing any animal:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# Array&amp;lt;Dog&amp;gt;
+dog_array = [Dog.new, Dog.new]
+print_age(dog_array)
+
+# Array&amp;lt;Cat&amp;gt;
+cat_array = [Cat.new, Cat.new]
+print_age(cat_array)
+
+# Array&amp;lt;Animal&amp;gt;
+animal_array = [Dog.new, Cat.new]
+print_age(animal_array)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We can also have another method named &lt;code&gt;adopt&lt;/code&gt;  that adds animals to the list:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# @params into_animals Array&amp;lt;Animal&amp;gt;
+def adopt(into_animals)
+  into_animals.push(Dog.new)
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now can you &lt;code&gt;adopt&lt;/code&gt; in the same arrays? Let&amp;rsquo;s see.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# Array&amp;lt;Animal&amp;gt;
+animal_array = [Dog.new, Cat.new]
+adopt(animal_array)
+# animal_array is still an `Array&amp;lt;Animal&amp;gt;`, no problem
+
+# Array&amp;lt;Cat&amp;gt;
+cat_array = [Cat.new, Cat.new]
+adopt(cat_array)
+# OH NO!!! [Cat, Cat, Dog]. This is no longer an `Array&amp;lt;Cat&amp;gt;`
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The answer is no: &lt;code&gt;adopt&lt;/code&gt; cannot use the same arrays as &lt;code&gt;print_age&lt;/code&gt;.  However, the &lt;code&gt;adopt&lt;/code&gt; has a property that &lt;code&gt;print_age&lt;/code&gt; did not have, it accepts &lt;code&gt;Array&amp;lt;Object&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# Array&amp;lt;Object&amp;gt;
+object_array = [Dog.new, Object.new]
+adopt(object_array)
+# This is fine too! [Dog, Object] is a valid `Array&amp;lt;Object&amp;gt;`.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We can also notice that we cannot send &lt;code&gt;object_array&lt;/code&gt; into &lt;code&gt;print_age&lt;/code&gt;, because &lt;code&gt;Object&lt;/code&gt; doesn&amp;rsquo;t define the &lt;code&gt;age&lt;/code&gt; method.&lt;/p&gt;
+&lt;p&gt;What can we learn from this? Depending if you read from the array or write to it, the type doesn&amp;rsquo;t behave the same.&lt;/p&gt;
+&lt;h2 id=&#34;sources-are-covariant&#34;&gt;Sources are Covariant&lt;/h2&gt;
+&lt;p&gt;Composed types from which you can exclusively read or take stuff are called sources. Examples include &lt;code&gt;Enumerable&lt;/code&gt; and &lt;code&gt;Reader&lt;/code&gt;. These become more specific as their type members become more specific. As a result of &lt;code&gt;Dog&lt;/code&gt; being a subtype of &lt;code&gt;Animal&lt;/code&gt;, &lt;code&gt;Enumerable&amp;lt;Dog&amp;gt;&lt;/code&gt; is a subtype of &lt;code&gt;Enumerable&amp;lt;Animal&amp;gt;&lt;/code&gt;; you can pass an &lt;code&gt;Enumerable&amp;lt;Dog&amp;gt;&lt;/code&gt; to any method that expects an &lt;code&gt;Enumerable&amp;lt;Animal&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;sinks-are-contravariant&#34;&gt;Sinks are Contravariant&lt;/h2&gt;
+&lt;p&gt;Sinks are the opposite of sources: they&amp;rsquo;re types to which you can exclusively write or put stuff in. Examples include &lt;code&gt;Logger&lt;/code&gt; or &lt;code&gt;Writer&lt;/code&gt;. Perhaps counter-intuitively, these become more specific as their type member become less specific! That means that &lt;strong&gt;&lt;code&gt;Logger&amp;lt;Animal&amp;gt;&lt;/code&gt; is in fact a subtype of &lt;code&gt;Logger&amp;lt;Dog&amp;gt;&lt;/code&gt;&lt;/strong&gt; (because &lt;code&gt;Logger&amp;lt;Animal&amp;gt;&lt;/code&gt; will be able to log for any &lt;code&gt;Dog&lt;/code&gt; as well.&lt;/p&gt;
+&lt;h2 id=&#34;read-and-write-put-and-take&#34;&gt;Read And Write, Put And Take&lt;/h2&gt;
+&lt;p&gt;What if a method needs to do both? Read and write, put and take? It would appear that they are at the intersection of covariance and contravariance&amp;hellip; and that&amp;rsquo;s exactly right: they&amp;rsquo;re &lt;strong&gt;invariant&lt;/strong&gt;. No subtyping is possible.&lt;/p&gt;
+&lt;p&gt;In an ideal world, &lt;code&gt;Array&amp;lt;Dog&amp;gt;&lt;/code&gt; is neither a subtype nor a supertype of &lt;code&gt;Array&amp;lt;Animal&amp;gt;&lt;/code&gt;. In practice, even if &lt;code&gt;Array&lt;/code&gt;, &lt;code&gt;HashMap&lt;/code&gt; and other read/write containers &lt;strong&gt;should be invariant&lt;/strong&gt;, many languages will consider them covariant because of historic reasons. &lt;/p&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Hopefully this piece will help you understand type variance better, or explain it to a curious coworker.&lt;/p&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://gmalette.dev/categories/ruby/" term="Ruby" label="Ruby" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
         <entry>
             <title type="text">Affordance for Errors, part 3</title>
             <link rel="alternate" type="text/html" href="https://gmalette.dev/posts/affordance-for-errors-pt3/" />

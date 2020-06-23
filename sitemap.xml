@@ -3,10 +3,6 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://gmalette.dev/posts/affordance-for-errors-pt3/</loc>
-  </url>
-  
-  <url>
     <loc>https://gmalette.dev/categories/</loc>
   </url>
   
@@ -20,6 +16,14 @@
   
   <url>
     <loc>https://gmalette.dev/categories/ruby/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gmalette.dev/posts/type-variance-explained-to-a-ruby-developer/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gmalette.dev/posts/affordance-for-errors-pt3/</loc>
   </url>
   
   <url>
