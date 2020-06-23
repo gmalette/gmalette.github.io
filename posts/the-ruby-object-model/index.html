@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
+    <meta charset="UTF-8" />
+
+    <meta name="generator" content="Hugo 0.72.0" /><meta name="theme-color" content="#fff" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no" />
+    
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <title>The Ruby Object Model | Guillaume&#39;s Horrible Code-Along Blog</title>
+
+    <link rel="stylesheet" href="/css/meme.min.d91968747c971f78eef1f05b597f005f0631691e21147b156cd1ce6995b9f95b.css" integrity="sha256-2RlodHyXH3ju8fBbWX8AXwYxaR4hFHsVbNHOaZW5&#43;Vs=" />
+
+    
+    
+        <script src="/js/meme.min.6dfa7c4f3e60a3dabf6e14fc56011a69a288f23da6f54225b21620832a7a3b04.js" integrity="sha256-bfp8Tz5go9q/bhT8VgEaaaKI8j2m9UIlshYggyp6OwQ="></script>
+
+    
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source&#43;Code&#43;Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Comfortaa:wght@700&amp;display=swap" media="print" onload="this.media='all'" />
+        <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source&#43;Code&#43;Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Comfortaa:wght@700&amp;display=swap" /></noscript>
+
+    <meta name="author" content="Guillaume Malette" /><meta name="description" content="A post in which I try to explain Ruby&#39;s Object Model: Objects, Classes, Singleton Classes, Modules..." />
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#2a6df4" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Guillaume&#39;s Horrible Code-Along Blog" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="Guillaume&#39;s Horrible Code-Along Blog" />
+    <meta name="msapplication-starturl" content="../../" />
+    <meta name="msapplication-TileColor" content="#fff" />
+    <meta name="msapplication-TileImage" content="../../icons/mstile-150x150.png" />
+    <link rel="manifest" href="/manifest.json" />
+
+    
+    
+
+    
+    <link rel="canonical" href="https://gmalette.dev/posts/the-ruby-object-model/" />
+    
+
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "datePublished": "2019-02-01T13:36:00+04:00",
+        "dateModified": "2015-04-21T20:00:00+00:00",
+        "url": "https://gmalette.dev/posts/the-ruby-object-model/",
+        "headline": "The Ruby Object Model",
+        "description": "A post in which I try to explain Ruby's Object Model: Objects, Classes, Singleton Classes, Modules...",
+        "inLanguage" : "en",
+        "articleSection": "posts",
+        "wordCount":  2945 ,
+        "image": ["https://gmalette.dev/images/posts/the-ruby-object-model/fig-1-coco-and-cat.svg","https://gmalette.dev/images/posts/the-ruby-object-model/simple-ancestor-chain.svg","https://gmalette.dev/images/posts/the-ruby-object-model/fig-2-coco-ancestors.svg","https://gmalette.dev/images/posts/the-ruby-object-model/cat-is-a-class.svg","https://gmalette.dev/images/posts/the-ruby-object-model/cat-include-quadruped.svg","https://gmalette.dev/images/posts/the-ruby-object-model/prepend-before-include-after.svg","https://gmalette.dev/images/posts/the-ruby-object-model/coco-and-dora-hierarchy.svg","https://gmalette.dev/images/posts/the-ruby-object-model/class-singleton-class-inheritance.svg"],
+        "author": {
+            "@type": "Person",
+            "image": "https://gmalette.dev/icons/apple-touch-icon.png",
+            "url": "https://gmalette.dev",
+            "name": "Guillaume Malette"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Guillaume's Horrible Code-Along Blog",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://gmalette.dev/icons/apple-touch-icon.png"
+            },
+            "url": "https://gmalette.dev/"
+        },
+        "mainEntityOfPage": {
+            "@type": "WebSite",
+            "@id": "https://gmalette.dev/"
+        }
+    }
+</script>
+
+    
+
+<meta name="twitter:card" content="summary_large_image" />
+
+
+<meta name="twitter:site" content="@gmalette" />
+<meta name="twitter:creator" content="@gmalette" />
+
+    
+
+
+
+<meta property="og:title" content="The Ruby Object Model" />
+<meta property="og:description" content="A post in which I try to explain Ruby&#39;s Object Model: Objects, Classes, Singleton Classes, Modules..." />
+<meta property="og:url" content="https://gmalette.dev/posts/the-ruby-object-model/" />
+<meta property="og:site_name" content="Guillaume&#39;s Horrible Code-Along Blog" />
+<meta property="og:locale" content="en" /><meta property="og:image" content="https://gmalette.dev/images/posts/the-ruby-object-model/fig-1-coco-and-cat.svg" />
+<meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2019-02-01T13:36:00&#43;04:00" />
+    <meta property="article:modified_time" content="2015-04-21T20:00:00&#43;00:00" />
+    
+    <meta property="article:section" content="posts" />
+
+
+        <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
+
+        
+
+
+
+
+    
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-131111846-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    
+
+
+    
+</head>
+
+    <body>
+        <div class="container">
+            
+    <header class="header" data-scroll-header>
+        
+            <div class="header-wrapper">
+                <div class="header-inner single">
+                    
+    <div class="site-brand">
+        
+            <a href="/" class="brand">Guillaume&#39;s Horrible Code-Along Blog</a>
+        
+    </div>
+
+                    <nav class="nav">
+    <ul class="menu" id="menu">
+        
+            
+        
+        
+        
+        
+            
+                <li class="menu-item"><a href="/posts/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon archive"><path d="M32 448c0 17.7 14.3 32 32 32h384c17.7 0 32-14.3 32-32V160H32v288zm160-212c0-6.6 5.4-12 12-12h104c6.6 0 12 5.4 12 12v8c0 6.6-5.4 12-12 12H204c-6.6 0-12-5.4-12-12v-8zM480 32H32C14.3 32 0 46.3 0 64v48c0 8.8 7.2 16 16 16h480c8.8 0 16-7.2 16-16V64c0-17.7-14.3-32-32-32z"/></svg><span class="menu-item-name">Posts</span></a>
+                </li>
+            
+        
+            
+                <li class="menu-item"><a href="/categories/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon th"><path d="M149.333 56v80c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V56c0-13.255 10.745-24 24-24h101.333c13.255 0 24 10.745 24 24zm181.334 240v-80c0-13.255-10.745-24-24-24H205.333c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24h101.333c13.256 0 24.001-10.745 24.001-24zm32-240v80c0 13.255 10.745 24 24 24H488c13.255 0 24-10.745 24-24V56c0-13.255-10.745-24-24-24H386.667c-13.255 0-24 10.745-24 24zm-32 80V56c0-13.255-10.745-24-24-24H205.333c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24h101.333c13.256 0 24.001-10.745 24.001-24zm-205.334 56H24c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24h101.333c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24zM0 376v80c0 13.255 10.745 24 24 24h101.333c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H24c-13.255 0-24 10.745-24 24zm386.667-56H488c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H386.667c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24zm0 160H488c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H386.667c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24zM181.333 376v80c0 13.255 10.745 24 24 24h101.333c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H205.333c-13.255 0-24 10.745-24 24z"/></svg><span class="menu-item-name">Categories</span></a>
+                </li>
+            
+        
+    </ul>
+</nav>
+
+                    
+                </div>
+            </div>
+            
+    <input type="checkbox" id="nav-toggle" aria-hidden="true" />
+    <label for="nav-toggle" class="nav-toggle"></label>
+    <label for="nav-toggle" class="nav-curtain"></label>
+
+
+        
+    </header>
+
+
+
+
+            
+            
+    <main class="main single" id="main">
+    <div class="main-inner">
+
+        
+
+        <article class="content post" data-small-caps="true" data-align="default" data-type="posts" data-toc-num="true">
+
+            <h1 class="post-title">The Ruby Object Model</h1>
+
+            
+
+            
+                <div class="post-description">A post in which I try to explain Ruby&rsquo;s Object Model: Objects, Classes, Singleton Classes, Modules&hellip;</div>
+                
+            
+
+            
+                
+
+<div class="post-meta">
+    
+        
+        <time datetime="2019-02-01T13:36:00&#43;04:00" class="post-meta-item published"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M148 288h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm108-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 96v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48zm-48 346V160H48v298c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z"/></svg>&nbsp;2019.2.1</time>
+    
+    
+    
+    
+        
+        
+        
+            
+                <span class="post-meta-item category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>&nbsp;<a href="/categories/ruby/" class="category-link">Ruby</a></span>
+            
+        
+    
+    
+        
+        <span class="post-meta-item wordcount"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>&nbsp;2945</span>
+    
+    
+        
+        <span class="post-meta-item reading-time"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"/></svg>&nbsp;14&nbsp;mins</span>
+    
+    
+    
+</div>
+
+            
+
+            <div class="post-body">
+              <p style="text-indent:0"><span class="drop-cap">R</span>ecently I was called out. I hypothesized that some bad patterns in Ruby are caused by developers misunderstanding Ruby&rsquo;s Object Model, but I had not provided them with any learning resources. In fact, I couldn&rsquo;t find anything satisfying, so I decided to write this post.</p>
+<p><strong>Edit:</strong> I&rsquo;ve been sent other resources about Ruby&rsquo;s Object Model:</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=268UU4EpTew">All I&rsquo;d Wanted to Know about Ruby&rsquo;s Object Model Starting Out&hellip;and Mooar!!!</a> in which Jun Qi Tan explains what I tried to in this post, in a much more eloquent talk.</li>
+<li><a href="https://blog.appsignal.com/2019/02/05/ruby-magic-classes-instances-and-metaclasses.html">Unraveling Classes, Instances and Metaclasses in Ruby</a> by Jeff Kreeftmeijer in the excellent Ruby Magic series.</li>
+<li><a href="https://pragprog.com/book/ppmetr2/metaprogramming-ruby-2">Metaprogramming in Ruby</a> by Paolo Perrotta has a section on the object model.</li>
+</ul>
+<hr>
+<p>This post is aimed at developers familiar with Ruby and Object Oriented Programming. I&rsquo;ll assume you have some understanding of what objects and classes are, and that you can read Ruby code without commentary. If you want to learn more about Ruby, or if this post has you itching for more, I must recommend <a href="http://patshaughnessy.net/ruby-under-a-microscope">Ruby Under The Microscope</a> by Pat Shaughnessy. Chapter 5 goes in-depth in the data structures the Ruby VM (MRI) uses for objects and classes.</p>
+<p>If you&rsquo;d rather skip the wall of text, visit the <a href="#conclusion-or-tl-dr"><strong>TL; DR</strong></a>. Otherwise, let&rsquo;s get started!</p>
+<h2 id="objects"><a href="#objects" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Objects</h2>
+<p>You&rsquo;ll hear it often: all values in Ruby are objects, and all expressions return values. It is thus commonly said that &ldquo;Everything in Ruby is an Object&rdquo;. Let&rsquo;s add some objects to our program. We&rsquo;ll use the this code for the entire section:</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Animal</span>
+  <span class="k">def</span> <span class="nf">initialize</span>
+    <span class="vi">@affection</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">pet</span>
+    <span class="vi">@affection</span> <span class="o">+=</span> <span class="mi">1</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">Cat</span> <span class="o">&lt;</span> <span class="no">Animal</span>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+    <span class="vi">@name</span> <span class="o">=</span> <span class="nb">name</span>
+    <span class="k">super</span><span class="p">()</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">pet</span>
+    <span class="nb">puts</span><span class="p">(</span><span class="s2">&#34;purrr&#34;</span><span class="p">)</span>
+    <span class="k">super</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">coco</span> <span class="o">=</span> <span class="no">Cat</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&#34;coco&#34;</span><span class="p">)</span>
+<span class="n">coco</span><span class="o">.</span><span class="n">pet</span>
+<span class="c1"># =&gt; prints &#34;purrr&#34;</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>Objects in Ruby are just a combination of state—the values of instance variables—, with a class attached to it. The class of an object defines the methods the object has access to. Ruby is easily introspectable, so we can ask it about the state and class of <code>coco</code>.</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># State</span>
+<span class="n">coco</span><span class="o">.</span><span class="n">instance_variables</span>
+<span class="c1"># =&gt; [:@name, :@affection]</span>
+
+<span class="c1"># Class</span>
+<span class="n">coco</span><span class="o">.</span><span class="n">class</span>
+<span class="c1"># =&gt; Cat</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p><code>coco</code>'s state contains two instance variables: <code>@name</code> and <code>@affection</code>. Its class is <code>Cat</code>. Nothing surprising so far.</p>
+<p><img src="/images/posts/the-ruby-object-model/fig-1-coco-and-cat.svg" alt="Diagram of coco and the Cat class"></p>
+<p>The word &ldquo;class&rdquo; in Ruby can mean multiple things: the instantiatable class which provides behaviour to its instances, the class object, or both. When talking about an object&rsquo;s class, we generally intend to describe the methods defined by that class. For this purpose, we will use the word <em>behaviour</em> from now on.</p>
+<h2 id="classes"><a href="#classes" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Classes</h2>
+<p>In the <a href="#objects">Objects section</a> we learned that classes have multiple facets, and one of them is providing the behaviour of instances of that class. This is done by setting up an ancestor chain (also called &ldquo;inheritance chain&rdquo;). They can be inspected at runtime using the <code>ancestors</code> method. This allows us to clearly see that <code>coco</code> contains the behaviours defined by <code>Cat</code>, <code>Animal</code>, <code>Object</code>, and so on.</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">coco</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">ancestors</span>
+<span class="c1"># =&gt; [Cat, Animal, Object, Kernel, BasicObject]</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>The ancestor chain is a linked list. For <code>Cat</code>, it looks like this:</p>
+<p><img src="/images/posts/the-ruby-object-model/simple-ancestor-chain.svg" alt="Diagram of Cat&rsquo;s ancestor chain"></p>
+<p>Whenever you call the <code>pet</code> method on <code>coco</code>, the Ruby VM will find the behaviour in <code>coco</code>'s class&rsquo;s ancestor chain (<code>Cat</code>'s, that is), from left to right: starting with <code>Cat</code>, then <code>Animal</code>, and so on, until the method is found. When calling <code>super</code> within that method, Ruby would find the next ancestor defining a behaviour for the <code>pet</code> method, and invoke it, in this case, the one defined in <code>Animal</code>.</p>
+<p><img src="/images/posts/the-ruby-object-model/fig-2-coco-ancestors.svg" alt="Diagram of coco and the Cat, with Cat showing methods"></p>
+<p><sub>In the previous figure, ancestors after <code>Animal</code> (<code>Kernel</code> and <code>BasicObject</code>) have been omitted.</sub></p>
+<p>To know which methods are defined on each ancestor in the ancestor chain, use the <code>instance_methods</code> method. The boolean argument specifies whether to also include the methods defined by the class&rsquo;s other ancestors.</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="no">Cat</span><span class="o">.</span><span class="n">instance_methods</span><span class="p">(</span><span class="kp">false</span><span class="p">)</span>
+<span class="c1"># =&gt; [:pet]</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>In Ruby, classes are also values, which means they are also objects. This is interesting; it means that in addition to defining methods, classes are also the combination of state and a reference to a class.</p>
+<p><img src="/images/posts/the-ruby-object-model/cat-is-a-class.svg" alt="Diagram of coco and the Cat class, with classes showing state"></p>
+<p>For this facet (objects which are instances of the <code>Class</code> class), we will be talking about <em>class objects</em>.</p>
+<p>Class objects have a method named <code>new</code>, which comes from the behaviour defined by the <code>Class</code> class.</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="no">Cat</span><span class="o">.</span><span class="n">method</span><span class="p">(</span><span class="ss">:new</span><span class="p">)</span><span class="o">.</span><span class="n">owner</span>
+<span class="c1"># =&gt; Class</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>The default behaviour of the <code>new</code> method is to return a new object: it instantiates the class.</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">coco</span> <span class="o">=</span> <span class="no">Cat</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&#34;coco&#34;</span><span class="p">)</span>
+<span class="n">coco</span><span class="o">.</span><span class="n">class</span>
+<span class="c1"># =&gt; Cat</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>While this method can be changed by any class in the ancestor chain, this privilege is rarely abused and is frowned upon, but know that one <em>could</em> do it.</p>
+<p>For some, it may be surprising that the <code>Class</code> class is a subclass of the <code>Module</code> class, meaning that all class objects are also Modules. In the next section, we will talk about modules; remember that many things will also apply to class objects.</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="no">Cat</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">ancestors</span>
+<span class="c1"># =&gt; [..., Module, ...]</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><h2 id="modules"><a href="#modules" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Modules</h2>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">Quadruped</span>
+  <span class="k">def</span> <span class="nf">feet_count</span>
+    <span class="mi">4</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>Modules, like classes, have two facets: they are values (thus, objects), and they can define behaviour for other objects. Unlike class objects however, Module objects do not have a method named <code>new</code>, and cannot be instantiated directly.</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="no">Quadruped</span><span class="o">.</span><span class="n">new</span>
+<span class="c1"># Traceback (most recent call last):</span>
+<span class="c1">#         1: from (irb)</span>
+<span class="c1"># NameError (undefined method `new&#39; for class `Module&#39;)</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>Since <code>Module</code>s cannot be instantiated nor subclassed, they need another way to be used as an object&rsquo;s behaviour. This is done by using the <code>include</code>, <code>prepend</code>, and <code>extend</code> methods on Module objects (and on class objects!). I&rsquo;ll describe <code>include</code> and <code>prepend</code> now, but keep <code>extend</code> for later.</p>
+<h3 id="include"><a href="#include" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Include</h3>
+<p>When using <code>include(A)</code>, the module (<code>A</code>) is inserted in the ancestor chain of the receiver module. Its methods are thus made available on instances of the receiver.</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Cat</span> <span class="o">&lt;</span> <span class="no">Animal</span>
+  <span class="kp">include</span><span class="p">(</span><span class="no">Quadruped</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># Or the equivalent: `Cat.include(Quadruped)`</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>The previous code will add <code>Quadruped</code> as an ancestor to <code>Cat</code>, making its methods available to all instances of <code>Cat</code>.</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">coco</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">ancestors</span>
+<span class="c1"># =&gt; [Cat, Quadruped, ...]</span>
+
+<span class="o">&gt;</span> <span class="n">coco</span><span class="o">.</span><span class="n">feet_count</span>
+<span class="c1"># =&gt; 4</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>Note that <code>include</code> adds the module to the ancestor chain <em>after</em> the receiver; <code>Quadruped</code> appears after <code>Cat</code>.</p>
+<p><img src="/images/posts/the-ruby-object-model/cat-include-quadruped.svg" alt="Diagram of coco and the Cat class"></p>
+<p>In the <a href="#objects">Objects section</a>, we said that the ancestor chain&rsquo;s order is used to determine which method gets called first. Using another example, we can confirm this:</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">A</span>
+  <span class="k">def</span> <span class="nf">foo</span>
+    <span class="nb">puts</span><span class="p">(</span><span class="s2">&#34;in a&#34;</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">B</span>
+  <span class="kp">include</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">foo</span>
+    <span class="nb">puts</span><span class="p">(</span><span class="s2">&#34;in b&#34;</span><span class="p">)</span>
+    <span class="k">super</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">B</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">foo</span>
+<span class="c1"># prints:</span>
+<span class="c1">#    in b</span>
+<span class="c1">#    in a</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>Some people are surprised that this behaviour remains unchanged if we move <code>include(A)</code> to after the method definition. The important thing to remember is that an object&rsquo;s behaviour is defined by its class&rsquo;s ancestor chain; moving <code>include(A)</code> lower down has no impact on the ancestor chain.</p>
+<h3 id="prepend"><a href="#prepend" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Prepend</h3>
+<p>Prepend is very similar to <code>include</code> with one very important distinction: it adds the module <em>before</em> the receiver.</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Dog</span>
+  <span class="n">prepend</span><span class="p">(</span><span class="no">Quadruped</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="no">Dog</span><span class="o">.</span><span class="n">ancestors</span>
+<span class="c1"># =&gt; [Quadruped, Dog, ...]</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>This means that behaviours defined by <code>Quadruped</code> will have precedence over those defined by <code>Dog</code>. The following figure shows the distinction: <code>prepend</code> adds the module to the beginning of the ancestor chain, while <code>include</code> adds it right after the receiving module.</p>
+<p><img src="/images/posts/the-ruby-object-model/prepend-before-include-after.svg" alt="Diagram of coco and the Cat class"></p>
+<h2 id="singleton-classes"><a href="#singleton-classes" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Singleton Classes</h2>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">dora</span> <span class="o">=</span> <span class="no">Cat</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&#34;dora&#34;</span><span class="p">)</span>
+<span class="c1"># Dora has mitten paws</span>
+<span class="k">def</span> <span class="nc">dora</span><span class="o">.</span><span class="nf">number_of_toes</span>
+  <span class="mi">22</span>
+<span class="k">end</span>
+
+<span class="n">dora</span><span class="o">.</span><span class="n">number_of_toes</span>
+<span class="c1"># =&gt; 22</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>Earlier in this post, I said that objects are the combination of state and a class. This is slightly less than accurate. In fact, two objects instantiated from the same class, are not necessarily of the same type. This is (you probably guessed it from the section title) because of the singleton class. The truth is, every object in Ruby possesses its very own class, of which it is a singleton. You may also have seen &ldquo;eigenclass&rdquo;—another word for singleton class—, or &ldquo;metaclass&rdquo;, which is specifically a Class object&rsquo;s singleton class. In our code, <code>dora</code> and <code>coco</code> don&rsquo;t have the same class, which explains why <code>coco</code> does not have the <code>number_of_toes</code> method:</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">coco</span><span class="o">.</span><span class="n">number_of_toes</span>
+<span class="c1"># Traceback (most recent call last):</span>
+<span class="c1">#         1: from (irb)</span>
+<span class="c1"># NoMethodError (undefined method `number_of_toes&#39; for #&lt;Cat:0x00007fe5201b0f78 @name=&#34;coco&#34;&gt;)</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>As such, the &ldquo;true&rdquo; class of an object is its singleton class.</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">dora</span><span class="o">.</span><span class="n">singleton_class</span><span class="o">.</span><span class="n">instance_methods</span><span class="p">(</span><span class="kp">false</span><span class="p">)</span>
+<span class="c1"># =&gt; [:number_of_toes]</span>
+<span class="n">dora</span><span class="o">.</span><span class="n">singleton_class</span><span class="o">.</span><span class="n">ancestors</span>
+<span class="c1"># =&gt; [#&lt;Class:#&lt;Cat:0x00007fe52016e3a8&gt;&gt;, Cat, Quadruped, ...]</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>The weird <code>#&lt;Class:#&lt;Cat...&gt;&gt;</code> up there means &ldquo;the singleton class of the Cat object <code>0x00007fe52016e3a8</code>&rdquo;, which is <code>dora</code>:</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">dora</span>
+<span class="c1"># =&gt; #&lt;Cat:0x00007fe52016e3a8 @name=&#34;dora&#34;&gt; # notice the `0x00007fe52016e3a8`</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>The following diagram shows the hierarchy of both <code>coco</code> and <code>dora</code>, with their respective singleton classes; only <code>dora</code>'s singleton class defines the <code>number_of_toes</code> method.</p>
+<p><img src="/images/posts/the-ruby-object-model/coco-and-dora-hierarchy.svg" alt="Diagram of coco and the Cat class"></p>
+<p>Astute readers will correctly understand that, in many cases, an object&rsquo;s singleton class can be elided (omitted) by the virtual machine. In fact, if the VM <em>did not</em> elide most of them, no Ruby program would be able to run. This is because <strong>class objects also have singleton classes</strong>, and Singleton classes are also class objects, which themselves also have singleton classes&hellip; and so on recursively. In our previous example, <code>coco</code>'s singleton class can be elided since it neither defines methods, nor has state.</p>
+<p>Methods defined on a class object&rsquo;s singleton class are sometimes erroneously called &ldquo;static functions&rdquo;. This nomenclature is misleading; we should avoid it. Using it sets us up for expectations the Ruby VM cannot meet. The reason is, they are not functions, they are nothing more than methods defined on a class object&rsquo;s singleton class. Additionally, constants in Ruby are <em>not truly constant</em>, so these methods are not static either.</p>
+<p>There are several ways to define methods on a class&rsquo;s singleton class.</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nc">Cat</span><span class="o">.</span><span class="nf">feline?</span> <span class="c1"># Like the `number_of_toes` example</span>
+  <span class="kp">true</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">Cat</span> <span class="o">&lt;</span> <span class="no">Animal</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">feline?</span> <span class="c1"># `self` is `Cat` here, so this is exactly the same as the previous example</span>
+    <span class="kp">true</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">Cat</span> <span class="o">&lt;</span> <span class="no">Animal</span>
+  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
+    <span class="k">def</span> <span class="nf">feline?</span>
+      <span class="kp">true</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>In this last example, <code>class &lt;&lt; self</code> is a special syntax which opens <code>self</code>'s singleton class, in this case, <code>Cat</code>'s, similar to how <code>class Cat</code> opens the <code>Cat</code> class. Everything that can be done in <code>Cat</code> to affect its instances can be done within <code>class &lt;&lt; self</code> to affect the only instance of <code>Cat</code>'s singleton class, which is <code>Cat</code> itself. (oh god, I&rsquo;m going to lose people over this overuse of the words &ldquo;class&rdquo; and &ldquo;singleton&rdquo;, aren&rsquo;t I?)</p>
+<p>Of these 3 forms however, there is a clear &ldquo;better way&rdquo; in terms of simplicity and predictability: <code>class &lt;&lt; self</code>. Other means will fail the programmer&rsquo;s expectations more often than not, e.g. around method visibility:</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Cat</span> <span class="o">&lt;</span> <span class="no">Animal</span>
+  <span class="kp">private</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">are_the_best?</span>
+    <span class="kp">true</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>One would expect the <code>are_the_best?</code> method defined by <code>Cat</code>'s singleton class to be private, but it is not.</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="no">Cat</span><span class="o">.</span><span class="n">are_the_best?</span>
+<span class="c1"># =&gt; true</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>I didn&rsquo;t intend to talk about method visibility in this object model post, but let&rsquo;s just briefly go there, to show an example of Ruby failing to meet expectations. The reason for this unexpected behaviour is that <code>private</code> is not a keyword, it is a method. In this case, it will be received by <code>Cat</code>, allowing it to make any new method defined on it as private. <code>Cat</code>'s singleton class however, does not receive this method call to <code>private</code>. As a result, it is not aware that it should change the visibility of methods that will be defined.</p>
+<p>Had we used the <code>class &lt;&lt; self</code> syntax instead, it would have worked as expected:</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Cat</span> <span class="o">&lt;</span> <span class="no">Animal</span>
+  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
+    <span class="kp">private</span>
+
+    <span class="k">def</span> <span class="nf">are_the_best?</span>
+      <span class="kp">true</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">Cat</span><span class="o">.</span><span class="n">are_the_best?</span>
+<span class="c1"># Traceback (most recent call last):</span>
+<span class="c1">#         1: from (irb)</span>
+<span class="c1"># NoMethodError (private method `are_the_best?&#39; called for Cat:Class)</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><hr>
+<p>So far, we&rsquo;ve seen Objects, Classes, Modules, and Singleton Classes. <em>This is a great time to take a break!</em> In the next section, we&rsquo;ll see <code>extend</code>, and singleton class inheritance.</p>
+<hr>
+<h2 id="extend"><a href="#extend" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Extend</h2>
+<p>The <code>extend</code> method confuses many people: how is it different from <code>include</code> and <code>prepend</code>? When should they use one, or the other? To answer that question, consider the following code:</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">D</span>
+  <span class="k">def</span> <span class="nf">a</span>
+    <span class="s2">&#34;Hello? This is D&#34;</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">E</span>
+  <span class="kp">include</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">F</span>
+  <span class="kp">extend</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>Can we predict what behaviour we can expect from <code>E</code> and <code>F</code>? If we recall from the previous sections, an object&rsquo;s behaviour is provided by its class&rsquo;s ancestor chain. Let&rsquo;s try it:</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">E</span><span class="o">.</span><span class="n">ancestors</span>
+<span class="c1"># =&gt; [E, D, Object, ...]</span>
+<span class="n">F</span><span class="o">.</span><span class="n">ancestors</span>
+<span class="c1"># =&gt; [F, Object, ...]</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>That&rsquo;s interesting! We can expect instances of <code>E</code> to have <code>D</code>'s behaviour, but not instances of <code>F</code>.</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">E</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">a</span>
+<span class="c1"># =&gt; &#34;Hello? This is D&#34;</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>So far so good, <code>E</code> does indeed have <code>D</code>'s behavour.</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">F</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">a</span>
+<span class="c1"># Traceback (most recent call last):</span>
+<span class="c1">#         1: from (irb)</span>
+<span class="c1"># NoMethodError (undefined method `a&#39; for #&lt;F:0x00007febf409e218&gt;)</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>Success! We correctly predicted this too. If instances of <code>F</code> don&rsquo;t have <code>D</code>'s behaviour, could the class object <code>F</code> have it then? To predict it, we can ask <code>F</code>'s singleton class!</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">F</span><span class="o">.</span><span class="n">singleton_class</span><span class="o">.</span><span class="n">ancestors</span>
+<span class="c1"># =&gt; [#&lt;Class:F&gt;, D, #&lt;Class:Object&gt;, ...]</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>It does have <code>D</code>!</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">F</span><span class="o">.</span><span class="n">a</span>
+<span class="c1"># =&gt; &#34;Hello? This is D&#34;</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>What does this tell us? It looks like <code>extend</code> applies to the <em>singleton class</em>&rsquo;s the same changes which <code>include</code> does to the <em>class</em>&rsquo;s. If that were the case, it means we could achieve the same results by calling <code>include</code> within the singleton class instead.</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">D</span>
+  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
+    <span class="kp">include</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">D</span><span class="o">.</span><span class="n">singleton_class</span><span class="o">.</span><span class="n">ancestors</span>
+<span class="c1"># =&gt; [#&lt;Class:D&gt;, D, #&lt;Class:Object&gt;, ...]</span>
+
+<span class="n">D</span><span class="o">.</span><span class="n">a</span>
+<span class="c1"># =&gt; &#34;Hello? This is D&#34;</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>It works as predicted!</p>
+<p>I should note that this is not <em>exactly</em> true, <code>extend</code> and <code>singleton_class.include</code> are slightly different. Whenever a module gets added to the ancestor chain of another module, the first module gets a callback on one of three methods: <code>prepended</code>, <code>included</code>, <code>extended</code>. Some side-effects could be expected from these methods, and you may be required to use a specific method to get these side-effects.</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">Mod</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">included</span><span class="p">(</span><span class="n">receiver</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="s2">&#34;Mod is included by </span><span class="si">#{</span><span class="n">receiver</span><span class="si">}</span><span class="s2">&#34;</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">prepended</span><span class="p">(</span><span class="n">receiver</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="s2">&#34;Mod is prepended by </span><span class="si">#{</span><span class="n">receiver</span><span class="si">}</span><span class="s2">&#34;</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">extended</span><span class="p">(</span><span class="n">receiver</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="s2">&#34;Mod is extended by </span><span class="si">#{</span><span class="n">receiver</span><span class="si">}</span><span class="s2">&#34;</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">G</span>
+  <span class="kp">include</span><span class="p">(</span><span class="no">Mod</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">H</span>
+  <span class="n">prepend</span><span class="p">(</span><span class="no">Mod</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">I</span>
+  <span class="kp">extend</span><span class="p">(</span><span class="no">Mod</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># prints:</span>
+<span class="c1">#   Mod is included by G</span>
+<span class="c1">#   Mod is prepended by H</span>
+<span class="c1">#   Mod is extended by I</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><h3 id="extend-on-all-objects"><a href="#extend-on-all-objects" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Extend on All Objects</h3>
+<p>Did you know that most objects have the same <code>extend</code> method? Now that we know that <code>extend</code> modifies the behaviour of the receiver (by adding the argument to the receiver&rsquo;s singleton class&rsquo;s ancestor chain), we can predict what happens if we use <code>extend</code> directly on any object*.</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">OwnedByGuillaume</span>
+  <span class="k">def</span> <span class="nf">owner</span>
+    <span class="s2">&#34;Guillaume&#34;</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">coco</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="no">OwnedByGuillaume</span><span class="p">)</span>
+
+<span class="n">coco</span><span class="o">.</span><span class="n">singleton_class</span><span class="o">.</span><span class="n">ancestors</span>
+<span class="c1"># =&gt; [..., OwnedByGuillaume, ...]</span>
+
+<span class="n">coco</span><span class="o">.</span><span class="n">owner</span>
+<span class="c1"># =&gt; &#34;Guillaume&#34;</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>As predicted, the receiver (<code>coco</code>) has the behaviour offered by <code>OwnedByGuillaume</code>.</p>
+<p><sub>*although calling <code>extend</code> on any object is perfectly valid Ruby, I urge you to either not use it, or use it very parsimoniously</sub></p>
+<h2 id="singleton-class-inheritance"><a href="#singleton-class-inheritance" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Singleton Class Inheritance</h2>
+<p>In Ruby, singleton classes are subclasses of their instance&rsquo;s original class. Heh, this is a bit hard to follow, let&rsquo;s do an example.</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">coco</span><span class="o">.</span><span class="n">singleton_class</span><span class="o">.</span><span class="n">superclass</span>
+<span class="c1"># =&gt; Cat</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>In the previous code, we can see that <code>coco</code>'s singleton class is a subclass of <code>Cat</code>, like <code>Cat</code> is a subclass of <code>Animal</code>. For class objects, their singleton class are subclasses of their superclass&rsquo;s singleton class: <code>Cat</code>'s singleton class is a subclass of <code>Animal</code>'s singleton class, which is itself a sublcass of <code>Object</code>'s singleton class, and so on.</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="no">Cat</span><span class="o">.</span><span class="n">singleton_class</span><span class="o">.</span><span class="n">ancestors</span>
+<span class="c1"># =&gt; [#&lt;Class:Cat&gt;, #&lt;Class:Animal&gt;, #&lt;Class:Object&gt;, ...]</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>The next figure illustrates the relationships between class objects, their singleton classes, and their respective superclasses.</p>
+<p><img src="/images/posts/the-ruby-object-model/class-singleton-class-inheritance.svg" alt="Diagram of coco and the Cat class"></p>
+<p>Modules, however, are not inherited at both levels (class and singleton class behaviours). Instead, the programmer picks which ancestor chain will be impacted by using either <code>prepend</code> or <code>include</code> (class), or <code>extend</code> (singleton class).</p>
+<div class="highlight"><div class="chroma">
+<div class="table-container"><table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">Included</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">Extended</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">L</span>
+  <span class="kp">include</span><span class="p">(</span><span class="no">Included</span><span class="p">)</span>
+  <span class="kp">extend</span><span class="p">(</span><span class="no">Extended</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">M</span> <span class="o">&lt;</span> <span class="n">L</span>
+<span class="k">end</span>
+
+<span class="n">M</span><span class="o">.</span><span class="n">ancestors</span>
+<span class="c1"># =&gt; [M, L, Included, ...]</span>
+
+<span class="n">M</span><span class="o">.</span><span class="n">singleton_class</span><span class="o">.</span><span class="n">ancestors</span>
+<span class="c1"># =&gt; [#&lt;Class:M&gt;, #&lt;Class:L&gt;, Extended, ...]</span>
+</code></pre></td></tr></table></div>
+</div>
+</div><p>As you can see, while <code>L</code> appears in <code>M</code>'s ancestors, <code>Extended</code> does not, and while <code>L</code>'s singleton class appears in <code>M</code>'s singleton class&rsquo;s ancestors, <code>Included</code> does not.</p>
+<h2 id="conclusion-or-tl-dr"><a href="#conclusion-or-tl-dr" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Conclusion (or TL; DR)</h2>
+<p>Here&rsquo;s what I hope you take away from this post:</p>
+<ol>
+<li>Objects are the composition of state and a reference to a class.</li>
+<li>The &ldquo;real&rdquo; class of any object is its singleton class.</li>
+<li>Class are just normal objects, and their class named <code>Class</code>.</li>
+<li><code>prepend</code> and <code>include</code> affect the behaviour offered by the receiver.</li>
+<li><code>extend</code> affects the behaviour of the receiver, through its singleton class.</li>
+</ol>
+<p><a href="https://github.com/gmalette/gmalette.github.io/pull/1">Comment or Like</a></p>
+
+            </div>
+
+        </article>
+
+        
+
+        
+
+
+        
+
+
+        
+
+
+        <div class="post-share">
+
+        
+            <div class="share-text">Share on:</div>
+        
+
+        <div class="share-items">
+
+            
+                <div class="share-item twitter">
+                    
+                    <a href="https://twitter.com/share?url=https://gmalette.dev/posts/the-ruby-object-model/&amp;text=The%20Ruby%20Object%20Model&amp;hashtags=&amp;via=gmalette" title="Share on Twitter" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon twitter-icon"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg></a>
+                </div>
+            
+
+            
+
+            
+
+            
+
+            
+
+            
+
+            
+
+            
+
+            
+                <div class="share-item qrcode">
+                    <div class="qrcode-container" title="Share via QR Code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon qrcode-icon"><path d="M0 224h192V32H0v192zM64 96h64v64H64V96zm192-64v192h192V32H256zm128 128h-64V96h64v64zM0 480h192V288H0v192zm64-128h64v64H64v-64zm352-64h32v128h-96v-32h-32v96h-64V288h96v32h64v-32zm0 160h32v32h-32v-32zm-64 0h32v32h-32v-32z"/></svg><div id="qrcode-img"></div>
+                    </div>
+                    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+
+<script>
+    var typeNumber = 0;
+    var errorCorrectionLevel = 'L';
+    var qr = qrcode(typeNumber, errorCorrectionLevel);
+    qr.addData('https:\/\/gmalette.dev\/posts\/the-ruby-object-model\/');
+    qr.make();
+    document.getElementById('qrcode-img').innerHTML = qr.createImgTag();
+</script>
+
+                </div>
+            
+
+        </div>
+
+    </div>
+
+
+
+
+        
+    
+    
+        <div class="related-posts">
+            <h2 class="related-title">See Also:<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon related-icon"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"/></svg></h2>
+            <ul class="related-list">
+                
+                    <li class="related-item">
+                        <a href="/posts/refactoring-common-activesupport-concern-patterns/" class="related-link">Refactoring Common ActiveSupport::Concern Patterns</a>
+                    </li>
+                
+                    <li class="related-item">
+                        <a href="/posts/affordance-for-errors-pt3/" class="related-link">Affordance for Errors, part 3</a>
+                    </li>
+                
+                    <li class="related-item">
+                        <a href="/posts/affordance-for-errors-pt2/" class="related-link">Affordance for Errors, part 2</a>
+                    </li>
+                
+                    <li class="related-item">
+                        <a href="/posts/affordance-for-errors-pt1/" class="related-link">Affordance for Errors, part 1</a>
+                    </li>
+                
+                    <li class="related-item">
+                        <a href="/posts/revoking-the-parentheses-privilege/" class="related-link">Revoking the (Parentheses) Privilege</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+
+
+        
+    
+
+
+
+        
+
+
+        
+
+
+        
+    
+        
+        
+    
+    
+    
+    
+        <ul class="post-nav">
+            
+                <li class="post-nav-prev">
+                    <a href="/posts/moving-away-from-medium/" rel="prev">&lt; Moving Away from Medium</a>
+                </li>
+            
+            
+                <li class="post-nav-next">
+                    <a href="/posts/revoking-the-parentheses-privilege/" rel="next">Revoking the (Parentheses) Privilege &gt;</a>
+                </li>
+            
+        </ul>
+    
+
+
+
+        
+
+
+    </div>
+</main>
+
+
+            
+
+            
+    <footer id="footer" class="footer">
+        <div class="footer-inner">
+            <div class="site-info">©&nbsp;2015–2020&nbsp;Guillaume Malette</div>
+
+            
+    
+        <ul class="socials"><li class="socials-item">
+                    <a href="/rss.xml" target="_blank" rel="external noopener" title="RSS"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon social-icon"><path d="M19.199 24C19.199 13.467 10.533 4.8 0 4.8V0c13.165 0 24 10.835 24 24h-4.801zM3.291 17.415c1.814 0 3.293 1.479 3.293 3.295 0 1.813-1.485 3.29-3.301 3.29C1.47 24 0 22.526 0 20.71s1.475-3.294 3.291-3.295zM15.909 24h-4.665c0-6.169-5.075-11.245-11.244-11.245V8.09c8.727 0 15.909 7.184 15.909 15.91z"/></svg></a>
+                </li><li class="socials-item">
+                    <a href="https://github.com/gmalette" target="_blank" rel="external noopener" title="GitHub"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon social-icon"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+                </li><li class="socials-item">
+                    <a href="https://twitter.com/gmalette" target="_blank" rel="external noopener" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon social-icon"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg></a>
+                </li></ul>
+    
+
+
+
+            
+        </div>
+    </footer>
+
+
+        </div>
+        
+    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+
+<script>
+    var scroll = new SmoothScroll('a[href*="#"]', {
+        speedAsDuration: true,
+        header: '[data-scroll-header]'
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/medium-zoom@latest/dist/medium-zoom.min.js"></script>
+
+<script>
+    mediumZoom(document.querySelectorAll('div.post-body img'), {
+        background: 'hsla(var(--color-bg-h), var(--color-bg-s), var(--color-bg-l), 0.95)'
+    })
+</script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/instant.page@3.0.0/instantpage.min.js" type="module" defer></script>
+
+
+
+
+
+
+
+
+
+
+    </body>
+</html>
