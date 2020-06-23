@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title type="text">Guillaume&#39;s Horrible Code-Along Blog</title>
     <subtitle type="html">MemE is a powerful and highly customizable GoHugo theme for personal blogs.</subtitle>
-    <updated>2020-06-22T20:31:59-04:00</updated>
+    <updated>2020-06-22T20:32:28-04:00</updated>
     <id>https://gmalette.dev/</id>
     <link rel="alternate" type="text/html" href="https://gmalette.dev/" />
     <link rel="self" type="application/atom&#43;xml" href="https://gmalette.dev/atom.xml" />
