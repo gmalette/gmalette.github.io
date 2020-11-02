@@ -9,7 +9,7 @@
     <channel>
         <title>Guillaume&#39;s Horrible Code-Along Blog</title>
         <link>https://gmalette.dev/</link>
-        <description>MemE is a powerful and highly customizable GoHugo theme for personal blogs.</description>
+        <description>Sharing code ideas, successes, and defeats.</description>
         <generator>Hugo 0.72.0 https://gohugo.io/</generator>
         
             <language>en</language>
@@ -17,7 +17,7 @@
         
         
         
-        <lastBuildDate>Tue, 23 Jun 2020 14:51:06 -0400</lastBuildDate>
+        <lastBuildDate>Mon, 02 Nov 2020 15:26:15 -0500</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://gmalette.dev/rss.xml" />
         
