@@ -62,4 +62,8 @@
     <loc>https://gmalette.dev/posts/mistaking-authentication-for-identification/</loc>
   </url>
   
+  <url>
+    <loc>https://gmalette.dev/posts/graphql-and-sorbet-and-unit-tests/</loc>
+  </url>
+  
 </urlset>
