@@ -17,7 +17,7 @@
         
         
         
-        <lastBuildDate>Mon, 02 Nov 2020 15:30:01 -0500</lastBuildDate>
+        <lastBuildDate>Mon, 02 Nov 2020 15:33:55 -0500</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://gmalette.dev/rss.xml" />
         
@@ -3031,14 +3031,14 @@ I’ve reworded my reply where it made sense.&lt;/p&gt;
                 
                 
                 
-                    <description>&lt;p&gt;For the past year, my team has been working on a project that exposes a GraphQL API. We&amp;rsquo;ve been doing things quite differently than the rest of the company, and I think some of our ideas are worth sharing. We&amp;rsquo;ve been using the &lt;a href=&#34;https://graphql-ruby.org/&#34;&gt;&lt;code&gt;graphql-ruby&lt;/code&gt;&lt;/a&gt; gem, and even though it doesn&amp;rsquo;t lend itself well to unit testing, we&amp;rsquo;ve insisted on writing unit tests. What&amp;rsquo;s more, we&amp;rsquo;ve also used Sorbet to prevent other categories of errors; in fact, most of our code is usig &lt;code&gt;typed: stric&lt;/code&gt;! In this post, I&amp;rsquo;ll share why we went out of our way to do this, and how it can be done.&lt;/p&gt;
-&lt;p&gt;If you don&amp;rsquo;t like boilerplate code, beware, the quanity of boilerplate required is staggering!&lt;/p&gt;
+                    <description>&lt;p&gt;For the past year, my team has been working on a project that exposes a GraphQL API. We&amp;rsquo;ve been doing things quite differently than the rest of the company, and I think some of our ideas are worth sharing. We&amp;rsquo;ve been using the &lt;a href=&#34;https://graphql-ruby.org/&#34;&gt;&lt;code&gt;graphql-ruby&lt;/code&gt;&lt;/a&gt; gem, and even though it doesn&amp;rsquo;t lend itself well to unit testing, we&amp;rsquo;ve insisted on writing unit tests. What&amp;rsquo;s more, we&amp;rsquo;ve also used Sorbet to prevent other categories of errors; in fact, most of our code is using &lt;code&gt;typed: stric&lt;/code&gt;! In this post, I&amp;rsquo;ll share why we went out of our way to do this, and how it can be done.&lt;/p&gt;
+&lt;p&gt;If you don&amp;rsquo;t like boilerplate code, beware, the quantity of boilerplate required is staggering!&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Note: for the purpose of this post, I will assume that you are familiar with the Sorbet and GraphQL syntaxes.&lt;/em&gt;&lt;/p&gt;
 &lt;h1 id=&#34;primer&#34;&gt;Primer&lt;/h1&gt;
 &lt;p&gt;I want to start by explaining some of the challenges we had in designing our GraphQL API. The project we&amp;rsquo;re working on is an integration point for many other teams and projects of different domains, most of which we don&amp;rsquo;t control. However, these domains need inputs from the API, and they need to expose data of their own. As a result, my team can&amp;rsquo;t be expected to know everything going on in the other domains, just as it&amp;rsquo;s unrealistic to expect other teams to freeze their code.&lt;/p&gt;
-&lt;p&gt;Implementations will change. Methdods will be added and removed. Classes will be renamed. Refactors will happen. For our project to be successful, we need to give developers (both internal and external to the project) the agency to make changes, and the confidence that the changes they&amp;rsquo;re making are not compromising the stability of the API.&lt;/p&gt;
+&lt;p&gt;Implementations will change. Methods will be added and removed. Classes will be renamed. Refactors will happen. For our project to be successful, we need to give developers (both internal and external to the project) the agency to make changes, and the confidence that the changes they&amp;rsquo;re making are not compromising the stability of the API.&lt;/p&gt;
 &lt;h1 id=&#34;api&#34;&gt;API&lt;/h1&gt;
-&lt;p&gt;Simplically, the goal of the API is to:&lt;/p&gt;
+&lt;p&gt;Simplistically, the goal of the API is to:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;accept inputs from the client&lt;/li&gt;
 &lt;li&gt;map inputs to domain objects&lt;/li&gt;
@@ -3048,7 +3048,7 @@ I’ve reworded my reply where it made sense.&lt;/p&gt;
 &lt;/ol&gt;
 &lt;p&gt;Our goal was to provide a high level of confidence that each of these steps works as expected, at the lowest cost possible.&lt;/p&gt;
 &lt;h2 id=&#34;why-unit-tests&#34;&gt;Why Unit Tests&lt;/h2&gt;
-&lt;p&gt;The &lt;a href=&#34;https://graphql-ruby.org/testing/integration_tests&#34;&gt;&lt;code&gt;graphql-ruby&lt;/code&gt; section on tests&lt;/a&gt; suggests relying on unit testing the domain, and integration testing the API. Integration testing is great, but it isn&amp;rsquo;t enough to check that domain types map correctly to API types, that API input types map correctly to domain types, or that the correct procedures will be infoked. Our API contains many, many types, and building tests that cover the cardinality of all possible type mapping would make for a very slow test suite. Unit tests don&amp;rsquo;t suffer from this problem, especially when paired with static analysis.&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&#34;https://graphql-ruby.org/testing/integration_tests&#34;&gt;&lt;code&gt;graphql-ruby&lt;/code&gt; section on tests&lt;/a&gt; suggests relying on unit testing the domain, and integration testing the API. Integration testing is great, but it isn&amp;rsquo;t enough to check that domain types map correctly to API types, that API input types map correctly to domain types, or that the correct procedures will be invoked. Our API contains many, many types, and building tests that cover the cardinality of all possible type mapping would make for a very slow test suite. Unit tests don&amp;rsquo;t suffer from this problem, especially when paired with static analysis.&lt;/p&gt;
 &lt;p&gt;Unit tests allow us to check that all tested values will be mapped as expected.&lt;/p&gt;
 &lt;h2 id=&#34;why-static-typing&#34;&gt;Why Static Typing&lt;/h2&gt;
 &lt;p&gt;I like to think of values used in APIs as a pyramid, in which the domain must be able to support all input values, and the output must support all the domain values.&lt;/p&gt;
@@ -3061,13 +3061,13 @@ Output = Integer
 &lt;pre&gt;&lt;code&gt;Input = Integer
 Domain = Integer | Float
 Output = Numeric
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;However, using types that can&amp;rsquo;t naturally represent the values they must support will require constraining. For example, if you used the folloing types, the API would require another way to constrain the values, often resorting to errors:&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;However, using types that can&amp;rsquo;t naturally represent the values they must support will require constraining. For example, if you used the following types, the API would require another way to constrain the values, often resorting to errors:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;Input = Float
 Domain = Integer
 Output = PositiveInteger
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;In GraphQL and Ruby, constraining is quickly required, because GraphQL&amp;rsquo;s &lt;code&gt;Int&lt;/code&gt; type is limited to 32 bits, whereas Ruby&amp;rsquo;s &lt;code&gt;Integer&lt;/code&gt; type is not.&lt;/p&gt;
 &lt;p&gt;In practice, it will not always apply, but starting with that mindset will help us understand how our types are constrained.&lt;/p&gt;
-&lt;p&gt;Static analysis allows us to verify that each layer can support the values representable by the layers above it. This has been especially useful to catch chatch changes in the domain that can&amp;rsquo;t be mapped by the API, because the tests don&amp;rsquo;t necessarily exist. For example, this change:&lt;/p&gt;
+&lt;p&gt;Static analysis allows us to verify that each layer can support the values representable by the layers above it. This has been especially useful to catch changes in the domain that can&amp;rsquo;t be mapped by the API, because the tests don&amp;rsquo;t necessarily exist. For example, this change:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
