@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title type="text">Guillaume&#39;s Horrible Code-Along Blog</title>
     <subtitle type="html">Sharing code ideas, successes, and defeats.</subtitle>
-    <updated>2020-11-02T15:33:55-05:00</updated>
+    <updated>2020-11-03T11:09:27-05:00</updated>
     <id>https://gmalette.dev/</id>
     <link rel="alternate" type="text/html" href="https://gmalette.dev/" />
     <link rel="self" type="application/atom&#43;xml" href="https://gmalette.dev/atom.xml" />
@@ -3066,31 +3066,31 @@ I’ve reworded my reply where it made sense.&lt;/p&gt;
                     <name>Guillaume Malette</name>
                     <uri>https://gmalette.dev</uri>
                     </author>
-            <summary type="html">For the past year, my team has been working on a project that exposes a GraphQL API. We&amp;rsquo;ve been doing things quite differently than the rest of the company, and I think some of our ideas are worth sharing. We&amp;rsquo;ve been using the graphql-ruby gem, and even though it doesn&amp;rsquo;t lend itself well to unit testing, we&amp;rsquo;ve insisted on writing unit tests.</summary>
+            <summary type="html">For the past year, my team has been working on a project that exposes a GraphQL API, and, since we&amp;rsquo;ve been doing things quite differently than the rest of the company, I figured some of our ideas might be worth sharing. We&amp;rsquo;ve been using the graphql-ruby gem, and even though it doesn&amp;rsquo;t lend itself well to unit testing, we&amp;rsquo;ve insisted on writing unit tests.</summary>
             
-                <content type="html">&lt;p&gt;For the past year, my team has been working on a project that exposes a GraphQL API. We&amp;rsquo;ve been doing things quite differently than the rest of the company, and I think some of our ideas are worth sharing. We&amp;rsquo;ve been using the &lt;a href=&#34;https://graphql-ruby.org/&#34;&gt;&lt;code&gt;graphql-ruby&lt;/code&gt;&lt;/a&gt; gem, and even though it doesn&amp;rsquo;t lend itself well to unit testing, we&amp;rsquo;ve insisted on writing unit tests. What&amp;rsquo;s more, we&amp;rsquo;ve also used Sorbet to prevent other categories of errors; in fact, most of our code is using &lt;code&gt;typed: stric&lt;/code&gt;! In this post, I&amp;rsquo;ll share why we went out of our way to do this, and how it can be done.&lt;/p&gt;
+                <content type="html">&lt;p&gt;For the past year, my team has been working on a project that exposes a GraphQL API, and, since we&amp;rsquo;ve been doing things quite differently than the rest of the company, I figured some of our ideas might be worth sharing. We&amp;rsquo;ve been using the &lt;a href=&#34;https://graphql-ruby.org/&#34;&gt;&lt;code&gt;graphql-ruby&lt;/code&gt;&lt;/a&gt; gem, and even though it doesn&amp;rsquo;t lend itself well to unit testing, we&amp;rsquo;ve insisted on writing unit tests. What&amp;rsquo;s more, we&amp;rsquo;ve also used Sorbet to prevent other categories of errors; in fact, most of our code is using &lt;code&gt;typed: strict&lt;/code&gt;! In this post, I&amp;rsquo;ll share why we went out of our way to do this, and how it can be done.&lt;/p&gt;
 &lt;p&gt;If you don&amp;rsquo;t like boilerplate code, beware, the quantity of boilerplate required is staggering!&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Note: for the purpose of this post, I will assume that you are familiar with the Sorbet and GraphQL syntaxes.&lt;/em&gt;&lt;/p&gt;
 &lt;h1 id=&#34;primer&#34;&gt;Primer&lt;/h1&gt;
 &lt;p&gt;I want to start by explaining some of the challenges we had in designing our GraphQL API. The project we&amp;rsquo;re working on is an integration point for many other teams and projects of different domains, most of which we don&amp;rsquo;t control. However, these domains need inputs from the API, and they need to expose data of their own. As a result, my team can&amp;rsquo;t be expected to know everything going on in the other domains, just as it&amp;rsquo;s unrealistic to expect other teams to freeze their code.&lt;/p&gt;
-&lt;p&gt;Implementations will change. Methods will be added and removed. Classes will be renamed. Refactors will happen. For our project to be successful, we need to give developers (both internal and external to the project) the agency to make changes, and the confidence that the changes they&amp;rsquo;re making are not compromising the stability of the API.&lt;/p&gt;
+&lt;p&gt;Implementations will change. Methods will be added and removed. Classes will be renamed. Refactors will happen. For our project to be successful, we need to give developers (both internal and external to the project) the agency to make changes, and the confidence they are not compromising the stability of the API.&lt;/p&gt;
 &lt;h1 id=&#34;api&#34;&gt;API&lt;/h1&gt;
 &lt;p&gt;Simplistically, the goal of the API is to:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;accept inputs from the client&lt;/li&gt;
 &lt;li&gt;map inputs to domain objects&lt;/li&gt;
-&lt;li&gt;invoke a procedure given the domain objects, and receive a domain object&lt;/li&gt;
-&lt;li&gt;map the returned domain object into an output value&lt;/li&gt;
+&lt;li&gt;invoke a procedure with the domain objects as inputs, and receive a domain object as outputs&lt;/li&gt;
+&lt;li&gt;map the returned domain object into an API output value&lt;/li&gt;
 &lt;li&gt;return the output value to the client&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Our goal was to provide a high level of confidence that each of these steps works as expected, at the lowest cost possible.&lt;/p&gt;
+&lt;p&gt;Our goal was to provide a high level of confidence that each of these steps works as expected, at the lowest cost possible in terms of dev time and feedback time.&lt;/p&gt;
 &lt;h2 id=&#34;why-unit-tests&#34;&gt;Why Unit Tests&lt;/h2&gt;
 &lt;p&gt;The &lt;a href=&#34;https://graphql-ruby.org/testing/integration_tests&#34;&gt;&lt;code&gt;graphql-ruby&lt;/code&gt; section on tests&lt;/a&gt; suggests relying on unit testing the domain, and integration testing the API. Integration testing is great, but it isn&amp;rsquo;t enough to check that domain types map correctly to API types, that API input types map correctly to domain types, or that the correct procedures will be invoked. Our API contains many, many types, and building tests that cover the cardinality of all possible type mapping would make for a very slow test suite. Unit tests don&amp;rsquo;t suffer from this problem, especially when paired with static analysis.&lt;/p&gt;
 &lt;p&gt;Unit tests allow us to check that all tested values will be mapped as expected.&lt;/p&gt;
 &lt;h2 id=&#34;why-static-typing&#34;&gt;Why Static Typing&lt;/h2&gt;
 &lt;p&gt;I like to think of values used in APIs as a pyramid, in which the domain must be able to support all input values, and the output must support all the domain values.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://gmalette.dev/images/posts/graphql-and-sorbet-and-unit-tests/fig1.png&#34; alt=&#34;type pyramid&#34;&gt;&lt;/p&gt;
-&lt;p&gt;For example, your API could use these types, where all types are identical:&lt;/p&gt;
+&lt;p&gt;For example, our API could use these types, where all types are identical:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;Input = Integer
 Domain = Integer
 Output = Integer
@@ -3098,7 +3098,7 @@ Output = Integer
 &lt;pre&gt;&lt;code&gt;Input = Integer
 Domain = Integer | Float
 Output = Numeric
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;However, using types that can&amp;rsquo;t naturally represent the values they must support will require constraining. For example, if you used the following types, the API would require another way to constrain the values, often resorting to errors:&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;However, using types that can&amp;rsquo;t naturally represent the values they must support will require constraining. For example, if we used the following types, the API would require another way to constrain the values, often resorting to errors:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;Input = Float
 Domain = Integer
 Output = PositiveInteger
@@ -3121,8 +3121,8 @@ Output = PositiveInteger
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;We haven&amp;rsquo;t been able to write tests of our API that would catch this change and alert us that &lt;code&gt;Output&lt;/code&gt;&#39;s type must also be changed. Static analysis catches this easily.&lt;/p&gt;
 &lt;h1 id=&#34;practical-example&#34;&gt;Practical Example&lt;/h1&gt;
-&lt;p&gt;For the rest of this article, we&amp;rsquo;ll be working on a simple API. Suppose there&amp;rsquo;s another team that owns the entirety of Messages, and yet you still need to allow interacting with &lt;code&gt;Message&lt;/code&gt; objects in your API.&lt;/p&gt;
-&lt;p&gt;The domain is simple enough: you can create new messages using &lt;code&gt;Domain::Message.create&lt;/code&gt; with an instantiated &lt;code&gt;Domain::Message&lt;/code&gt;, and you will get back a &lt;code&gt;Message&lt;/code&gt; object.&lt;/p&gt;
+&lt;p&gt;For the rest of this article, we&amp;rsquo;ll be working on a small API. Suppose there&amp;rsquo;s another team that owns the entirety of Messages, and yet we still need to allow interacting with &lt;code&gt;Message&lt;/code&gt; objects in our API.&lt;/p&gt;
+&lt;p&gt;The domain is simple enough: we can create new messages using &lt;code&gt;Domain::Message.create&lt;/code&gt; with an instantiated &lt;code&gt;Domain::Message&lt;/code&gt;, and we will get back a &lt;code&gt;Message&lt;/code&gt; object. The code below is the entire public API they expose.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -3187,7 +3187,8 @@ Output = PositiveInteger
 &lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;Since we don&amp;rsquo;t know anything about Messages, we&amp;rsquo;ll just expose an API that is a direct translation what&amp;rsquo;s offered internally. This is what the GraphQL definitions would look like, before we start implementing resolvers.&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;&lt;em&gt;Note: The code contained in this post &lt;a href=&#34;https://github.com/gmalette/gql-sorbet-tests&#34;&gt;has been made available in a separate repository on GitHub&lt;/a&gt;, and each commit corresponds to progress in this post.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Since we don&amp;rsquo;t know anything about Messages and we&amp;rsquo;re short on time, we&amp;rsquo;ll just expose an API that is a direct translation what&amp;rsquo;s offered internally. This is what the GraphQL definitions would look like, before we start implementing resolvers.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -3304,7 +3305,7 @@ Output = PositiveInteger
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h2 id=&#34;testing-inputs&#34;&gt;Testing Inputs&lt;/h2&gt;
-&lt;p&gt;Input types need to be mapped to domain types, and we would very much like to test that they can be mapped correctly. The &lt;code&gt;graphql-ruby&lt;/code&gt; gem allows the definition of a &lt;code&gt;prepare&lt;/code&gt; method that does this mapping. Unfortunately, for Sorbet&amp;rsquo;s benefits, we&amp;rsquo;ll also need to define the fields as private methods. The upside is that we&amp;rsquo;ll also benefit from runtime validation in addition to static analysis.&lt;/p&gt;
+&lt;p&gt;Input types need to be mapped to domain types, and we would very much like to test that they can be mapped correctly. The &lt;code&gt;graphql-ruby&lt;/code&gt; gem allows the definition of a &lt;code&gt;prepare&lt;/code&gt; method that does this mapping. Unfortunately, for Sorbet&amp;rsquo;s benefits, we&amp;rsquo;ll also need to define the fields as private methods. The upside is that we&amp;rsquo;ll also benefit from runtime type checking (albeit incomplete) in addition to static analysis.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -3457,9 +3458,10 @@ Api::MessageInput
 2 examples, 0 failures
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;testing-return-values&#34;&gt;Testing Return Values&lt;/h2&gt;
 &lt;p&gt;Testing return values will require a lot more boilerplate than for inputs.&lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;graphql-ruby&lt;/code&gt; gem instantiates &lt;code&gt;GraphQL::Schema::Object&lt;/code&gt; values for every object passing through it, which has the benefit of being convenient if you&amp;rsquo;re abiding to all its recommendations, but wasteful if you aren&amp;rsquo;t. Instead, we&amp;rsquo;d rather define functions that map from the domain objects into API objects, making them easier to test. To do that, we&amp;rsquo;ll delegate one method per &lt;code&gt;field&lt;/code&gt; to a singleton object. In our project we chose to have a &lt;code&gt;Resolvers&lt;/code&gt; module per GraphQL class, with one singleton method per field.&lt;/p&gt;
-&lt;p&gt;Pure delegation isn&amp;rsquo;t going to work either, as we need to pass the underlying domain object. Luckily, Ruby has refinements which allow adding a smart &lt;code&gt;delegate&lt;/code&gt; method that will not be exposed externally.&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Note: In our project we&amp;rsquo;ve also found that we needed to pass the &lt;code&gt;context&lt;/code&gt; in some situations. &lt;code&gt;context&lt;/code&gt; will not be needed in this example, but I&amp;rsquo;m going to include it nonetheless. Our implementation is much longer and contains many verifications to remove affordances: the &lt;code&gt;field&lt;/code&gt; must exist, the method must exist on the delegate, its arity must be correct, etc. I can provide a more thorough implementation if there&amp;rsquo;s interest.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;graphql-ruby&lt;/code&gt; gem instantiates &lt;code&gt;GraphQL::Schema::Object&lt;/code&gt; values for every object passing through it, which has the benefit of being convenient if you&amp;rsquo;re abiding to all its recommendations, but wasteful if you aren&amp;rsquo;t. Spoiler: we aren&amp;rsquo;t. Instead we&amp;rsquo;d rather define functions that map from the domain objects into API objects, making them easier to test.&lt;/p&gt;
+&lt;p&gt;To do that, we&amp;rsquo;ll delegate one method per &lt;code&gt;field&lt;/code&gt; to a singleton object. In our project we chose to have a &lt;code&gt;Resolvers&lt;/code&gt; module per GraphQL class, with one singleton method per field.&lt;/p&gt;
+&lt;p&gt;Pure delegation isn&amp;rsquo;t going to work either, as we need to pass the underlying domain object. Luckily, Ruby has refinements which allow adding a &lt;code&gt;delegate_to&lt;/code&gt; method that will not be exposed externally.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note: In our project we&amp;rsquo;ve also found that we needed to pass the &lt;code&gt;context&lt;/code&gt; in some situations, mainly for dependency injection. &lt;code&gt;context&lt;/code&gt; will not be needed in this example, but I&amp;rsquo;m going to include it nonetheless, in case someone is tempted to try this approach on their own project. Our implementation is much longer and contains many verifications to remove affordances: the &lt;code&gt;field&lt;/code&gt; must exist, the method must exist on the delegate, its arity must be correct, etc. I can provide a more thorough implementation if there&amp;rsquo;s interest.&lt;/em&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -3492,7 +3494,7 @@ Api::MessageInput
 
 &lt;span class=&#34;c1&#34;&gt;# Unfortunately, Sorbet doesn&amp;#39;t understand&lt;/span&gt;
 &lt;span class=&#34;c1&#34;&gt;# refinements for the moment, so this file&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;# has to be untyped. You&amp;#39;ll also need to&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# has to be untyped. We&amp;#39;ll also need to&lt;/span&gt;
 &lt;span class=&#34;c1&#34;&gt;# define a shim for `GraphQL::Schema::Object`,&lt;/span&gt;
 &lt;span class=&#34;c1&#34;&gt;# defining `delegate_to`.&lt;/span&gt;
 &lt;span class=&#34;k&#34;&gt;module&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;Api::GraphQLDelegation&lt;/span&gt;
@@ -3514,7 +3516,7 @@ Api::MessageInput
 &lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;Our implementation of the &lt;code&gt;Resolvers&lt;/code&gt; module defines a lot of boilerplate, and I wish this was available in the &lt;code&gt;graphql-ruby&lt;/code&gt; gem: it could forego instantiating objects and strictly use delegates.&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;Our implementation of the &lt;code&gt;Resolvers&lt;/code&gt; module defines a lot of boilerplate, and I wish this pattern was supported directly in the &lt;code&gt;graphql-ruby&lt;/code&gt; gem: using delegates instead of instantiating unnecessary objects would put less pressure on the garbage collector.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -3583,7 +3585,8 @@ Api::MessageInput
 &lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;This makes it easy to test that the &lt;code&gt;Resolvers&lt;/code&gt; module can map from a domain type to types that GraphQL can represent.&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;The Sorbet annotations in this code are enough for Sorbet to notify us if we ever use a method that doesn&amp;rsquo;t exist (or no longer exists!), or if the types don&amp;rsquo;t line up like we expect them to.&lt;/p&gt;
+&lt;p&gt;This code also makes it easy to test that the &lt;code&gt;Resolvers&lt;/code&gt; module can map from a domain type to types that GraphQL can represent.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -3683,8 +3686,8 @@ Api::Message
 
 Finished in 0.00612 seconds (files took 0.33929 seconds to load)
 5 examples, 0 failures
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;While we don&amp;rsquo;t necessarily need to test the actual &lt;code&gt;Api::Message&lt;/code&gt; object (since it performs no work), we chose to have another separate test that makes sure &lt;strong&gt;all&lt;/strong&gt; boilerplate and wiring is done correctly. This test will be out of the scope of this post, however.&lt;/p&gt;
-&lt;p&gt;We will also implement and test the &lt;code&gt;MutationRoot&lt;/code&gt; in the same way. There are two differences here, however. First, the &lt;code&gt;object&lt;/code&gt; delegated by the &lt;code&gt;MutationRoot&lt;/code&gt; has no semantic value, so we&amp;rsquo;ll just treat it as a &lt;code&gt;BasicObject&lt;/code&gt;. Second, the &lt;code&gt;graphql-ruby&lt;/code&gt; gem passes the field arguments as named parameters, so we&amp;rsquo;ll need to define them explicitly, and also define &lt;code&gt;_context&lt;/code&gt; explicitly.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We chose not to test the actual &lt;code&gt;Api::Message&lt;/code&gt; object (since it performs no work). Instead, we have another, separate test that makes sure &lt;strong&gt;all&lt;/strong&gt; boilerplate and wiring is done correctly. This test will be out of the scope of this post, however. While it isn&amp;rsquo;t exactly fast, it covers the entire schema in roughly 500ms, which is faster than the average integration test in our codebase.&lt;/p&gt;
+&lt;p&gt;We will implement and test the &lt;code&gt;MutationRoot&lt;/code&gt; in the same way. There are two differences here, however. First, the &lt;code&gt;object&lt;/code&gt; delegated by the &lt;code&gt;MutationRoot&lt;/code&gt; has no semantic value, so we&amp;rsquo;ll just treat it as a &lt;code&gt;BasicObject&lt;/code&gt;. Second, the &lt;code&gt;graphql-ruby&lt;/code&gt; gem passes the field arguments as named parameters, so we&amp;rsquo;ll need to define them explicitly. Finally, we&amp;rsquo;ll define &lt;code&gt;_context&lt;/code&gt; explicitly, only because using a splat (&lt;code&gt;*&lt;/code&gt;) could cause confusion with named arguments.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -3739,7 +3742,7 @@ Finished in 0.00612 seconds (files took 0.33929 seconds to load)
 &lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;We can also write unit tests for the &lt;code&gt;MutationRoot&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;Similarly to &lt;code&gt;Api::Message&lt;/code&gt;, we can write unit tests for the &lt;code&gt;Api::MutationRoot&lt;/code&gt;.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -3830,11 +3833,11 @@ No errors! Great job.
 No errors! Great job.
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Luckily, our test suite would catch this error, but it would be even better if Sorbet could tell us. Let&amp;rsquo;s do just that.&lt;/p&gt;
 &lt;h2 id=&#34;adding-types&#34;&gt;Adding Types&lt;/h2&gt;
-&lt;p&gt;The problem we currently have is that Sorbet doesn&amp;rsquo;t understand the coupling required between the different pieces of the domain and API. Adding those will require even more boilerplate, but it&amp;rsquo;s achievable, and, in my opinion, definitely worth it.&lt;/p&gt;
+&lt;p&gt;The problem we currently have is that Sorbet doesn&amp;rsquo;t understand the coupling that exists between the different pieces of the domain and API. Adding those will require even more boilerplate, but it&amp;rsquo;s achievable, and, in my opinion, definitely worth it.&lt;/p&gt;
 &lt;p&gt;Here&amp;rsquo;s how we managed to do it:&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;For input types, we define a &lt;code&gt;PrepareType&lt;/code&gt; type alias, which is the return type of the &lt;code&gt;prepare&lt;/code&gt; method.&lt;/li&gt;
-&lt;li&gt;GraphQL types define an &lt;code&gt;ObjectType&lt;/code&gt; type alias, which is the type of the &lt;code&gt;object&lt;/code&gt; value they receive.&lt;/li&gt;
+&lt;li&gt;Input types define a &lt;code&gt;PrepareType&lt;/code&gt; type alias, which is the return type of the &lt;code&gt;prepare&lt;/code&gt; method.&lt;/li&gt;
+&lt;li&gt;Output types define an &lt;code&gt;ObjectType&lt;/code&gt; type alias, which is the type of the &lt;code&gt;object&lt;/code&gt; value they receive.&lt;/li&gt;
 &lt;li&gt;All inputs and outputs can be either &lt;code&gt;PrepareType&lt;/code&gt; or &lt;code&gt;ObjectType&lt;/code&gt;, or primitive types which GraphQL understands.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;On &lt;code&gt;Api::MessageInput&lt;/code&gt;, we will define a &lt;code&gt;PrepareType&lt;/code&gt; type alias, and use it (rule #1).&lt;/p&gt;
@@ -4021,9 +4024,9 @@ Errors: 1
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Success!&lt;/p&gt;
 &lt;p&gt;Now let&amp;rsquo;s be real for a second. Our tests had also caught this problem, and the code required for static analysis added a &lt;em&gt;TON&lt;/em&gt; of boilerplate, and you may be wondering: is it really worth it? If you&amp;rsquo;re used to having static typing or swear by unit testing, you may have already answered &amp;ldquo;yes&amp;rdquo;, but it&amp;rsquo;s entirely normal to remain skeptical. In the next section, we&amp;rsquo;ll see why I consider all this boilerplate worthwhile, and which situations make it useful.&lt;/p&gt;
 &lt;h2 id=&#34;changing-things&#34;&gt;Changing Things&lt;/h2&gt;
-&lt;p&gt;Recall that the &lt;code&gt;Domain::Message&lt;/code&gt; is owned by another team. They will not necessarily tell you when they make changes, in part because they may not know that you&amp;rsquo;re using their APIs. The boilerplate written in the previous section was an attempt to force them into knowing by coupling our API to theirs.&lt;/p&gt;
+&lt;p&gt;Recall that the &lt;code&gt;Domain::Message&lt;/code&gt; is owned by another team. They will not necessarily tell us when they make changes, in part because they may not know that we&amp;rsquo;re using their APIs. The boilerplate written in the previous section was an attempt to force them into knowing by coupling our API to theirs.&lt;/p&gt;
 &lt;p&gt;When we design software, we try to avoid breaking changes, but from what I&amp;rsquo;ve seen, they&amp;rsquo;re almost inevitable.&lt;/p&gt;
-&lt;p&gt;&lt;del&gt;In this section, we&amp;rsquo;ll see how 3 types of breaking changes can be caught by Sorbet that would not have been caught by tests&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;In this section, we&amp;rsquo;ll see how 2 types of breaking changes can be caught by Sorbet that would not have been caught by tests: when an input type becomes narrower (accepts less values) than it was before, or when an output type becomes wider (contains more values).&lt;/p&gt;
 &lt;h3 id=&#34;input-narrowing&#34;&gt;Input Narrowing&lt;/h3&gt;
 &lt;p&gt;In some cases, it may make sense to narrow the inputs of a method. For example, maybe anonymous messages have been removed from the scope, and the team wants to narrow the input type of &lt;code&gt;fromName&lt;/code&gt; to just &lt;code&gt;String&lt;/code&gt;.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -4074,7 +4077,7 @@ Errors: 1
  end
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;It&amp;rsquo;s entirely possible that, writing integration tests only, you wouldn&amp;rsquo;t have written a test for &lt;code&gt;fromName = nil&lt;/code&gt;. Luckily, we wrote unit tests, so this change wouldn&amp;rsquo;t go unnoticed, and it would signal to the domain team that they need to communicate with your team about these changes.&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;It&amp;rsquo;s entirely possible that, writing integration tests only, we wouldn&amp;rsquo;t have written a test for &lt;code&gt;fromName = nil&lt;/code&gt;. Luckily, we wrote unit tests, so this change wouldn&amp;rsquo;t go unnoticed, and it would signal to the domain team that they need to communicate with our team about these changes.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;$ rspec
 
 Api::MessageInput
@@ -4198,7 +4201,7 @@ sorbet.rb:143: Returning value that does not conform to method result type https
                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Errors: 1
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;How to handle this kind of change will ultimately be the author&amp;rsquo;s decision, but I wanted to briefly touch on &lt;code&gt;union&lt;/code&gt; type in &lt;code&gt;graphql-ruby&lt;/code&gt; and how to handle them in Sorbet.&lt;/p&gt;
-&lt;p&gt;If we wanted to expose the &lt;code&gt;Pending&lt;/code&gt; message creation in the GraphQL API, we would introduce a &lt;code&gt;Api::MessagePending&lt;/code&gt; type to represent it.&lt;/p&gt;
+&lt;p&gt;For our example we want to expose the &lt;code&gt;Pending&lt;/code&gt; message creation in the GraphQL API, and so we need to introduce a &lt;code&gt;Api::MessagePending&lt;/code&gt; type to represent it.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -4251,8 +4254,8 @@ Errors: 1
 &lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;We would also need to change the return value of &lt;code&gt;messageCreate&lt;/code&gt; to be a union of &lt;code&gt;Pending&lt;/code&gt; and &lt;code&gt;Message&lt;/code&gt;, which we can call &lt;code&gt;MessageCreateResult&lt;/code&gt;. Luckily, the &lt;code&gt;union&lt;/code&gt; types in &lt;code&gt;graphql-ruby&lt;/code&gt; make it easy to add Sorbet, so we won&amp;rsquo;t need to rely on the &lt;code&gt;Resolvers&lt;/code&gt; module like before. We just need to make sure that its &lt;code&gt;ObjectType&lt;/code&gt; is the union of all &lt;code&gt;ObjectType&lt;/code&gt; of its &lt;code&gt;possible_values&lt;/code&gt;. In the &lt;code&gt;resolve_type&lt;/code&gt; method, we can even make use of Sorbet&amp;rsquo;s exhaustiveness checking (&lt;code&gt;T.absurd&lt;/code&gt;).&lt;/p&gt;
-&lt;p&gt;Our &lt;code&gt;resolve_type&lt;/code&gt; will return a &lt;a href=&#34;https://github.com/rmosolgo/graphql-ruby/pull/2976&#34;&gt;tuple of two values&lt;/a&gt;, which allows returning the GraphQL class that contains the mapping functions, as well as unwrapping the value. This isn&amp;rsquo;t super useful in the current code, but if you were using wrapper objects (like a &lt;code&gt;Result&lt;/code&gt; type), it would simplify the code a lot, since members of the union wouldn&amp;rsquo;t need to share one type.&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;We also need to change the return value of &lt;code&gt;messageCreate&lt;/code&gt; to be a union of &lt;code&gt;Pending&lt;/code&gt; and &lt;code&gt;Message&lt;/code&gt;, which we can call &lt;code&gt;MessageCreateResult&lt;/code&gt;. Luckily, the &lt;code&gt;union&lt;/code&gt; types in &lt;code&gt;graphql-ruby&lt;/code&gt; make it easy to add Sorbet, so we won&amp;rsquo;t need to rely on the &lt;code&gt;Resolvers&lt;/code&gt; module like before. We just need to make sure that its &lt;code&gt;ObjectType&lt;/code&gt; is the union of all &lt;code&gt;ObjectType&lt;/code&gt; of its &lt;code&gt;possible_values&lt;/code&gt;. In the &lt;code&gt;resolve_type&lt;/code&gt; method, we can even make use of Sorbet&amp;rsquo;s exhaustiveness checking with &lt;code&gt;T.absurd&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Our &lt;code&gt;resolve_type&lt;/code&gt; will return a &lt;a href=&#34;https://github.com/rmosolgo/graphql-ruby/pull/2976&#34;&gt;tuple of two values&lt;/a&gt;. The first value of the tuple is the GraphQL class that contains the mapping functions. The second values allows unwrapping the value. This isn&amp;rsquo;t super useful in the current code, but if we were using wrapper objects (like a &lt;code&gt;Result&lt;/code&gt; type), it would simplify the code a lot, since members of the union wouldn&amp;rsquo;t need to share one type.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -4369,9 +4372,13 @@ Errors: 1
  end
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h1 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h1&gt;
+&lt;/div&gt;&lt;p&gt;Sorbet will understand this correctly, and notify us if the return type of &lt;code&gt;Domain::Message.create&lt;/code&gt; is once again changed.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ srb tc
+No errors! Great job.
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h1&gt;
 &lt;p&gt;In this post, we&amp;rsquo;ve seen a few ways in which we can define GraphQL schemas in Ruby, unit test them, and add Sorbet static analysis. We&amp;rsquo;ve seen a few ways in which unit tests and Sorbet would be able to catch breaking changes, which would be next to impossible to catch using integration tests only.&lt;/p&gt;
 &lt;p&gt;I hope that you&amp;rsquo;ll now consider annotating your GraphQL schema with Sorbet and benefit from its much faster feedback loop, as well as its ability to reveal bugs that are impossible to find only with tests.&lt;/p&gt;
+&lt;p&gt;Finally, if you are or you know a contributor of &lt;code&gt;graphql-ruby&lt;/code&gt;, can you add the possibility to delegate fields to an object and skip the instantiation of &lt;code&gt;GraphQL::Schema::Object&lt;/code&gt;, pretty please!&lt;/p&gt;
 </content>
             
             

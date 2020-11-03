@@ -27,7 +27,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source&#43;Code&#43;Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Comfortaa:wght@700&amp;display=swap" media="print" onload="this.media='all'" />
         <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source&#43;Code&#43;Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Comfortaa:wght@700&amp;display=swap" /></noscript>
 
-    <meta name="author" content="Guillaume Malette" /><meta name="description" content="For the past year, my team has been working on a project that exposes a GraphQL API. We’ve been doing things quite differently than the rest of the company, and I think some of our ideas are worth sharing. We’ve been using the graphql-ruby gem, and even though it doesn’t lend itself well to unit testing, we’ve insisted on writing unit tests." />
+    <meta name="author" content="Guillaume Malette" /><meta name="description" content="For the past year, my team has been working on a project that exposes a GraphQL API, and, since we’ve been doing things quite differently than the rest of the company, I figured some of our ideas might be worth sharing. We’ve been using the graphql-ruby gem, and even though it doesn’t lend itself well to unit testing, we’ve insisted on writing unit tests." />
 
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#2a6df4" />
@@ -57,10 +57,10 @@
         "dateModified": "2015-04-21T20:00:00+00:00",
         "url": "https://gmalette.dev/posts/graphql-and-sorbet-and-unit-tests/",
         "headline": "GraphQL ❤️ Sorbet and Unit Tests",
-        "description": "For the past year, my team has been working on a project that exposes a GraphQL API. We’ve been doing things quite differently than the rest of the company, and I think some of our ideas are worth sharing. We’ve been using the graphql-ruby gem, and even though it doesn’t lend itself well to unit testing, we’ve insisted on writing unit tests.",
+        "description": "For the past year, my team has been working on a project that exposes a GraphQL API, and, since we’ve been doing things quite differently than the rest of the company, I figured some of our ideas might be worth sharing. We’ve been using the graphql-ruby gem, and even though it doesn’t lend itself well to unit testing, we’ve insisted on writing unit tests.",
         "inLanguage" : "en",
         "articleSection": "posts",
-        "wordCount":  3994 ,
+        "wordCount":  4237 ,
         "image": ["https://gmalette.dev/images/posts/graphql-and-sorbet-and-unit-tests/fig1.png"],
         "author": {
             "@type": "Person",
@@ -97,7 +97,7 @@
 
 
 <meta property="og:title" content="GraphQL ❤️ Sorbet and Unit Tests" />
-<meta property="og:description" content="For the past year, my team has been working on a project that exposes a GraphQL API. We’ve been doing things quite differently than the rest of the company, and I think some of our ideas are worth sharing. We’ve been using the graphql-ruby gem, and even though it doesn’t lend itself well to unit testing, we’ve insisted on writing unit tests." />
+<meta property="og:description" content="For the past year, my team has been working on a project that exposes a GraphQL API, and, since we’ve been doing things quite differently than the rest of the company, I figured some of our ideas might be worth sharing. We’ve been using the graphql-ruby gem, and even though it doesn’t lend itself well to unit testing, we’ve insisted on writing unit tests." />
 <meta property="og:url" content="https://gmalette.dev/posts/graphql-and-sorbet-and-unit-tests/" />
 <meta property="og:site_name" content="Guillaume&#39;s Horrible Code-Along Blog" />
 <meta property="og:locale" content="en" /><meta property="og:image" content="https://gmalette.dev/images/posts/graphql-and-sorbet-and-unit-tests/fig1.png" />
@@ -213,11 +213,11 @@
     
     
         
-        <span class="post-meta-item wordcount"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>&nbsp;3994</span>
+        <span class="post-meta-item wordcount"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>&nbsp;4237</span>
     
     
         
-        <span class="post-meta-item reading-time"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"/></svg>&nbsp;19&nbsp;mins</span>
+        <span class="post-meta-item reading-time"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"/></svg>&nbsp;20&nbsp;mins</span>
     
     
     
@@ -226,29 +226,29 @@
             
 
             <div class="post-body">
-              <p>For the past year, my team has been working on a project that exposes a GraphQL API. We&rsquo;ve been doing things quite differently than the rest of the company, and I think some of our ideas are worth sharing. We&rsquo;ve been using the <a href="https://graphql-ruby.org/"><code>graphql-ruby</code></a> gem, and even though it doesn&rsquo;t lend itself well to unit testing, we&rsquo;ve insisted on writing unit tests. What&rsquo;s more, we&rsquo;ve also used Sorbet to prevent other categories of errors; in fact, most of our code is using <code>typed: stric</code>! In this post, I&rsquo;ll share why we went out of our way to do this, and how it can be done.</p>
+              <p>For the past year, my team has been working on a project that exposes a GraphQL API, and, since we&rsquo;ve been doing things quite differently than the rest of the company, I figured some of our ideas might be worth sharing. We&rsquo;ve been using the <a href="https://graphql-ruby.org/"><code>graphql-ruby</code></a> gem, and even though it doesn&rsquo;t lend itself well to unit testing, we&rsquo;ve insisted on writing unit tests. What&rsquo;s more, we&rsquo;ve also used Sorbet to prevent other categories of errors; in fact, most of our code is using <code>typed: strict</code>! In this post, I&rsquo;ll share why we went out of our way to do this, and how it can be done.</p>
 <p>If you don&rsquo;t like boilerplate code, beware, the quantity of boilerplate required is staggering!</p>
 <p><em>Note: for the purpose of this post, I will assume that you are familiar with the Sorbet and GraphQL syntaxes.</em></p>
 <h1 id="primer"><a href="#primer" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Primer</h1>
 <p>I want to start by explaining some of the challenges we had in designing our GraphQL API. The project we&rsquo;re working on is an integration point for many other teams and projects of different domains, most of which we don&rsquo;t control. However, these domains need inputs from the API, and they need to expose data of their own. As a result, my team can&rsquo;t be expected to know everything going on in the other domains, just as it&rsquo;s unrealistic to expect other teams to freeze their code.</p>
-<p>Implementations will change. Methods will be added and removed. Classes will be renamed. Refactors will happen. For our project to be successful, we need to give developers (both internal and external to the project) the agency to make changes, and the confidence that the changes they&rsquo;re making are not compromising the stability of the API.</p>
+<p>Implementations will change. Methods will be added and removed. Classes will be renamed. Refactors will happen. For our project to be successful, we need to give developers (both internal and external to the project) the agency to make changes, and the confidence they are not compromising the stability of the API.</p>
 <h1 id="api"><a href="#api" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>API</h1>
 <p>Simplistically, the goal of the API is to:</p>
 <ol>
 <li>accept inputs from the client</li>
 <li>map inputs to domain objects</li>
-<li>invoke a procedure given the domain objects, and receive a domain object</li>
-<li>map the returned domain object into an output value</li>
+<li>invoke a procedure with the domain objects as inputs, and receive a domain object as outputs</li>
+<li>map the returned domain object into an API output value</li>
 <li>return the output value to the client</li>
 </ol>
-<p>Our goal was to provide a high level of confidence that each of these steps works as expected, at the lowest cost possible.</p>
+<p>Our goal was to provide a high level of confidence that each of these steps works as expected, at the lowest cost possible in terms of dev time and feedback time.</p>
 <h2 id="why-unit-tests"><a href="#why-unit-tests" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Why Unit Tests</h2>
 <p>The <a href="https://graphql-ruby.org/testing/integration_tests"><code>graphql-ruby</code> section on tests</a> suggests relying on unit testing the domain, and integration testing the API. Integration testing is great, but it isn&rsquo;t enough to check that domain types map correctly to API types, that API input types map correctly to domain types, or that the correct procedures will be invoked. Our API contains many, many types, and building tests that cover the cardinality of all possible type mapping would make for a very slow test suite. Unit tests don&rsquo;t suffer from this problem, especially when paired with static analysis.</p>
 <p>Unit tests allow us to check that all tested values will be mapped as expected.</p>
 <h2 id="why-static-typing"><a href="#why-static-typing" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Why Static Typing</h2>
 <p>I like to think of values used in APIs as a pyramid, in which the domain must be able to support all input values, and the output must support all the domain values.</p>
 <p><img src="/images/posts/graphql-and-sorbet-and-unit-tests/fig1.png" alt="type pyramid"></p>
-<p>For example, your API could use these types, where all types are identical:</p>
+<p>For example, our API could use these types, where all types are identical:</p>
 <pre><code>Input = Integer
 Domain = Integer
 Output = Integer
@@ -256,7 +256,7 @@ Output = Integer
 <pre><code>Input = Integer
 Domain = Integer | Float
 Output = Numeric
-</code></pre><p>However, using types that can&rsquo;t naturally represent the values they must support will require constraining. For example, if you used the following types, the API would require another way to constrain the values, often resorting to errors:</p>
+</code></pre><p>However, using types that can&rsquo;t naturally represent the values they must support will require constraining. For example, if we used the following types, the API would require another way to constrain the values, often resorting to errors:</p>
 <pre><code>Input = Float
 Domain = Integer
 Output = PositiveInteger
@@ -279,8 +279,8 @@ Output = PositiveInteger
 </div>
 </div><p>We haven&rsquo;t been able to write tests of our API that would catch this change and alert us that <code>Output</code>'s type must also be changed. Static analysis catches this easily.</p>
 <h1 id="practical-example"><a href="#practical-example" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Practical Example</h1>
-<p>For the rest of this article, we&rsquo;ll be working on a simple API. Suppose there&rsquo;s another team that owns the entirety of Messages, and yet you still need to allow interacting with <code>Message</code> objects in your API.</p>
-<p>The domain is simple enough: you can create new messages using <code>Domain::Message.create</code> with an instantiated <code>Domain::Message</code>, and you will get back a <code>Message</code> object.</p>
+<p>For the rest of this article, we&rsquo;ll be working on a small API. Suppose there&rsquo;s another team that owns the entirety of Messages, and yet we still need to allow interacting with <code>Message</code> objects in our API.</p>
+<p>The domain is simple enough: we can create new messages using <code>Domain::Message.create</code> with an instantiated <code>Domain::Message</code>, and we will get back a <code>Message</code> object. The code below is the entire public API they expose.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -345,7 +345,8 @@ Output = PositiveInteger
 <span class="k">end</span>
 </code></pre></td></tr></table></div>
 </div>
-</div><p>Since we don&rsquo;t know anything about Messages, we&rsquo;ll just expose an API that is a direct translation what&rsquo;s offered internally. This is what the GraphQL definitions would look like, before we start implementing resolvers.</p>
+</div><p><em>Note: The code contained in this post <a href="https://github.com/gmalette/gql-sorbet-tests">has been made available in a separate repository on GitHub</a>, and each commit corresponds to progress in this post.</em></p>
+<p>Since we don&rsquo;t know anything about Messages and we&rsquo;re short on time, we&rsquo;ll just expose an API that is a direct translation what&rsquo;s offered internally. This is what the GraphQL definitions would look like, before we start implementing resolvers.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -462,7 +463,7 @@ Output = PositiveInteger
 </span></code></pre></td></tr></table></div>
 </div>
 </div><h2 id="testing-inputs"><a href="#testing-inputs" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Testing Inputs</h2>
-<p>Input types need to be mapped to domain types, and we would very much like to test that they can be mapped correctly. The <code>graphql-ruby</code> gem allows the definition of a <code>prepare</code> method that does this mapping. Unfortunately, for Sorbet&rsquo;s benefits, we&rsquo;ll also need to define the fields as private methods. The upside is that we&rsquo;ll also benefit from runtime validation in addition to static analysis.</p>
+<p>Input types need to be mapped to domain types, and we would very much like to test that they can be mapped correctly. The <code>graphql-ruby</code> gem allows the definition of a <code>prepare</code> method that does this mapping. Unfortunately, for Sorbet&rsquo;s benefits, we&rsquo;ll also need to define the fields as private methods. The upside is that we&rsquo;ll also benefit from runtime type checking (albeit incomplete) in addition to static analysis.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -615,9 +616,10 @@ Api::MessageInput
 2 examples, 0 failures
 </code></pre><h2 id="testing-return-values"><a href="#testing-return-values" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Testing Return Values</h2>
 <p>Testing return values will require a lot more boilerplate than for inputs.</p>
-<p>The <code>graphql-ruby</code> gem instantiates <code>GraphQL::Schema::Object</code> values for every object passing through it, which has the benefit of being convenient if you&rsquo;re abiding to all its recommendations, but wasteful if you aren&rsquo;t. Instead, we&rsquo;d rather define functions that map from the domain objects into API objects, making them easier to test. To do that, we&rsquo;ll delegate one method per <code>field</code> to a singleton object. In our project we chose to have a <code>Resolvers</code> module per GraphQL class, with one singleton method per field.</p>
-<p>Pure delegation isn&rsquo;t going to work either, as we need to pass the underlying domain object. Luckily, Ruby has refinements which allow adding a smart <code>delegate</code> method that will not be exposed externally.</p>
-<p><em>Note: In our project we&rsquo;ve also found that we needed to pass the <code>context</code> in some situations. <code>context</code> will not be needed in this example, but I&rsquo;m going to include it nonetheless. Our implementation is much longer and contains many verifications to remove affordances: the <code>field</code> must exist, the method must exist on the delegate, its arity must be correct, etc. I can provide a more thorough implementation if there&rsquo;s interest.</em></p>
+<p>The <code>graphql-ruby</code> gem instantiates <code>GraphQL::Schema::Object</code> values for every object passing through it, which has the benefit of being convenient if you&rsquo;re abiding to all its recommendations, but wasteful if you aren&rsquo;t. Spoiler: we aren&rsquo;t. Instead we&rsquo;d rather define functions that map from the domain objects into API objects, making them easier to test.</p>
+<p>To do that, we&rsquo;ll delegate one method per <code>field</code> to a singleton object. In our project we chose to have a <code>Resolvers</code> module per GraphQL class, with one singleton method per field.</p>
+<p>Pure delegation isn&rsquo;t going to work either, as we need to pass the underlying domain object. Luckily, Ruby has refinements which allow adding a <code>delegate_to</code> method that will not be exposed externally.</p>
+<p><em>Note: In our project we&rsquo;ve also found that we needed to pass the <code>context</code> in some situations, mainly for dependency injection. <code>context</code> will not be needed in this example, but I&rsquo;m going to include it nonetheless, in case someone is tempted to try this approach on their own project. Our implementation is much longer and contains many verifications to remove affordances: the <code>field</code> must exist, the method must exist on the delegate, its arity must be correct, etc. I can provide a more thorough implementation if there&rsquo;s interest.</em></p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -650,7 +652,7 @@ Api::MessageInput
 
 <span class="c1"># Unfortunately, Sorbet doesn&#39;t understand</span>
 <span class="c1"># refinements for the moment, so this file</span>
-<span class="c1"># has to be untyped. You&#39;ll also need to</span>
+<span class="c1"># has to be untyped. We&#39;ll also need to</span>
 <span class="c1"># define a shim for `GraphQL::Schema::Object`,</span>
 <span class="c1"># defining `delegate_to`.</span>
 <span class="k">module</span> <span class="nn">Api::GraphQLDelegation</span>
@@ -672,7 +674,7 @@ Api::MessageInput
 <span class="k">end</span>
 </code></pre></td></tr></table></div>
 </div>
-</div><p>Our implementation of the <code>Resolvers</code> module defines a lot of boilerplate, and I wish this was available in the <code>graphql-ruby</code> gem: it could forego instantiating objects and strictly use delegates.</p>
+</div><p>Our implementation of the <code>Resolvers</code> module defines a lot of boilerplate, and I wish this pattern was supported directly in the <code>graphql-ruby</code> gem: using delegates instead of instantiating unnecessary objects would put less pressure on the garbage collector.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -741,7 +743,8 @@ Api::MessageInput
 <span class="k">end</span>
 </code></pre></td></tr></table></div>
 </div>
-</div><p>This makes it easy to test that the <code>Resolvers</code> module can map from a domain type to types that GraphQL can represent.</p>
+</div><p>The Sorbet annotations in this code are enough for Sorbet to notify us if we ever use a method that doesn&rsquo;t exist (or no longer exists!), or if the types don&rsquo;t line up like we expect them to.</p>
+<p>This code also makes it easy to test that the <code>Resolvers</code> module can map from a domain type to types that GraphQL can represent.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -841,8 +844,8 @@ Api::Message
 
 Finished in 0.00612 seconds (files took 0.33929 seconds to load)
 5 examples, 0 failures
-</code></pre><p>While we don&rsquo;t necessarily need to test the actual <code>Api::Message</code> object (since it performs no work), we chose to have another separate test that makes sure <strong>all</strong> boilerplate and wiring is done correctly. This test will be out of the scope of this post, however.</p>
-<p>We will also implement and test the <code>MutationRoot</code> in the same way. There are two differences here, however. First, the <code>object</code> delegated by the <code>MutationRoot</code> has no semantic value, so we&rsquo;ll just treat it as a <code>BasicObject</code>. Second, the <code>graphql-ruby</code> gem passes the field arguments as named parameters, so we&rsquo;ll need to define them explicitly, and also define <code>_context</code> explicitly.</p>
+</code></pre><p>We chose not to test the actual <code>Api::Message</code> object (since it performs no work). Instead, we have another, separate test that makes sure <strong>all</strong> boilerplate and wiring is done correctly. This test will be out of the scope of this post, however. While it isn&rsquo;t exactly fast, it covers the entire schema in roughly 500ms, which is faster than the average integration test in our codebase.</p>
+<p>We will implement and test the <code>MutationRoot</code> in the same way. There are two differences here, however. First, the <code>object</code> delegated by the <code>MutationRoot</code> has no semantic value, so we&rsquo;ll just treat it as a <code>BasicObject</code>. Second, the <code>graphql-ruby</code> gem passes the field arguments as named parameters, so we&rsquo;ll need to define them explicitly. Finally, we&rsquo;ll define <code>_context</code> explicitly, only because using a splat (<code>*</code>) could cause confusion with named arguments.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -897,7 +900,7 @@ Finished in 0.00612 seconds (files took 0.33929 seconds to load)
 <span class="k">end</span>
 </code></pre></td></tr></table></div>
 </div>
-</div><p>We can also write unit tests for the <code>MutationRoot</code>.</p>
+</div><p>Similarly to <code>Api::Message</code>, we can write unit tests for the <code>Api::MutationRoot</code>.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -988,11 +991,11 @@ No errors! Great job.
 No errors! Great job.
 </code></pre><p>Luckily, our test suite would catch this error, but it would be even better if Sorbet could tell us. Let&rsquo;s do just that.</p>
 <h2 id="adding-types"><a href="#adding-types" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Adding Types</h2>
-<p>The problem we currently have is that Sorbet doesn&rsquo;t understand the coupling required between the different pieces of the domain and API. Adding those will require even more boilerplate, but it&rsquo;s achievable, and, in my opinion, definitely worth it.</p>
+<p>The problem we currently have is that Sorbet doesn&rsquo;t understand the coupling that exists between the different pieces of the domain and API. Adding those will require even more boilerplate, but it&rsquo;s achievable, and, in my opinion, definitely worth it.</p>
 <p>Here&rsquo;s how we managed to do it:</p>
 <ol>
-<li>For input types, we define a <code>PrepareType</code> type alias, which is the return type of the <code>prepare</code> method.</li>
-<li>GraphQL types define an <code>ObjectType</code> type alias, which is the type of the <code>object</code> value they receive.</li>
+<li>Input types define a <code>PrepareType</code> type alias, which is the return type of the <code>prepare</code> method.</li>
+<li>Output types define an <code>ObjectType</code> type alias, which is the type of the <code>object</code> value they receive.</li>
 <li>All inputs and outputs can be either <code>PrepareType</code> or <code>ObjectType</code>, or primitive types which GraphQL understands.</li>
 </ol>
 <p>On <code>Api::MessageInput</code>, we will define a <code>PrepareType</code> type alias, and use it (rule #1).</p>
@@ -1179,9 +1182,9 @@ Errors: 1
 </code></pre><p>Success!</p>
 <p>Now let&rsquo;s be real for a second. Our tests had also caught this problem, and the code required for static analysis added a <em>TON</em> of boilerplate, and you may be wondering: is it really worth it? If you&rsquo;re used to having static typing or swear by unit testing, you may have already answered &ldquo;yes&rdquo;, but it&rsquo;s entirely normal to remain skeptical. In the next section, we&rsquo;ll see why I consider all this boilerplate worthwhile, and which situations make it useful.</p>
 <h2 id="changing-things"><a href="#changing-things" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Changing Things</h2>
-<p>Recall that the <code>Domain::Message</code> is owned by another team. They will not necessarily tell you when they make changes, in part because they may not know that you&rsquo;re using their APIs. The boilerplate written in the previous section was an attempt to force them into knowing by coupling our API to theirs.</p>
+<p>Recall that the <code>Domain::Message</code> is owned by another team. They will not necessarily tell us when they make changes, in part because they may not know that we&rsquo;re using their APIs. The boilerplate written in the previous section was an attempt to force them into knowing by coupling our API to theirs.</p>
 <p>When we design software, we try to avoid breaking changes, but from what I&rsquo;ve seen, they&rsquo;re almost inevitable.</p>
-<p><del>In this section, we&rsquo;ll see how 3 types of breaking changes can be caught by Sorbet that would not have been caught by tests</del></p>
+<p>In this section, we&rsquo;ll see how 2 types of breaking changes can be caught by Sorbet that would not have been caught by tests: when an input type becomes narrower (accepts less values) than it was before, or when an output type becomes wider (contains more values).</p>
 <h3 id="input-narrowing"><a href="#input-narrowing" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Input Narrowing</h3>
 <p>In some cases, it may make sense to narrow the inputs of a method. For example, maybe anonymous messages have been removed from the scope, and the team wants to narrow the input type of <code>fromName</code> to just <code>String</code>.</p>
 <div class="highlight"><div class="chroma">
@@ -1232,7 +1235,7 @@ Errors: 1
  end
 </code></pre></td></tr></table></div>
 </div>
-</div><p>It&rsquo;s entirely possible that, writing integration tests only, you wouldn&rsquo;t have written a test for <code>fromName = nil</code>. Luckily, we wrote unit tests, so this change wouldn&rsquo;t go unnoticed, and it would signal to the domain team that they need to communicate with your team about these changes.</p>
+</div><p>It&rsquo;s entirely possible that, writing integration tests only, we wouldn&rsquo;t have written a test for <code>fromName = nil</code>. Luckily, we wrote unit tests, so this change wouldn&rsquo;t go unnoticed, and it would signal to the domain team that they need to communicate with our team about these changes.</p>
 <pre><code>$ rspec
 
 Api::MessageInput
@@ -1356,7 +1359,7 @@ sorbet.rb:143: Returning value that does not conform to method result type https
                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Errors: 1
 </code></pre><p>How to handle this kind of change will ultimately be the author&rsquo;s decision, but I wanted to briefly touch on <code>union</code> type in <code>graphql-ruby</code> and how to handle them in Sorbet.</p>
-<p>If we wanted to expose the <code>Pending</code> message creation in the GraphQL API, we would introduce a <code>Api::MessagePending</code> type to represent it.</p>
+<p>For our example we want to expose the <code>Pending</code> message creation in the GraphQL API, and so we need to introduce a <code>Api::MessagePending</code> type to represent it.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -1409,8 +1412,8 @@ Errors: 1
 <span class="k">end</span>
 </code></pre></td></tr></table></div>
 </div>
-</div><p>We would also need to change the return value of <code>messageCreate</code> to be a union of <code>Pending</code> and <code>Message</code>, which we can call <code>MessageCreateResult</code>. Luckily, the <code>union</code> types in <code>graphql-ruby</code> make it easy to add Sorbet, so we won&rsquo;t need to rely on the <code>Resolvers</code> module like before. We just need to make sure that its <code>ObjectType</code> is the union of all <code>ObjectType</code> of its <code>possible_values</code>. In the <code>resolve_type</code> method, we can even make use of Sorbet&rsquo;s exhaustiveness checking (<code>T.absurd</code>).</p>
-<p>Our <code>resolve_type</code> will return a <a href="https://github.com/rmosolgo/graphql-ruby/pull/2976">tuple of two values</a>, which allows returning the GraphQL class that contains the mapping functions, as well as unwrapping the value. This isn&rsquo;t super useful in the current code, but if you were using wrapper objects (like a <code>Result</code> type), it would simplify the code a lot, since members of the union wouldn&rsquo;t need to share one type.</p>
+</div><p>We also need to change the return value of <code>messageCreate</code> to be a union of <code>Pending</code> and <code>Message</code>, which we can call <code>MessageCreateResult</code>. Luckily, the <code>union</code> types in <code>graphql-ruby</code> make it easy to add Sorbet, so we won&rsquo;t need to rely on the <code>Resolvers</code> module like before. We just need to make sure that its <code>ObjectType</code> is the union of all <code>ObjectType</code> of its <code>possible_values</code>. In the <code>resolve_type</code> method, we can even make use of Sorbet&rsquo;s exhaustiveness checking with <code>T.absurd</code>.</p>
+<p>Our <code>resolve_type</code> will return a <a href="https://github.com/rmosolgo/graphql-ruby/pull/2976">tuple of two values</a>. The first value of the tuple is the GraphQL class that contains the mapping functions. The second values allows unwrapping the value. This isn&rsquo;t super useful in the current code, but if we were using wrapper objects (like a <code>Result</code> type), it would simplify the code a lot, since members of the union wouldn&rsquo;t need to share one type.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -1527,9 +1530,13 @@ Errors: 1
  end
 </code></pre></td></tr></table></div>
 </div>
-</div><h1 id="conclusion"><a href="#conclusion" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Conclusion</h1>
+</div><p>Sorbet will understand this correctly, and notify us if the return type of <code>Domain::Message.create</code> is once again changed.</p>
+<pre><code>$ srb tc
+No errors! Great job.
+</code></pre><h1 id="conclusion"><a href="#conclusion" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Conclusion</h1>
 <p>In this post, we&rsquo;ve seen a few ways in which we can define GraphQL schemas in Ruby, unit test them, and add Sorbet static analysis. We&rsquo;ve seen a few ways in which unit tests and Sorbet would be able to catch breaking changes, which would be next to impossible to catch using integration tests only.</p>
 <p>I hope that you&rsquo;ll now consider annotating your GraphQL schema with Sorbet and benefit from its much faster feedback loop, as well as its ability to reveal bugs that are impossible to find only with tests.</p>
+<p>Finally, if you are or you know a contributor of <code>graphql-ruby</code>, can you add the possibility to delegate fields to an object and skip the instantiation of <code>GraphQL::Schema::Object</code>, pretty please!</p>
 
             </div>
 
