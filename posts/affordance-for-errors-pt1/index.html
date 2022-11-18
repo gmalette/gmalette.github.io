@@ -3,7 +3,10 @@
     <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
     <meta charset="UTF-8" />
 
-    <meta name="generator" content="Hugo 0.72.0" /><meta name="theme-color" content="#fff" />
+    <meta name="generator" content="Hugo 0.106.0"><meta name="theme-color" content="#fff" />
+    <meta name="color-scheme" content="light dark">
+
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <meta name="format-detection" content="telephone=no, date=no, address=no, email=no" />
@@ -14,11 +17,11 @@
 
     <title>Affordance for Errors, part 1 | Guillaume&#39;s Horrible Code-Along Blog</title>
 
-    <link rel="stylesheet" href="/css/meme.min.6f0bc58825f5d717c9a702acbceaf4f2d3318d61c30f2e32ccd0b3fcada62ab1.css" integrity="sha256-bwvFiCX11xfJpwKsvOr08tMxjWHDDy4yzNCz/K2mKrE=" />
+    <link rel="stylesheet" href="/css/meme.min.e4e70cfe34f9799e569fbe6717e185ae6b650688ecb46ca7e1a724fe4df9803c.css"/>
 
     
     
-        <script src="/js/meme.min.bcbfd1615d39587df5581ddd1d2990d5193966e6647a4059879574e0a16d10a8.js" integrity="sha256-vL/RYV05WH31WB3dHSmQ1Rk5ZuZkekBZh5V04KFtEKg="></script>
+        <script src="/js/meme.min.71d2c3f1dcb1b34a2bb1dd79ebc67f990aa10cbc13af7c337e1b9b54653801f4.js"></script>
 
     
 
@@ -34,7 +37,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="Guillaume&#39;s Horrible Code-Along Blog" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="application-name" content="Guillaume&#39;s Horrible Code-Along Blog" />
     <meta name="msapplication-starturl" content="../../" />
@@ -75,11 +78,11 @@
                 "@type": "ImageObject",
                 "url": "https://gmalette.dev/icons/apple-touch-icon.png"
             },
-            "url": "https://gmalette.dev/"
+            "url": "https://gmalette.dev"
         },
         "mainEntityOfPage": {
             "@type": "WebSite",
-            "@id": "https://gmalette.dev/"
+            "@id": "https://gmalette.dev"
         }
     }
 </script>
@@ -89,7 +92,6 @@
 <meta name="twitter:card" content="summary" />
 
 <meta name="twitter:site" content="@gmalette" />
-<meta name="twitter:creator" content="@gmalette" />
 
     
 
@@ -125,12 +127,15 @@
 
 
     
+    
+
+    
 </head>
 
     <body>
         <div class="container">
             
-    <header class="header" data-scroll-header>
+    <header class="header">
         
             <div class="header-wrapper">
                 <div class="header-inner single">
@@ -184,14 +189,14 @@
 
         
 
-        <article class="content post" data-small-caps="true" data-align="default" data-type="posts" data-toc-num="true">
+        <article class="content post h-entry" data-small-caps="true" data-align="default" data-type="posts" data-toc-num="true">
 
-            <h1 class="post-title">Affordance for Errors, part 1</h1>
-
-            
+            <h1 class="post-title p-name">Affordance for Errors, part 1</h1>
 
             
-                <div class="post-description">In this first posts of three, I highlight a few examples of affordance for errors in common APIs.</div>
+
+            
+                <div class="post-description p-summary">In this first posts of three, I highlight a few examples of affordance for errors in common APIs.</div>
                 
             
 
@@ -201,7 +206,7 @@
 <div class="post-meta">
     
         
-        <time datetime="2020-01-29T23:00:00&#43;04:00" class="post-meta-item published"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M148 288h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm108-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 96v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48zm-48 346V160H48v298c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z"/></svg>&nbsp;2020.1.29</time>
+        <time datetime="2020-01-29T23:00:00&#43;04:00" class="post-meta-item published dt-published"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M148 288h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm108-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 96v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48zm-48 346V160H48v298c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z"/></svg>&nbsp;2020.1.29</time>
     
     
     
@@ -210,7 +215,7 @@
         
         
             
-                <span class="post-meta-item category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>&nbsp;<a href="/categories/ruby/" class="category-link">Ruby</a></span>
+                <span class="post-meta-item category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>&nbsp;<a href="/categories/ruby/" class="category-link p-category">Ruby</a></span>
             
         
     
@@ -228,8 +233,8 @@
 
             
 
-            <div class="post-body">
-              <p>A few years ago, I read <a href="https://www.sandimetz.com/blog/2018/21/what-does-oo-afford">Sandi Metz&rsquo;s blog post about affordances</a> and it stuck with me. I started minding how the APIs I write can be misused; I started noticing the surface I leave for the users of my APIs to make errors. Soon after I started noticing how the APIs we use every day are full of affordance for error.</p>
+            <div class="post-body e-content">
+                <p>A few years ago, I read <a href="https://www.sandimetz.com/blog/2018/21/what-does-oo-afford">Sandi Metz&rsquo;s blog post about affordances</a> and it stuck with me. I started minding how the APIs I write can be misused; I started noticing the surface I leave for the users of my APIs to make errors. Soon after I started noticing how the APIs we use every day are full of affordance for error.</p>
 <p>In this first of three posts, I want to show a few examples of how common APIs (mostly in Ruby and Rails) can be accidentally misused. Maybe this will spark a discussion, or will incite people to share other issues they&rsquo;ve seen. The second post will explore solutions to the problems from this post. In the final post of this series, I will show how I approach API design to minimize the affordance for errors while offering the best ergonomics I can.</p>
 <h2 id="why-bother"><a href="#why-bother" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Why Bother?</h2>
 <p>You may be wondering why this matters, <em>why can&rsquo;t just write better code, without mistake</em>. After all, we&rsquo;re smart people, we should be able to learn these tools and to not make mistakes&hellip; If you are the kind of developer that can write bug-free code, this blog post is even more so for you, as your coworkers cannot. Developers are humans. We get tired, we forget, our attention lapses, we&rsquo;re juggling umpteen other things in our heads. For many reasons, we end up making mistakes. It is then our shared responsibility to make your APIs human-friendly.</p>
@@ -252,7 +257,7 @@
 <p>I want to start this off with an easy, approachable example: ActiveRecord&rsquo;s <code>errors</code> API, which requires a specific incantation.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -267,20 +272,20 @@
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
-  <span class="n">validates</span><span class="p">(</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">presence</span><span class="p">:</span> <span class="kp">true</span><span class="p">)</span> <span class="c1"># 1</span>
-<span class="k">end</span>
-
-<span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">new</span> <span class="c1"># 2</span>
-<span class="n">user</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">any?</span> <span class="c1"># 3</span>
-<span class="c1"># =&gt; false</span>
-
-<span class="n">user</span><span class="o">.</span><span class="n">valid?</span> <span class="c1"># 4</span>
-<span class="c1"># =&gt; false</span>
-
-<span class="n">user</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">any?</span> <span class="c1"># 5</span>
-<span class="c1"># =&gt; true</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
+</span></span><span class="line"><span class="cl">  <span class="n">validates</span><span class="p">(</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">presence</span><span class="p">:</span> <span class="kp">true</span><span class="p">)</span> <span class="c1"># 1</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">new</span> <span class="c1"># 2</span>
+</span></span><span class="line"><span class="cl"><span class="n">user</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">any?</span> <span class="c1"># 3</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># =&gt; false</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">user</span><span class="o">.</span><span class="n">valid?</span> <span class="c1"># 4</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># =&gt; false</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">user</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">any?</span> <span class="c1"># 5</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># =&gt; true</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>For those unfamiliar with Rails, in the previous example, we</p>
 <ul>
@@ -294,7 +299,7 @@
 <p>Some APIs, like ActiveRecord, allow mistakenly loading data serially instead of in a batch manner, without guiding the user towards the more performant approach.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -305,16 +310,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">investor</span> <span class="o">=</span> <span class="no">Investor</span><span class="o">.</span><span class="n">first</span>
-
-<span class="n">investor</span><span class="o">.</span><span class="n">accounts</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">account</span><span class="o">|</span>
-  <span class="nb">puts</span> <span class="n">account</span><span class="o">.</span><span class="n">fund</span><span class="o">.</span><span class="n">name</span>
-<span class="k">end</span>
-
-<span class="c1"># Fund Load (1.2ms)  SELECT  &#34;funds&#34;.* FROM &#34;funds&#34; WHERE &#34;funds&#34;.&#34;id&#34; = $1 LIMIT $2  [[&#34;id&#34;, 6], [&#34;LIMIT&#34;, 1]]</span>
-<span class="c1"># Fund Load (1.4ms)  SELECT  &#34;funds&#34;.* FROM &#34;funds&#34; WHERE &#34;funds&#34;.&#34;id&#34; = $1 LIMIT $2  [[&#34;id&#34;, 7], [&#34;LIMIT&#34;, 1]]</span>
-<span class="c1"># ... and so on for each account</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="n">investor</span> <span class="o">=</span> <span class="no">Investor</span><span class="o">.</span><span class="n">first</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">investor</span><span class="o">.</span><span class="n">accounts</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">account</span><span class="o">|</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">puts</span> <span class="n">account</span><span class="o">.</span><span class="n">fund</span><span class="o">.</span><span class="n">name</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Fund Load (1.2ms)  SELECT  &#34;funds&#34;.* FROM &#34;funds&#34; WHERE &#34;funds&#34;.&#34;id&#34; = $1 LIMIT $2  [[&#34;id&#34;, 6], [&#34;LIMIT&#34;, 1]]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Fund Load (1.4ms)  SELECT  &#34;funds&#34;.* FROM &#34;funds&#34; WHERE &#34;funds&#34;.&#34;id&#34; = $1 LIMIT $2  [[&#34;id&#34;, 7], [&#34;LIMIT&#34;, 1]]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ... and so on for each account</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>Because the code that loaded the <code>investor</code> object did not <code>preload</code> the <code>fund</code>, every iteration of the loop will issue a query to load one <code>fund</code>.</p>
 <p>If you have used Rails with ActiveRecord for more than a few days, the probability that you&rsquo;ve encountered or written code with this mistake are high. This problem is so common that <a href="https://github.com/flyerhzm/bullet">a gem (Bullet)</a> was written to help developers detect when they cause it.</p>
@@ -342,7 +347,7 @@
 <p>Visibility modifiers (<code>private</code>, <code>protected</code>, <code>public</code>) are prime examples; they are the source of many mistakes, by newcomers&rsquo;s mismatched expectations and veterans&rsquo;s lapse of attention. To say nothing of the fact that <code>protected</code> means something different than in other languages, many devs make mistakes when it comes to singleton methods, often called &ldquo;class methods&rdquo;. Here&rsquo;s an example:</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -351,23 +356,23 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Foo</span>
-  <span class="kp">private</span>
-
-  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">bar</span>
-    <span class="ss">:bar</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Foo</span>
+</span></span><span class="line"><span class="cl">  <span class="kp">private</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">bar</span>
+</span></span><span class="line"><span class="cl">    <span class="ss">:bar</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
-</div><p>Many devs would expect the <code>Foo.bar</code> method to be private to <code>Foo</code>–perhaps because many call it a class method–, however it is not. The reason is that <code>private</code> is a method on <code>Foo</code>, telling it to mark the methods defined after as <code>private</code>. It does not affect <code>Foo</code>'s singleton class. To learn more about the relation between classes and their singleton classes, refer to <a href="https://gmalette.dev/posts/the-ruby-object-model/">The Ruby Object Model</a>.</p>
+</div><p>Many devs would expect the <code>Foo.bar</code> method to be private to <code>Foo</code>–perhaps because many call it a class method–, however it is not. The reason is that <code>private</code> is a method on <code>Foo</code>, telling it to mark the methods defined after as <code>private</code>. It does not affect <code>Foo</code>&rsquo;s singleton class. To learn more about the relation between classes and their singleton classes, refer to <a href="https://gmalette.dev/posts/the-ruby-object-model/">The Ruby Object Model</a>.</p>
 <p>That it is such a common error pains me the utmost, because it is so unnecessary. Approximately 100% of other languages do not have this problem, by having visibility modifiers at the method definition level. In fact, it even works in Ruby, but I digress.</p>
 <h3 id="ignored-values"><a href="#ignored-values" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Ignored Values</h3>
 <p>Some APIs will use values that are easy to ignore, once again leading to errors.</p>
 <p>While I don&rsquo;t want to seem like I pick on ActiveRecord, it contains examples within reach.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -375,13 +380,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">update</span>
-  <span class="n">user</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">user_update_params</span><span class="p">)</span>
-  <span class="n">user</span><span class="o">.</span><span class="n">save</span>
-
-  <span class="n">respond_with</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">update</span>
+</span></span><span class="line"><span class="cl">  <span class="n">user</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">user_update_params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">user</span><span class="o">.</span><span class="n">save</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">respond_with</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>In this example, the return value of <code>user.save</code>–a <code>Boolean</code> indicating whether the persistance was successful or not–is not checked. The error case, when <code>save</code> fails, is not handled. ActiveRecord doesn&rsquo;t help nor guide towards handling it, either.</p>
 <p>If you think your code is impervious to this problem, I suggest you look at your test suite. If you&rsquo;re using <code>save</code> and not <code>save!</code> to setup objects, and unless you have very high code hygiene, chances that at least one started failing since you wrote it.</p>
@@ -392,7 +397,7 @@
 <p>The usage of <code>extend(self)</code> in module is probably one of my biggest pet peeves.  It&rsquo;s used to add methods to the singleton class of a module, effectively allowing the module to receive the methods it defines. Ex:</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -404,25 +409,25 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">Foo</span>
-  <span class="kp">extend</span><span class="p">(</span><span class="nb">self</span><span class="p">)</span>
-
-  <span class="k">def</span> <span class="nf">foo</span> <span class="c1"># 1</span>
-    <span class="ss">:foo</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="no">Foo</span><span class="o">.</span><span class="n">foo</span> <span class="c1"># 2</span>
-<span class="c1"># =&gt; :foo</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">module</span> <span class="nn">Foo</span>
+</span></span><span class="line"><span class="cl">  <span class="kp">extend</span><span class="p">(</span><span class="nb">self</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">foo</span> <span class="c1"># 1</span>
+</span></span><span class="line"><span class="cl">    <span class="ss">:foo</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="no">Foo</span><span class="o">.</span><span class="n">foo</span> <span class="c1"># 2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># =&gt; :foo</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>In the previous example, the module <code>Foo</code> defines the method <code>foo</code> (#1) which is available on <code>Foo</code> (#2) due to the <code>extend(Foo)</code>. Not only does this idiom produce a complicated object, the fact that it&rsquo;s an idiom affords users some errors.</p>
-<p>I think people fail to consider the implications of these modules. Should <code>Foo</code> be used as a singleton, or should it be <code>include</code>'d, as modules are? In the previous example, it doesn&rsquo;t matter. When you start using instance variables and state, it does.</p>
+<p>I think people fail to consider the implications of these modules. Should <code>Foo</code> be used as a singleton, or should it be <code>include</code>&rsquo;d, as modules are? In the previous example, it doesn&rsquo;t matter. When you start using instance variables and state, it does.</p>
 <h3 id="super-vs-super"><a href="#super-vs-super" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><code>super</code> vs <code>super()</code></h3>
 <p>In Ruby, as we know, parentheses are optional, unless they aren&rsquo;t. The usage of <code>super</code> is such an example, where <code>super</code> (without parentheses) is semantically different to <code>super()</code> (with parentheses).</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -446,29 +451,29 @@
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Parent</span>
-<span class="k">end</span>
-
-<span class="k">class</span> <span class="nc">WithParentheses</span> <span class="o">&lt;</span> <span class="no">Parent</span>
-  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
-    <span class="vi">@var</span> <span class="o">=</span> <span class="n">var</span>
-    <span class="k">super</span><span class="p">()</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="k">class</span> <span class="nc">WithoutParentheses</span> <span class="o">&lt;</span> <span class="no">Parent</span>
-  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
-    <span class="vi">@var</span> <span class="o">=</span> <span class="n">var</span>
-    <span class="k">super</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="no">WithParentheses</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># 1</span>
-<span class="c1"># =&gt; #&lt;WithParentheses:0x000...&gt;</span>
-
-<span class="no">WithoutParentheses</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># 2</span>
-<span class="c1"># =&gt; ArgumentError: wrong number of arguments (given 1, expected 0)</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Parent</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">WithParentheses</span> <span class="o">&lt;</span> <span class="no">Parent</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="vi">@var</span> <span class="o">=</span> <span class="n">var</span>
+</span></span><span class="line"><span class="cl">    <span class="k">super</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">WithoutParentheses</span> <span class="o">&lt;</span> <span class="no">Parent</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="vi">@var</span> <span class="o">=</span> <span class="n">var</span>
+</span></span><span class="line"><span class="cl">    <span class="k">super</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="no">WithParentheses</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># 1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># =&gt; #&lt;WithParentheses:0x000...&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="no">WithoutParentheses</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># 2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># =&gt; ArgumentError: wrong number of arguments (given 1, expected 0)</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>This example shows the semantic difference between both versions.</p>
 <p>The reason is that <code>super</code> (without parentheses) sends the arguments verbatim, whereas <code>super()</code> (with parentheses) sends no argument.</p>
@@ -488,12 +493,12 @@
 
             </div>
 
+            
+
+
         </article>
 
         
-
-        
-
 
         
 
@@ -537,9 +542,9 @@
                     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
 
 <script>
-    var typeNumber = 0;
-    var errorCorrectionLevel = 'L';
-    var qr = qrcode(typeNumber, errorCorrectionLevel);
+    const typeNumber = 0;
+    const errorCorrectionLevel = 'L';
+    const qr = qrcode(typeNumber, errorCorrectionLevel);
     qr.addData('https:\/\/gmalette.dev\/posts\/affordance-for-errors-pt1\/');
     qr.make();
     document.getElementById('qrcode-img').innerHTML = qr.createImgTag();
@@ -626,9 +631,11 @@
         
     
 
-        <div class="load-comments">
-            <div id="load-comments">Load Comments?</div>
-        </div>
+        
+            <div class="load-comments">
+                <div id="load-comments">Load Comments?</div>
+            </div>
+        
 
         
 
@@ -638,6 +645,7 @@
             <div id="utterances"></div>
         
 
+        
     
 
 
@@ -651,7 +659,7 @@
             
     <footer id="footer" class="footer">
         <div class="footer-inner">
-            <div class="site-info">©&nbsp;2015–2020&nbsp;Guillaume Malette</div>
+            <div class="site-info">©&nbsp;2015–2022&nbsp;Guillaume Malette</div>
 
             
     
@@ -659,6 +667,8 @@
                     <a href="/rss.xml" target="_blank" rel="external noopener" title="RSS"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon social-icon"><path d="M19.199 24C19.199 13.467 10.533 4.8 0 4.8V0c13.165 0 24 10.835 24 24h-4.801zM3.291 17.415c1.814 0 3.293 1.479 3.293 3.295 0 1.813-1.485 3.29-3.301 3.29C1.47 24 0 22.526 0 20.71s1.475-3.294 3.291-3.295zM15.909 24h-4.665c0-6.169-5.075-11.245-11.244-11.245V8.09c8.727 0 15.909 7.184 15.909 15.91z"/></svg></a>
                 </li><li class="socials-item">
                     <a href="https://github.com/gmalette" target="_blank" rel="external noopener" title="GitHub"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon social-icon"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+                </li><li class="socials-item">
+                    <a href="https://hachyderm.io/@gmalette" target="_blank" rel="me" title="Mastodon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 417.8 512" class="icon social-icon"><path d="M417.8 179.1c0-97.2-63.7-125.7-63.7-125.7-62.5-28.7-228.5-28.4-290.4 0 0 0-63.7 28.5-63.7 125.7 0 115.7-6.6 259.4 105.6 289.1 40.5 10.7 75.3 13 103.3 11.4 50.8-2.8 79.3-18.1 79.3-18.1l-1.7-36.9s-36.3 11.4-77.1 10.1c-40.4-1.4-83-4.4-89.6-54-.6-4.4-.9-9-.9-13.9 85.6 20.9 158.6 9.1 178.7 6.7 56.1-6.7 105-41.3 111.2-72.9 9.8-49.8 9-121.5 9-121.5zm-75.1 125.2h-46.6V190.1c0-49.7-64-51.6-64 6.9v62.5h-46.3V197c0-58.5-64-56.6-64-6.9v114.2H75.1c0-122.1-5.2-147.9 18.4-175 25.9-28.9 79.8-30.8 103.8 6.1l11.6 19.5 11.6-19.5c24.1-37.1 78.1-34.8 103.8-6.1 23.7 27.3 18.4 53 18.4 175z"/></svg></a>
                 </li><li class="socials-item">
                     <a href="https://twitter.com/gmalette" target="_blank" rel="external noopener" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon social-icon"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg></a>
                 </li></ul>
@@ -673,18 +683,8 @@
 
         </div>
         
-    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
 
-<script>
-    var scroll = new SmoothScroll('a[href*="#"]', {
-        speedAsDuration: true,
-        header: '[data-scroll-header]'
-    });
-</script>
-
-
-
-
+        
 
 
 
@@ -701,9 +701,12 @@
             <script>
     function loadComments() {
         (function() {
-            var utterances = document.getElementById("utterances");
-            var script = document.createElement('script');
-            script.src = 'https://utteranc.es/client.js';
+            const utterances = document.getElementById("utterances");
+            if (!utterances) {
+                return;
+            }
+            const script = document.createElement('script');
+            script.src = 'https:\/\/utteranc.es\/client.js';
             script.async = true;
             script.crossOrigin = 'anonymous';
             script.setAttribute('repo', 'gmalette\/gmalette.github.io-src');
@@ -716,6 +719,8 @@
 </script>
         
 
+        
+
     
 
 
@@ -723,7 +728,10 @@
     <script src="https://cdn.jsdelivr.net/npm/medium-zoom@latest/dist/medium-zoom.min.js"></script>
 
 <script>
-    mediumZoom(document.querySelectorAll('div.post-body img'), {
+    let imgNodes = document.querySelectorAll('div.post-body img');
+    imgNodes = Array.from(imgNodes).filter(node => node.parentNode.tagName !== "A");
+
+    mediumZoom(imgNodes, {
         background: 'hsla(var(--color-bg-h), var(--color-bg-s), var(--color-bg-l), 0.95)'
     })
 </script>
@@ -731,11 +739,7 @@
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/instant.page@3.0.0/instantpage.min.js" type="module" defer></script>
-
-
-
-
+    <script src="https://cdn.jsdelivr.net/npm/instant.page@5.1.0/instantpage.min.js" type="module" defer></script>
 
 
 

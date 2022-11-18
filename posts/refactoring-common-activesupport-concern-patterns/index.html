@@ -3,7 +3,10 @@
     <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
     <meta charset="UTF-8" />
 
-    <meta name="generator" content="Hugo 0.72.0" /><meta name="theme-color" content="#fff" />
+    <meta name="generator" content="Hugo 0.106.0"><meta name="theme-color" content="#fff" />
+    <meta name="color-scheme" content="light dark">
+
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <meta name="format-detection" content="telephone=no, date=no, address=no, email=no" />
@@ -14,11 +17,11 @@
 
     <title>Refactoring Common ActiveSupport::Concern Patterns | Guillaume&#39;s Horrible Code-Along Blog</title>
 
-    <link rel="stylesheet" href="/css/meme.min.6f0bc58825f5d717c9a702acbceaf4f2d3318d61c30f2e32ccd0b3fcada62ab1.css" integrity="sha256-bwvFiCX11xfJpwKsvOr08tMxjWHDDy4yzNCz/K2mKrE=" />
+    <link rel="stylesheet" href="/css/meme.min.e4e70cfe34f9799e569fbe6717e185ae6b650688ecb46ca7e1a724fe4df9803c.css"/>
 
     
     
-        <script src="/js/meme.min.bcbfd1615d39587df5581ddd1d2990d5193966e6647a4059879574e0a16d10a8.js" integrity="sha256-vL/RYV05WH31WB3dHSmQ1Rk5ZuZkekBZh5V04KFtEKg="></script>
+        <script src="/js/meme.min.71d2c3f1dcb1b34a2bb1dd79ebc67f990aa10cbc13af7c337e1b9b54653801f4.js"></script>
 
     
 
@@ -34,7 +37,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="Guillaume&#39;s Horrible Code-Along Blog" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="application-name" content="Guillaume&#39;s Horrible Code-Along Blog" />
     <meta name="msapplication-starturl" content="../../" />
@@ -75,11 +78,11 @@
                 "@type": "ImageObject",
                 "url": "https://gmalette.dev/icons/apple-touch-icon.png"
             },
-            "url": "https://gmalette.dev/"
+            "url": "https://gmalette.dev"
         },
         "mainEntityOfPage": {
             "@type": "WebSite",
-            "@id": "https://gmalette.dev/"
+            "@id": "https://gmalette.dev"
         }
     }
 </script>
@@ -89,7 +92,6 @@
 <meta name="twitter:card" content="summary" />
 
 <meta name="twitter:site" content="@gmalette" />
-<meta name="twitter:creator" content="@gmalette" />
 
     
 
@@ -125,12 +127,15 @@
 
 
     
+    
+
+    
 </head>
 
     <body>
         <div class="container">
             
-    <header class="header" data-scroll-header>
+    <header class="header">
         
             <div class="header-wrapper">
                 <div class="header-inner single">
@@ -184,14 +189,14 @@
 
         
 
-        <article class="content post" data-small-caps="true" data-align="default" data-type="posts" data-toc-num="true">
+        <article class="content post h-entry" data-small-caps="true" data-align="default" data-type="posts" data-toc-num="true">
 
-            <h1 class="post-title">Refactoring Common ActiveSupport::Concern Patterns</h1>
-
-            
+            <h1 class="post-title p-name">Refactoring Common ActiveSupport::Concern Patterns</h1>
 
             
-                <div class="post-description">Following my Rant on ActiveSupport::Concern, I&rsquo;ve been asked how to refactor the code to make it stop using it, or write new code without it. I thought I&rsquo;d share the patterns that have worked for me so far.</div>
+
+            
+                <div class="post-description p-summary">Following my Rant on ActiveSupport::Concern, I&rsquo;ve been asked how to refactor the code to make it stop using it, or write new code without it. I thought I&rsquo;d share the patterns that have worked for me so far.</div>
                 
             
 
@@ -201,7 +206,7 @@
 <div class="post-meta">
     
         
-        <time datetime="2019-02-25T20:00:00&#43;04:00" class="post-meta-item published"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M148 288h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm108-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 96v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48zm-48 346V160H48v298c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z"/></svg>&nbsp;2019.2.25</time>
+        <time datetime="2019-02-25T20:00:00&#43;04:00" class="post-meta-item published dt-published"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M148 288h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm108-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 96v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48zm-48 346V160H48v298c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z"/></svg>&nbsp;2019.2.25</time>
     
     
     
@@ -210,7 +215,7 @@
         
         
             
-                <span class="post-meta-item category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>&nbsp;<a href="/categories/ruby/" class="category-link">Ruby</a></span>
+                <span class="post-meta-item category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>&nbsp;<a href="/categories/ruby/" class="category-link p-category">Ruby</a></span>
             
         
     
@@ -228,14 +233,14 @@
 
             
 
-            <div class="post-body">
-              <p>Following my <a href="https://gmalette.dev/posts/short-rant-about-activesupport-concern/">Short Rant on <code>ActiveSupport::Concern</code></a>, I&rsquo;ve been asked how to refactor the code to make it stop using it, or write new code without it. I thought I&rsquo;d share the patterns that have worked for me so far.</p>
+            <div class="post-body e-content">
+                <p>Following my <a href="https://gmalette.dev/posts/short-rant-about-activesupport-concern/">Short Rant on <code>ActiveSupport::Concern</code></a>, I&rsquo;ve been asked how to refactor the code to make it stop using it, or write new code without it. I thought I&rsquo;d share the patterns that have worked for me so far.</p>
 <h2 id="what-is-activesupportconcern"><a href="#what-is-activesupportconcern" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>What is <code>ActiveSupport::Concern</code>?</h2>
-<p><code>ActiveSupport::Concern</code> is a module which other modules can <code>extend</code> to get its features. It allows for easily (note: <em>easy</em>, not <em>simple</em>) applying modifications to the receiver module and its singleton class, as well as triggering hooks when the module gets <code>include</code>'d.</p>
+<p><code>ActiveSupport::Concern</code> is a module which other modules can <code>extend</code> to get its features. It allows for easily (note: <em>easy</em>, not <em>simple</em>) applying modifications to the receiver module and its singleton class, as well as triggering hooks when the module gets <code>include</code>&rsquo;d.</p>
 <p>The following code contains all the marks which identify <code>ActiveSupport::Concern</code> (later <code>AS::C</code>):</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -258,40 +263,40 @@
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">Concern</span>
-  <span class="kp">extend</span><span class="p">(</span><span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Concern</span><span class="p">)</span>
-
-  <span class="n">included</span> <span class="k">do</span> <span class="c1"># 1</span>
-    <span class="nb">puts</span><span class="p">(</span><span class="s2">&#34;Hello from </span><span class="si">#{</span><span class="nb">self</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
-  <span class="k">end</span>
-
-  <span class="k">module</span> <span class="nn">ClassMethods</span> <span class="c1"># 2</span>
-    <span class="k">def</span> <span class="nf">baz</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-
-  <span class="n">class_methods</span> <span class="k">do</span> <span class="c1"># 3</span>
-    <span class="k">def</span> <span class="nf">bar</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="k">module</span> <span class="nn">ReceiverModule</span>
-  <span class="kp">include</span><span class="p">(</span><span class="no">Concern</span><span class="p">)</span> <span class="c1"># 4</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">module</span> <span class="nn">Concern</span>
+</span></span><span class="line"><span class="cl">  <span class="kp">extend</span><span class="p">(</span><span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Concern</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">included</span> <span class="k">do</span> <span class="c1"># 1</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">puts</span><span class="p">(</span><span class="s2">&#34;Hello from </span><span class="si">#{</span><span class="nb">self</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">module</span> <span class="nn">ClassMethods</span> <span class="c1"># 2</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">baz</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">class_methods</span> <span class="k">do</span> <span class="c1"># 3</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">bar</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">module</span> <span class="nn">ReceiverModule</span>
+</span></span><span class="line"><span class="cl">  <span class="kp">include</span><span class="p">(</span><span class="no">Concern</span><span class="p">)</span> <span class="c1"># 4</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>The previous code uses all the <code>AS::C</code> features, which are (annotated in the code):</p>
 <ol>
-<li>Setting up a callback, for when the module is included (4). The callback is <code>class_eval</code>'d on the receiver module, in our case <code>ReceiverModule</code>.</li>
+<li>Setting up a callback, for when the module is included (4). The callback is <code>class_eval</code>&rsquo;d on the receiver module, in our case <code>ReceiverModule</code>.</li>
 <li>Open (or reopen) the <code>ClassMethods</code> module. When <code>Concern</code> is included in <code>ReceiverModule</code>, <code>AS::C</code> will also do <code>ReceiverModule.extend(Concern::ClassMethods)</code>.</li>
 <li>Same as 2, different style.</li>
-<li><code>ReceiverModule</code> uses our <code>Concern</code> module. The result is that <code>ReceiverModule</code>'s singleton class will have both <code>baz</code> and <code>bar</code>, and the code will print <code>&quot;Hello from ReceiverModule&quot;</code>.</li>
+<li><code>ReceiverModule</code> uses our <code>Concern</code> module. The result is that <code>ReceiverModule</code>&rsquo;s singleton class will have both <code>baz</code> and <code>bar</code>, and the code will print <code>&quot;Hello from ReceiverModule&quot;</code>.</li>
 </ol>
 <p>Another pattern you may see is the following:</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -300,16 +305,16 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">AnotherConcern</span>
-  <span class="kp">include</span><span class="p">(</span><span class="no">Concern</span><span class="p">)</span>
-  <span class="kp">extend</span><span class="p">(</span><span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Concern</span><span class="p">)</span>
-
-  <span class="k">def</span> <span class="nf">toto</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">module</span> <span class="nn">AnotherConcern</span>
+</span></span><span class="line"><span class="cl">  <span class="kp">include</span><span class="p">(</span><span class="no">Concern</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="kp">extend</span><span class="p">(</span><span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Concern</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">toto</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
-</div><p>While <code>AnotherConcern</code> appears to not use any of <code>AS::C</code>'s features, it&rsquo;s &ldquo;reexporting&rdquo; the hooks from <code>Concern</code>. This is why I often say that metaprogramming breeds metaprogramming: <code>Concern</code>'s use of metaprogramming forced <code>AnotherConcern</code> to also use metaprogramming, otherwise it would not be able to offer <code>Concern</code>'s functionality.</p>
+</div><p>While <code>AnotherConcern</code> appears to not use any of <code>AS::C</code>&rsquo;s features, it&rsquo;s &ldquo;reexporting&rdquo; the hooks from <code>Concern</code>. This is why I often say that metaprogramming breeds metaprogramming: <code>Concern</code>&rsquo;s use of metaprogramming forced <code>AnotherConcern</code> to also use metaprogramming, otherwise it would not be able to offer <code>Concern</code>&rsquo;s functionality.</p>
 <p>Now that we&rsquo;ve identified the telling signs of <code>AS::C</code> (<code>included</code> callback, <code>ClassMethods</code> module, and <code>class_methods</code> block), we can go about refactoring away from it!</p>
 <h2 id="useless-extend"><a href="#useless-extend" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Useless Extend</h2>
 <p>Believe it or not, extending <code>AS::C</code> for no reason nor benefit is <em>extremely</em> common. It also has a nice property of being trivial to remove.
@@ -317,7 +322,7 @@ You&rsquo;ll be able to tell that it&rsquo;s uselessly extended when the receive
 <p>If the module has none of these, it&rsquo;s safe to remove <code>ActiveSupport::Concern</code>, given this code:</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -325,18 +330,18 @@ You&rsquo;ll be able to tell that it&rsquo;s uselessly extended when the receive
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">ConcernModule</span>
-  <span class="kp">extend</span><span class="p">(</span><span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Concern</span><span class="p">)</span>
-
-  <span class="k">def</span> <span class="nf">my_method</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">module</span> <span class="nn">ConcernModule</span>
+</span></span><span class="line"><span class="cl">  <span class="kp">extend</span><span class="p">(</span><span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Concern</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">my_method</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>You can apply these changes:</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -344,13 +349,13 @@ You&rsquo;ll be able to tell that it&rsquo;s uselessly extended when the receive
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-diff" data-lang="diff">module ConcernModule
-<span class="gd">- extend(ActiveSupport::Concern)
-</span><span class="gd"></span>
-  def my_method
-  end
-end
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl">module ConcernModule
+</span></span><span class="line"><span class="cl"><span class="gd">- extend(ActiveSupport::Concern)
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span>
+</span></span><span class="line"><span class="cl">  def my_method
+</span></span><span class="line"><span class="cl">  end
+</span></span><span class="line"><span class="cl">end
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><h2 id="classmethods-only-please"><a href="#classmethods-only-please" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><code>ClassMethods</code> only, please</h2>
 <p>Modules that use <code>ActiveSupport::Concern</code> with the only benefit of having the receiver subsequently <code>extend</code> the module&rsquo;s <code>ClassMethods</code>.
@@ -360,7 +365,7 @@ I suspect this happens when folks find it hard to understand the difference betw
 <p>The code you&rsquo;d be looking at would look something like this:</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -374,55 +379,55 @@ I suspect this happens when folks find it hard to understand the difference betw
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">ConcernModule</span>
-  <span class="kp">extend</span><span class="p">(</span><span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Concern</span><span class="p">)</span>
-
-  <span class="k">module</span> <span class="nn">ClassMethods</span>
-    <span class="k">def</span> <span class="nf">a_class_method</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="k">module</span> <span class="nn">ReceiverModule</span>
-  <span class="kp">include</span><span class="p">(</span><span class="no">ConcernModule</span><span class="p">)</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">module</span> <span class="nn">ConcernModule</span>
+</span></span><span class="line"><span class="cl">  <span class="kp">extend</span><span class="p">(</span><span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Concern</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">module</span> <span class="nn">ClassMethods</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">a_class_method</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">module</span> <span class="nn">ReceiverModule</span>
+</span></span><span class="line"><span class="cl">  <span class="kp">include</span><span class="p">(</span><span class="no">ConcernModule</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>The good news is that this is also trivial to fix. You can remove the <code>ClassMethods</code> module and move its behaviour to <code>ConcernModule</code>. Then replace <code>include(ConcernModule)</code> with <code>extend(ConcernModule)</code>, so that the behaviour is applied on the receiver&rsquo;s singleton class instead of the receiver itself.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">ConcernModule</span>
-  <span class="k">def</span> <span class="nf">a_class_method</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">module</span> <span class="nn">ConcernModule</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">a_class_method</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-diff" data-lang="diff">module ReceiverModule
-<span class="gd">-  include(ConcernModule)
-</span><span class="gd"></span><span class="gi">+  extend(ConcernModule)
-</span><span class="gi"></span>end
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl">module ReceiverModule
+</span></span><span class="line"><span class="cl"><span class="gd">-  include(ConcernModule)
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+  extend(ConcernModule)
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>end
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>Another variant of this is to use a <code>class_methods</code> block instead of the <code>ClassMethods</code> module. The same refactor applies.</p>
 <h2 id="callback-methods"><a href="#callback-methods" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Callback Methods</h2>
 <p>Sometimes, <code>AS::C</code> is used for its <code>included</code> callback only. Sometimes, it will coincide that the block behaviour can be implemented in another, simpler way.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -433,21 +438,21 @@ I suspect this happens when folks find it hard to understand the difference betw
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">TestHelper</span>
-  <span class="kp">extend</span><span class="p">(</span><span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Concern</span><span class="p">)</span>
-
-  <span class="n">included</span> <span class="k">do</span>
-    <span class="n">teardown</span> <span class="k">do</span>
-      <span class="n">clean_up_after_tests</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">module</span> <span class="nn">TestHelper</span>
+</span></span><span class="line"><span class="cl">  <span class="kp">extend</span><span class="p">(</span><span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Concern</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">included</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="n">teardown</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">      <span class="n">clean_up_after_tests</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>This previous example uses the <code>included</code> callback to call the <code>teardown</code> method in Minitest. Instead of this, we can <em>define</em> a teardown method.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -455,20 +460,20 @@ I suspect this happens when folks find it hard to understand the difference betw
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">TestHelper</span>
-  <span class="k">def</span> <span class="nf">teardown</span>
-    <span class="n">clean_up_after_tests</span>
-    <span class="k">super</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">module</span> <span class="nn">TestHelper</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">teardown</span>
+</span></span><span class="line"><span class="cl">    <span class="n">clean_up_after_tests</span>
+</span></span><span class="line"><span class="cl">    <span class="k">super</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>This will unfortunately only work if the hooks can also be implemented using methods.</p>
 <h2 id="metaprogramming-the-metaprogramming"><a href="#metaprogramming-the-metaprogramming" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Metaprogramming the Metaprogramming</h2>
 <p>Another variation of the previous pattern is defining the methods in the hooks, for no clear reasons. This means that every time <code>ModuleDefiningMethods</code> is included, it will define new versions of the <code>foo</code> and <code>bar</code> methods. Every time I&rsquo;ve seen this, it was unwanted.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -481,23 +486,23 @@ I suspect this happens when folks find it hard to understand the difference betw
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">ModuleDefiningMethods</span>
-  <span class="kp">extend</span><span class="p">(</span><span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Concern</span><span class="p">)</span>
-
-  <span class="n">included</span> <span class="k">do</span>
-    <span class="k">def</span> <span class="nf">foo</span>
-    <span class="k">end</span>
-
-    <span class="k">def</span> <span class="nf">bar</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">module</span> <span class="nn">ModuleDefiningMethods</span>
+</span></span><span class="line"><span class="cl">  <span class="kp">extend</span><span class="p">(</span><span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Concern</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">included</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">foo</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">bar</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>In this case, we can simply remove the <code>included</code> block but keep the contents. The modules which <code>include</code> <code>ModuleDefiningMethods</code> don&rsquo;t even have to change.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -506,21 +511,21 @@ I suspect this happens when folks find it hard to understand the difference betw
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">ModuleDefiningMethods</span>
-  <span class="k">def</span> <span class="nf">foo</span>
-  <span class="k">end</span>
-
-  <span class="k">def</span> <span class="nf">bar</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">module</span> <span class="nn">ModuleDefiningMethods</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">foo</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">bar</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>Now that we&rsquo;ve gotten our hands dirty refactoring the easy cases, let&rsquo;s see what we can do about the more involved ones.</p>
 <h2 id="coupling-class-and-instances"><a href="#coupling-class-and-instances" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Coupling Class and Instances</h2>
 <p>I&rsquo;ve often seen this kind of offense, where one tries to add behaviour to the instances of a class, and other behaviour (often configuration) to the class itself. Example:</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -549,34 +554,34 @@ I suspect this happens when folks find it hard to understand the difference betw
 </span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">ParameterFiltering</span>
-  <span class="kp">extend</span><span class="p">(</span><span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Concern</span><span class="p">)</span>
-
-  <span class="n">included</span> <span class="k">do</span>
-    <span class="n">class_attribute</span><span class="p">(</span><span class="ss">:allowed_params</span><span class="p">)</span> <span class="c1"># 1</span>
-  <span class="k">end</span>
-
-  <span class="k">def</span> <span class="nf">filtered_params</span> <span class="c1"># 2</span>
-    <span class="no">ParameterFilter</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">allowed_params</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
-  <span class="k">end</span>
-
-  <span class="k">module</span> <span class="nn">ClassMethods</span>
-    <span class="k">def</span> <span class="nf">allow_params</span><span class="p">(</span><span class="o">*</span><span class="n">param_names</span><span class="p">)</span> <span class="c1"># 3</span>
-      <span class="nb">self</span><span class="o">.</span><span class="n">allowed_params</span> <span class="o">=</span> <span class="n">param_names</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="k">class</span> <span class="nc">FooController</span>
-  <span class="kp">include</span><span class="p">(</span><span class="no">ParameterFiltering</span><span class="p">)</span>
-
-  <span class="n">allow_params</span><span class="p">(</span><span class="ss">:foo</span><span class="p">,</span> <span class="ss">:bar</span><span class="p">,</span> <span class="ss">:baz</span><span class="p">)</span>
-
-  <span class="k">def</span> <span class="nf">create</span>
-    <span class="no">Foo</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">filter_params</span><span class="p">)</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">module</span> <span class="nn">ParameterFiltering</span>
+</span></span><span class="line"><span class="cl">  <span class="kp">extend</span><span class="p">(</span><span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Concern</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">included</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="n">class_attribute</span><span class="p">(</span><span class="ss">:allowed_params</span><span class="p">)</span> <span class="c1"># 1</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">filtered_params</span> <span class="c1"># 2</span>
+</span></span><span class="line"><span class="cl">    <span class="no">ParameterFilter</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">allowed_params</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">module</span> <span class="nn">ClassMethods</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">allow_params</span><span class="p">(</span><span class="o">*</span><span class="n">param_names</span><span class="p">)</span> <span class="c1"># 3</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">self</span><span class="o">.</span><span class="n">allowed_params</span> <span class="o">=</span> <span class="n">param_names</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">FooController</span>
+</span></span><span class="line"><span class="cl">  <span class="kp">include</span><span class="p">(</span><span class="no">ParameterFiltering</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">allow_params</span><span class="p">(</span><span class="ss">:foo</span><span class="p">,</span> <span class="ss">:bar</span><span class="p">,</span> <span class="ss">:baz</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">create</span>
+</span></span><span class="line"><span class="cl">    <span class="no">Foo</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">filter_params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>What this code does:</p>
 <ol>
@@ -588,7 +593,7 @@ I suspect this happens when folks find it hard to understand the difference betw
 <p>An easy change we can make to keep the code as convenient while reducing the complexity is to move <code>allowed_params</code> from a &ldquo;macro&rdquo; to a method. The resulting code will be slightly less idiomatic, but much simpler. I think that&rsquo;s a good thing.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -613,36 +618,36 @@ I suspect this happens when folks find it hard to understand the difference betw
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">ParameterFiltering</span>
-  <span class="k">def</span> <span class="nf">filtered_params</span>
-    <span class="no">ParameterFilter</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">allowed_params</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
-  <span class="k">end</span>
-
-  <span class="k">def</span> <span class="nf">allowed_params</span>
-    <span class="k">raise</span> <span class="no">NotImplementedError</span> <span class="c1"># Signal to your users that they must implement this method</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="k">class</span> <span class="nc">FooController</span>
-  <span class="kp">include</span><span class="p">(</span><span class="no">ParameterFiltering</span><span class="p">)</span>
-
-  <span class="k">def</span> <span class="nf">create</span>
-    <span class="no">Foo</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">filter_params</span><span class="p">)</span>
-  <span class="k">end</span>
-
-  <span class="kp">private</span>
-
-  <span class="k">def</span> <span class="nf">allowed_params</span>
-    <span class="o">[</span><span class="ss">:foo</span><span class="p">,</span> <span class="ss">:bar</span><span class="p">,</span> <span class="ss">:baz</span><span class="o">]</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">module</span> <span class="nn">ParameterFiltering</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">filtered_params</span>
+</span></span><span class="line"><span class="cl">    <span class="no">ParameterFilter</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">allowed_params</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">allowed_params</span>
+</span></span><span class="line"><span class="cl">    <span class="k">raise</span> <span class="no">NotImplementedError</span> <span class="c1"># Signal to your users that they must implement this method</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">FooController</span>
+</span></span><span class="line"><span class="cl">  <span class="kp">include</span><span class="p">(</span><span class="no">ParameterFiltering</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">create</span>
+</span></span><span class="line"><span class="cl">    <span class="no">Foo</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">filter_params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kp">private</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">allowed_params</span>
+</span></span><span class="line"><span class="cl">    <span class="o">[</span><span class="ss">:foo</span><span class="p">,</span> <span class="ss">:bar</span><span class="p">,</span> <span class="ss">:baz</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>Another option we have would be to make the <code>allowed_params</code> an argument to the <code>filter_params</code> method. This would increase the convenience, as callsites can filter on different arguments.</p>
 <p>Finally, yet another refactor would be to get rid of the <code>ParameterFiltering</code> module entirely. Instead, we can instantiate a <code>ParameterFilter</code>, bind it to a constant, and reuse the same instance of <code>ParameterFilter</code> for all instances of the controller (provided it doesn&rsquo;t have mutable state). Object Oriented Programming has taught us favour composition over inheritance, and this approach subscribes to that philosophy.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -651,19 +656,19 @@ I suspect this happens when folks find it hard to understand the difference betw
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">FooController</span>
-  <span class="no">ParamFilter</span> <span class="o">=</span> <span class="no">ParameterFilter</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="o">[</span><span class="ss">:foo</span><span class="p">,</span> <span class="ss">:bar</span><span class="p">,</span> <span class="ss">:baz</span><span class="o">]</span><span class="p">)</span>
-
-  <span class="k">def</span> <span class="nf">create</span>
-    <span class="no">Foo</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="no">ParamFilter</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">FooController</span>
+</span></span><span class="line"><span class="cl">  <span class="no">ParamFilter</span> <span class="o">=</span> <span class="no">ParameterFilter</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="o">[</span><span class="ss">:foo</span><span class="p">,</span> <span class="ss">:bar</span><span class="p">,</span> <span class="ss">:baz</span><span class="o">]</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">create</span>
+</span></span><span class="line"><span class="cl">    <span class="no">Foo</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="no">ParamFilter</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>Unfortunately, this option is too often overlooked, even though it has powerful arguments in its favour. In our case, since the instance of <code>ParameterFilter</code> can be reused, we&rsquo;ll be allocating less objects. The resulting code is also both simpler and easier to understand. Finally, we&rsquo;ll easily be able to compose objects to obtain the behaviour we want, a task which would be much harder if we used any of the previous patterns. Ex:</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -673,21 +678,21 @@ I suspect this happens when folks find it hard to understand the difference betw
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">FooController</span>
-  <span class="no">ParamFilter</span> <span class="o">=</span>
-    <span class="no">RejectLongParameterValues</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">ParameterFilter</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="o">[</span><span class="ss">:foo</span><span class="p">,</span> <span class="ss">:bar</span><span class="p">,</span> <span class="ss">:baz</span><span class="o">]</span><span class="p">),</span> <span class="ss">max_length</span><span class="p">:</span> <span class="mi">30</span><span class="p">)</span>
-
-  <span class="k">def</span> <span class="nf">create</span>
-    <span class="no">Foo</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="no">ParamFilter</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">FooController</span>
+</span></span><span class="line"><span class="cl">  <span class="no">ParamFilter</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="no">RejectLongParameterValues</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">ParameterFilter</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="o">[</span><span class="ss">:foo</span><span class="p">,</span> <span class="ss">:bar</span><span class="p">,</span> <span class="ss">:baz</span><span class="o">]</span><span class="p">),</span> <span class="ss">max_length</span><span class="p">:</span> <span class="mi">30</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">create</span>
+</span></span><span class="line"><span class="cl">    <span class="no">Foo</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="no">ParamFilter</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><h2 id="class-macro-instance-functions"><a href="#class-macro-instance-functions" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Class Macro, Instance Functions</h2>
 <p>This is a slight variation on the &ldquo;Coupling Class and Instances&rdquo; pattern, except that the main behaviour of the module is adding a &ldquo;macro&rdquo; to define instance methods. This pattern tends to happen when the defined method becomes long, and developers want to extract parts of it into functions. Having nowhere obvious to put the extracted methods, we resort to also using instance methods (it&rsquo;s the easiest).</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -707,30 +712,30 @@ I suspect this happens when folks find it hard to understand the difference betw
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">ValidatedAttribute</span>
-  <span class="kp">extend</span><span class="p">(</span><span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Concern</span><span class="p">)</span>
-
-  <span class="k">module</span> <span class="nn">ClassMethods</span>
-    <span class="c1"># The `attribute` method is a &#34;macro&#34;. The `valid?` method has been extracted from it.</span>
-    <span class="k">def</span> <span class="nf">attribute</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
-      <span class="n">define_method</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span> <span class="k">do</span>
-        <span class="c1"># work</span>
-        <span class="n">valid_attribute?</span><span class="p">(</span><span class="n">thing</span><span class="p">)</span>
-        <span class="c1"># work some more</span>
-      <span class="k">end</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-
-  <span class="k">def</span> <span class="nf">valid_attribute?</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span>
-    <span class="c1"># work</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">module</span> <span class="nn">ValidatedAttribute</span>
+</span></span><span class="line"><span class="cl">  <span class="kp">extend</span><span class="p">(</span><span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Concern</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">module</span> <span class="nn">ClassMethods</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># The `attribute` method is a &#34;macro&#34;. The `valid?` method has been extracted from it.</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">attribute</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="n">define_method</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># work</span>
+</span></span><span class="line"><span class="cl">        <span class="n">valid_attribute?</span><span class="p">(</span><span class="n">thing</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># work some more</span>
+</span></span><span class="line"><span class="cl">      <span class="k">end</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">valid_attribute?</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># work</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>Refactoring this is quite easy in most cases: we can make them functions. This will allow us to get rid of the <code>ClassMethods</code> module. It also has nice benefits: the <code>valid_attribute?</code> function becomes much easier to test, we don&rsquo;t risk clobbering other methods with the same name, and the instances have one less level of inheritance.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -748,29 +753,29 @@ I suspect this happens when folks find it hard to understand the difference betw
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">ValidatedAttribute</span>
-  <span class="c1"># The `attribute` method is a &#34;macro&#34;. The `valid?` method has been extracted from it.</span>
-  <span class="k">def</span> <span class="nf">attribute</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
-    <span class="n">define_method</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span> <span class="k">do</span>
-      <span class="c1"># work</span>
-      <span class="no">ValidatedAttribute</span><span class="o">.</span><span class="n">valid_attribute?</span><span class="p">(</span><span class="n">thing</span><span class="p">)</span>
-      <span class="c1"># work some more</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-
-  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
-    <span class="k">def</span> <span class="nf">valid_attribute?</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span>
-      <span class="c1"># work</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">module</span> <span class="nn">ValidatedAttribute</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># The `attribute` method is a &#34;macro&#34;. The `valid?` method has been extracted from it.</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">attribute</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">define_method</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">      <span class="c1"># work</span>
+</span></span><span class="line"><span class="cl">      <span class="no">ValidatedAttribute</span><span class="o">.</span><span class="n">valid_attribute?</span><span class="p">(</span><span class="n">thing</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="c1"># work some more</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">valid_attribute?</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="c1"># work</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><h2 id="a-pattern-i-dont-know-how-to-refactor"><a href="#a-pattern-i-dont-know-how-to-refactor" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>A Pattern I Don&rsquo;t Know How To Refactor</h2>
 <p>There are still a few usage patterns of <code>AS::C</code> which I don&rsquo;t know how to easily refactor, they would require fundamental changes. These have always been around adding another layer metaprogramming, often under the guise of convenience. Here&rsquo;s an example, involving metaprogramming and <code>ActiveRecord</code>. The <code>CanBeActive</code> module adds a scope to the class, and a method to the instances. While I don&rsquo;t consider this to be good practice, I don&rsquo;t see a more convenient way to achieve the same results.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -787,22 +792,22 @@ I suspect this happens when folks find it hard to understand the difference betw
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">CanBeActive</span>
-  <span class="kp">extend</span><span class="p">(</span><span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Concern</span><span class="p">)</span>
-
-  <span class="n">included</span> <span class="k">do</span>
-    <span class="n">scope</span><span class="p">(</span><span class="ss">:active</span><span class="p">,</span> <span class="o">-&gt;</span> <span class="p">{</span> <span class="n">where</span><span class="p">(</span><span class="ss">active</span><span class="p">:</span> <span class="kp">true</span><span class="p">)</span> <span class="p">})</span>
-  <span class="k">end</span>
-
-  <span class="k">def</span> <span class="nf">inactive?</span>
-    <span class="o">!!</span><span class="n">active?</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
-  <span class="kp">include</span><span class="p">(</span><span class="no">CanBeActive</span><span class="p">)</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">module</span> <span class="nn">CanBeActive</span>
+</span></span><span class="line"><span class="cl">  <span class="kp">extend</span><span class="p">(</span><span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Concern</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">included</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="n">scope</span><span class="p">(</span><span class="ss">:active</span><span class="p">,</span> <span class="o">-&gt;</span> <span class="p">{</span> <span class="n">where</span><span class="p">(</span><span class="ss">active</span><span class="p">:</span> <span class="kp">true</span><span class="p">)</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">inactive?</span>
+</span></span><span class="line"><span class="cl">    <span class="o">!!</span><span class="n">active?</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+</span></span><span class="line"><span class="cl">  <span class="kp">include</span><span class="p">(</span><span class="no">CanBeActive</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>I personally don&rsquo;t worry too much about the byte size of the codebase, and I would probably skip the module in this case, and implement the same logic in all classes which use it, unless that is, the <code>CanBeActive</code> is actually a concept my application uses, ex: if I had a <code>ActivationController</code> which accepts <em>any</em> <code>CanBeActive</code> resource. That is, I would add this module not as a way to share code, but as a way to identify a common concept.</p>
 <h2 id="conclusion"><a href="#conclusion" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Conclusion</h2>
@@ -812,12 +817,12 @@ I suspect this happens when folks find it hard to understand the difference betw
 
             </div>
 
+            
+
+
         </article>
 
         
-
-        
-
 
         
 
@@ -861,9 +866,9 @@ I suspect this happens when folks find it hard to understand the difference betw
                     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
 
 <script>
-    var typeNumber = 0;
-    var errorCorrectionLevel = 'L';
-    var qr = qrcode(typeNumber, errorCorrectionLevel);
+    const typeNumber = 0;
+    const errorCorrectionLevel = 'L';
+    const qr = qrcode(typeNumber, errorCorrectionLevel);
     qr.addData('https:\/\/gmalette.dev\/posts\/refactoring-common-activesupport-concern-patterns\/');
     qr.make();
     document.getElementById('qrcode-img').innerHTML = qr.createImgTag();
@@ -950,9 +955,11 @@ I suspect this happens when folks find it hard to understand the difference betw
         
     
 
-        <div class="load-comments">
-            <div id="load-comments">Load Comments?</div>
-        </div>
+        
+            <div class="load-comments">
+                <div id="load-comments">Load Comments?</div>
+            </div>
+        
 
         
 
@@ -962,6 +969,7 @@ I suspect this happens when folks find it hard to understand the difference betw
             <div id="utterances"></div>
         
 
+        
     
 
 
@@ -975,7 +983,7 @@ I suspect this happens when folks find it hard to understand the difference betw
             
     <footer id="footer" class="footer">
         <div class="footer-inner">
-            <div class="site-info">©&nbsp;2015–2020&nbsp;Guillaume Malette</div>
+            <div class="site-info">©&nbsp;2015–2022&nbsp;Guillaume Malette</div>
 
             
     
@@ -983,6 +991,8 @@ I suspect this happens when folks find it hard to understand the difference betw
                     <a href="/rss.xml" target="_blank" rel="external noopener" title="RSS"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon social-icon"><path d="M19.199 24C19.199 13.467 10.533 4.8 0 4.8V0c13.165 0 24 10.835 24 24h-4.801zM3.291 17.415c1.814 0 3.293 1.479 3.293 3.295 0 1.813-1.485 3.29-3.301 3.29C1.47 24 0 22.526 0 20.71s1.475-3.294 3.291-3.295zM15.909 24h-4.665c0-6.169-5.075-11.245-11.244-11.245V8.09c8.727 0 15.909 7.184 15.909 15.91z"/></svg></a>
                 </li><li class="socials-item">
                     <a href="https://github.com/gmalette" target="_blank" rel="external noopener" title="GitHub"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon social-icon"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+                </li><li class="socials-item">
+                    <a href="https://hachyderm.io/@gmalette" target="_blank" rel="me" title="Mastodon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 417.8 512" class="icon social-icon"><path d="M417.8 179.1c0-97.2-63.7-125.7-63.7-125.7-62.5-28.7-228.5-28.4-290.4 0 0 0-63.7 28.5-63.7 125.7 0 115.7-6.6 259.4 105.6 289.1 40.5 10.7 75.3 13 103.3 11.4 50.8-2.8 79.3-18.1 79.3-18.1l-1.7-36.9s-36.3 11.4-77.1 10.1c-40.4-1.4-83-4.4-89.6-54-.6-4.4-.9-9-.9-13.9 85.6 20.9 158.6 9.1 178.7 6.7 56.1-6.7 105-41.3 111.2-72.9 9.8-49.8 9-121.5 9-121.5zm-75.1 125.2h-46.6V190.1c0-49.7-64-51.6-64 6.9v62.5h-46.3V197c0-58.5-64-56.6-64-6.9v114.2H75.1c0-122.1-5.2-147.9 18.4-175 25.9-28.9 79.8-30.8 103.8 6.1l11.6 19.5 11.6-19.5c24.1-37.1 78.1-34.8 103.8-6.1 23.7 27.3 18.4 53 18.4 175z"/></svg></a>
                 </li><li class="socials-item">
                     <a href="https://twitter.com/gmalette" target="_blank" rel="external noopener" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon social-icon"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg></a>
                 </li></ul>
@@ -997,18 +1007,8 @@ I suspect this happens when folks find it hard to understand the difference betw
 
         </div>
         
-    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
 
-<script>
-    var scroll = new SmoothScroll('a[href*="#"]', {
-        speedAsDuration: true,
-        header: '[data-scroll-header]'
-    });
-</script>
-
-
-
-
+        
 
 
 
@@ -1025,9 +1025,12 @@ I suspect this happens when folks find it hard to understand the difference betw
             <script>
     function loadComments() {
         (function() {
-            var utterances = document.getElementById("utterances");
-            var script = document.createElement('script');
-            script.src = 'https://utteranc.es/client.js';
+            const utterances = document.getElementById("utterances");
+            if (!utterances) {
+                return;
+            }
+            const script = document.createElement('script');
+            script.src = 'https:\/\/utteranc.es\/client.js';
             script.async = true;
             script.crossOrigin = 'anonymous';
             script.setAttribute('repo', 'gmalette\/gmalette.github.io-src');
@@ -1040,6 +1043,8 @@ I suspect this happens when folks find it hard to understand the difference betw
 </script>
         
 
+        
+
     
 
 
@@ -1047,7 +1052,10 @@ I suspect this happens when folks find it hard to understand the difference betw
     <script src="https://cdn.jsdelivr.net/npm/medium-zoom@latest/dist/medium-zoom.min.js"></script>
 
 <script>
-    mediumZoom(document.querySelectorAll('div.post-body img'), {
+    let imgNodes = document.querySelectorAll('div.post-body img');
+    imgNodes = Array.from(imgNodes).filter(node => node.parentNode.tagName !== "A");
+
+    mediumZoom(imgNodes, {
         background: 'hsla(var(--color-bg-h), var(--color-bg-s), var(--color-bg-l), 0.95)'
     })
 </script>
@@ -1055,11 +1063,7 @@ I suspect this happens when folks find it hard to understand the difference betw
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/instant.page@3.0.0/instantpage.min.js" type="module" defer></script>
-
-
-
-
+    <script src="https://cdn.jsdelivr.net/npm/instant.page@5.1.0/instantpage.min.js" type="module" defer></script>
 
 
 

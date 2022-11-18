@@ -1,69 +1,37 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://gmalette.dev/categories/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://gmalette.dev/posts/graphql-and-sorbet-and-unit-tests/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://gmalette.dev/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://gmalette.dev/posts/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://gmalette.dev/categories/ruby/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://gmalette.dev/posts/type-variance-explained-to-a-ruby-developer/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://gmalette.dev/posts/affordance-for-errors-pt3/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://gmalette.dev/posts/affordance-for-errors-pt2/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://gmalette.dev/posts/affordance-for-errors-pt1/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://gmalette.dev/posts/refactoring-common-activesupport-concern-patterns/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://gmalette.dev/categories/general/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://gmalette.dev/posts/moving-away-from-medium/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://gmalette.dev/posts/the-ruby-object-model/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://gmalette.dev/posts/revoking-the-parentheses-privilege/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://gmalette.dev/posts/short-rant-about-activesupport-concern/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://gmalette.dev/posts/mistaking-authentication-for-identification/</loc>
   </url>
-  
 </urlset>

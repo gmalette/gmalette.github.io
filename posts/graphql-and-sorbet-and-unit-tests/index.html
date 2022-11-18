@@ -3,7 +3,10 @@
     <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
     <meta charset="UTF-8" />
 
-    <meta name="generator" content="Hugo 0.72.0" /><meta name="theme-color" content="#fff" />
+    <meta name="generator" content="Hugo 0.106.0"><meta name="theme-color" content="#fff" />
+    <meta name="color-scheme" content="light dark">
+
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <meta name="format-detection" content="telephone=no, date=no, address=no, email=no" />
@@ -14,11 +17,11 @@
 
     <title>GraphQL ❤️ Sorbet and Unit Tests | Guillaume&#39;s Horrible Code-Along Blog</title>
 
-    <link rel="stylesheet" href="/css/meme.min.6f0bc58825f5d717c9a702acbceaf4f2d3318d61c30f2e32ccd0b3fcada62ab1.css" integrity="sha256-bwvFiCX11xfJpwKsvOr08tMxjWHDDy4yzNCz/K2mKrE=" />
+    <link rel="stylesheet" href="/css/meme.min.e4e70cfe34f9799e569fbe6717e185ae6b650688ecb46ca7e1a724fe4df9803c.css"/>
 
     
     
-        <script src="/js/meme.min.bcbfd1615d39587df5581ddd1d2990d5193966e6647a4059879574e0a16d10a8.js" integrity="sha256-vL/RYV05WH31WB3dHSmQ1Rk5ZuZkekBZh5V04KFtEKg="></script>
+        <script src="/js/meme.min.71d2c3f1dcb1b34a2bb1dd79ebc67f990aa10cbc13af7c337e1b9b54653801f4.js"></script>
 
     
 
@@ -34,7 +37,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="Guillaume&#39;s Horrible Code-Along Blog" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="application-name" content="Guillaume&#39;s Horrible Code-Along Blog" />
     <meta name="msapplication-starturl" content="../../" />
@@ -60,7 +63,7 @@
         "description": "For the past year, my team has been working on a project that exposes a GraphQL API, and, since we’ve been doing things quite differently than the rest of the company, I figured some of our ideas might be worth sharing. We’ve been using the graphql-ruby gem, and even though it doesn’t lend itself well to unit testing, we’ve insisted on writing unit tests.",
         "inLanguage" : "en",
         "articleSection": "posts",
-        "wordCount":  4237 ,
+        "wordCount":  4272 ,
         "image": ["https://gmalette.dev/images/posts/graphql-and-sorbet-and-unit-tests/fig1.png"],
         "author": {
             "@type": "Person",
@@ -75,11 +78,11 @@
                 "@type": "ImageObject",
                 "url": "https://gmalette.dev/icons/apple-touch-icon.png"
             },
-            "url": "https://gmalette.dev/"
+            "url": "https://gmalette.dev"
         },
         "mainEntityOfPage": {
             "@type": "WebSite",
-            "@id": "https://gmalette.dev/"
+            "@id": "https://gmalette.dev"
         }
     }
 </script>
@@ -90,7 +93,6 @@
 
 
 <meta name="twitter:site" content="@gmalette" />
-<meta name="twitter:creator" content="@gmalette" />
 
     
 
@@ -126,12 +128,15 @@
 
 
     
+    
+
+    
 </head>
 
     <body>
         <div class="container">
             
-    <header class="header" data-scroll-header>
+    <header class="header">
         
             <div class="header-wrapper">
                 <div class="header-inner single">
@@ -185,9 +190,9 @@
 
         
 
-        <article class="content post" data-small-caps="true" data-align="default" data-type="posts" data-toc-num="true">
+        <article class="content post h-entry" data-small-caps="true" data-align="default" data-type="posts" data-toc-num="true">
 
-            <h1 class="post-title">GraphQL ❤️ Sorbet and Unit Tests</h1>
+            <h1 class="post-title p-name">GraphQL ❤️ Sorbet and Unit Tests</h1>
 
             
 
@@ -201,7 +206,7 @@
 <div class="post-meta">
     
         
-        <time datetime="2020-11-05T14:00:00&#43;04:00" class="post-meta-item published"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M148 288h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm108-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 96v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48zm-48 346V160H48v298c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z"/></svg>&nbsp;2020.11.5</time>
+        <time datetime="2020-11-05T14:00:00&#43;04:00" class="post-meta-item published dt-published"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M148 288h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm108-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 96v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48zm-48 346V160H48v298c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z"/></svg>&nbsp;2020.11.5</time>
     
     
     
@@ -210,17 +215,17 @@
         
         
             
-                <span class="post-meta-item category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>&nbsp;<a href="/categories/ruby/" class="category-link">Ruby</a></span>
+                <span class="post-meta-item category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>&nbsp;<a href="/categories/ruby/" class="category-link p-category">Ruby</a></span>
             
         
     
     
         
-        <span class="post-meta-item wordcount"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>&nbsp;4237</span>
+        <span class="post-meta-item wordcount"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>&nbsp;4272</span>
     
     
         
-        <span class="post-meta-item reading-time"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"/></svg>&nbsp;20&nbsp;mins</span>
+        <span class="post-meta-item reading-time"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"/></svg>&nbsp;21&nbsp;mins</span>
     
     
     
@@ -228,8 +233,8 @@
 
             
 
-            <div class="post-body">
-              <p>For the past year, my team has been working on a project that exposes a GraphQL API, and, since we&rsquo;ve been doing things quite differently than the rest of the company, I figured some of our ideas might be worth sharing. We&rsquo;ve been using the <a href="https://graphql-ruby.org/"><code>graphql-ruby</code></a> gem, and even though it doesn&rsquo;t lend itself well to unit testing, we&rsquo;ve insisted on writing unit tests. What&rsquo;s more, we&rsquo;ve also used Sorbet to prevent other categories of errors; in fact, most of our code is using <code>typed: strict</code>! In this post, I&rsquo;ll share why we went out of our way to do this, and how it can be done.</p>
+            <div class="post-body e-content">
+                <p>For the past year, my team has been working on a project that exposes a GraphQL API, and, since we&rsquo;ve been doing things quite differently than the rest of the company, I figured some of our ideas might be worth sharing. We&rsquo;ve been using the <a href="https://graphql-ruby.org/"><code>graphql-ruby</code></a> gem, and even though it doesn&rsquo;t lend itself well to unit testing, we&rsquo;ve insisted on writing unit tests. What&rsquo;s more, we&rsquo;ve also used Sorbet to prevent other categories of errors; in fact, most of our code is using <code>typed: strict</code>! In this post, I&rsquo;ll share why we went out of our way to do this, and how it can be done.</p>
 <p>If you don&rsquo;t like boilerplate code, beware, the quantity of boilerplate required is staggering!</p>
 <p><em>Note: for the purpose of this post, I will assume that you are familiar with the Sorbet and GraphQL syntaxes.</em></p>
 <h1 id="primer"><a href="#primer" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Primer</h1>
@@ -252,15 +257,15 @@
 <p>I like to think of values used in APIs as a pyramid, in which the domain must be able to support all input values, and the output must support all the domain values.</p>
 <p><img src="/images/posts/graphql-and-sorbet-and-unit-tests/fig1.png" alt="type pyramid"></p>
 <p>For example, our API could use these types, where all types are identical:</p>
-<pre><code>Input = Integer
+<pre tabindex="0"><code>Input = Integer
 Domain = Integer
 Output = Integer
 </code></pre><p>It&rsquo;s also possible to use an actual pyramid of types:</p>
-<pre><code>Input = Integer
+<pre tabindex="0"><code>Input = Integer
 Domain = Integer | Float
 Output = Numeric
 </code></pre><p>However, using types that can&rsquo;t naturally represent the values they must support will require constraining. For example, if we used the following types, the API would require another way to constrain the values, often resorting to errors:</p>
-<pre><code>Input = Float
+<pre tabindex="0"><code>Input = Float
 Domain = Integer
 Output = PositiveInteger
 </code></pre><p>In GraphQL and Ruby, constraining is quickly required, because GraphQL&rsquo;s <code>Int</code> type is limited to 32 bits, whereas Ruby&rsquo;s <code>Integer</code> type is not.</p>
@@ -268,25 +273,25 @@ Output = PositiveInteger
 <p>Static analysis allows us to verify that each layer can support the values representable by the layers above it. This has been especially useful to catch changes in the domain that can&rsquo;t be mapped by the API, because the tests don&rsquo;t necessarily exist. For example, this change:</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-diff" data-lang="diff">  Input = Integer
-<span class="gd">- Domain = Integer
-</span><span class="gd"></span><span class="gi">+ Domain = Integer | Float
-</span><span class="gi"></span>  Output = Integer
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl">  Input = Integer
+</span></span><span class="line"><span class="cl"><span class="gd">- Domain = Integer
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+ Domain = Integer | Float
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>  Output = Integer
+</span></span></code></pre></td></tr></table></div>
 </div>
-</div><p>We haven&rsquo;t been able to write tests of our API that would catch this change and alert us that <code>Output</code>'s type must also be changed. Static analysis catches this easily.</p>
+</div><p>We haven&rsquo;t been able to write tests of our API that would catch this change and alert us that <code>Output</code>&rsquo;s type must also be changed. Static analysis catches this easily.</p>
 <h1 id="practical-example"><a href="#practical-example" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Practical Example</h1>
 <p>For the rest of this article, we&rsquo;ll be working on a small API. Suppose there&rsquo;s another team that owns the entirety of Messages, and yet we still need to allow interacting with <code>Message</code> objects in our API.</p>
 <p>The domain is simple enough: we can create new messages using <code>Domain::Message.create</code> with an instantiated <code>Domain::Message</code>, and we will get back a <code>Message</code> object. The code below is the entire public API they expose.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -317,42 +322,42 @@ Output = PositiveInteger
 </span><span class="lnt">29
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># typed: strict</span>
-
-<span class="k">class</span> <span class="nc">Domain</span><span class="o">::</span><span class="no">Message</span>
-  <span class="kp">extend</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="no">Sig</span><span class="p">)</span>
-
-  <span class="n">sig</span> <span class="k">do</span>
-    <span class="n">params</span><span class="p">(</span><span class="ss">message</span><span class="p">:</span> <span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="p">)</span>
-      <span class="o">.</span><span class="n">returns</span><span class="p">(</span><span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="p">)</span>
-  <span class="k">end</span>
-  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">create</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-    <span class="c1"># omitted</span>
-  <span class="k">end</span>
-
-  <span class="c1"># Messages will be anonymous if from_name == nil</span>
-  <span class="n">sig</span> <span class="k">do</span>
-    <span class="n">params</span><span class="p">(</span><span class="ss">content</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="ss">from_name</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">nilable</span><span class="p">(</span><span class="nb">String</span><span class="p">))</span>
-      <span class="o">.</span><span class="n">void</span>
-  <span class="k">end</span>
-  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="ss">content</span><span class="p">:,</span> <span class="ss">from_name</span><span class="p">:)</span>
-    <span class="vi">@content</span> <span class="o">=</span> <span class="n">content</span>
-    <span class="vi">@from_name</span> <span class="o">=</span> <span class="n">from_name</span>
-  <span class="k">end</span>
-
-  <span class="n">sig</span> <span class="p">{</span> <span class="n">returns</span><span class="p">(</span><span class="nb">String</span><span class="p">)</span> <span class="p">}</span>
-  <span class="kp">attr_reader</span><span class="p">(</span><span class="ss">:content</span><span class="p">)</span>
-
-  <span class="n">sig</span> <span class="p">{</span> <span class="n">returns</span><span class="p">(</span><span class="n">T</span><span class="o">.</span><span class="n">nilable</span><span class="p">(</span><span class="nb">String</span><span class="p">))</span> <span class="p">}</span>
-  <span class="kp">attr_reader</span><span class="p">(</span><span class="ss">:from_name</span><span class="p">)</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="c1"># typed: strict</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Domain</span><span class="o">::</span><span class="no">Message</span>
+</span></span><span class="line"><span class="cl">  <span class="kp">extend</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="no">Sig</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">sig</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="n">params</span><span class="p">(</span><span class="ss">message</span><span class="p">:</span> <span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="o">.</span><span class="n">returns</span><span class="p">(</span><span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">create</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># omitted</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># Messages will be anonymous if from_name == nil</span>
+</span></span><span class="line"><span class="cl">  <span class="n">sig</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="n">params</span><span class="p">(</span><span class="ss">content</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="ss">from_name</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">nilable</span><span class="p">(</span><span class="nb">String</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">      <span class="o">.</span><span class="n">void</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="ss">content</span><span class="p">:,</span> <span class="ss">from_name</span><span class="p">:)</span>
+</span></span><span class="line"><span class="cl">    <span class="vi">@content</span> <span class="o">=</span> <span class="n">content</span>
+</span></span><span class="line"><span class="cl">    <span class="vi">@from_name</span> <span class="o">=</span> <span class="n">from_name</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">sig</span> <span class="p">{</span> <span class="n">returns</span><span class="p">(</span><span class="nb">String</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="kp">attr_reader</span><span class="p">(</span><span class="ss">:content</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">sig</span> <span class="p">{</span> <span class="n">returns</span><span class="p">(</span><span class="n">T</span><span class="o">.</span><span class="n">nilable</span><span class="p">(</span><span class="nb">String</span><span class="p">))</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="kp">attr_reader</span><span class="p">(</span><span class="ss">:from_name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p><em>Note: The code contained in this post <a href="https://github.com/gmalette/gql-sorbet-tests">has been made available in a separate repository on GitHub</a>, and each commit corresponds to progress in this post.</em></p>
 <p>Since we don&rsquo;t know anything about Messages and we&rsquo;re short on time, we&rsquo;ll just expose an API that is a direct translation what&rsquo;s offered internally. This is what the GraphQL definitions would look like, before we start implementing resolvers.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -383,41 +388,41 @@ Output = PositiveInteger
 </span><span class="lnt">29
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># For this example, we&#39;ll be using mostly</span>
-<span class="c1"># the `MutationRoot`, but the graphql-ruby</span>
-<span class="c1"># gem requires a valid `QueryRoot`, so we&#39;ll</span>
-<span class="c1"># provide it with a dummy one.</span>
-<span class="k">class</span> <span class="nc">Api</span><span class="o">::</span><span class="no">QueryRoot</span> <span class="o">&lt;</span> <span class="no">GraphQL</span><span class="o">::</span><span class="no">Schema</span><span class="o">::</span><span class="no">Object</span>
-  <span class="n">field</span><span class="p">(</span><span class="ss">:version</span><span class="p">,</span> <span class="nb">Integer</span><span class="p">,</span> <span class="ss">null</span><span class="p">:</span> <span class="kp">false</span><span class="p">)</span>
-<span class="k">end</span>
-
-<span class="k">class</span> <span class="nc">Api</span><span class="o">::</span><span class="no">Message</span> <span class="o">&lt;</span> <span class="no">GraphQL</span><span class="o">::</span><span class="no">Schema</span><span class="o">::</span><span class="no">Object</span>
-  <span class="kp">extend</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="no">Sig</span><span class="p">)</span> <span class="c1"># sigs will be added later</span>
-
-  <span class="n">field</span><span class="p">(</span><span class="ss">:content</span><span class="p">,</span> <span class="nb">String</span><span class="p">,</span> <span class="ss">null</span><span class="p">:</span> <span class="kp">false</span><span class="p">)</span>
-  <span class="n">field</span><span class="p">(</span><span class="ss">:from_name</span><span class="p">,</span> <span class="nb">String</span><span class="p">,</span> <span class="ss">null</span><span class="p">:</span> <span class="kp">true</span><span class="p">)</span>
-<span class="k">end</span>
-
-<span class="k">class</span> <span class="nc">Api</span><span class="o">::</span><span class="no">MessageInput</span> <span class="o">&lt;</span> <span class="no">GraphQL</span><span class="o">::</span><span class="no">Schema</span><span class="o">::</span><span class="no">InputObject</span>
-  <span class="kp">extend</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="no">Sig</span><span class="p">)</span>
-
-  <span class="n">argument</span><span class="p">(</span><span class="ss">:content</span><span class="p">,</span> <span class="nb">String</span><span class="p">,</span> <span class="ss">required</span><span class="p">:</span> <span class="kp">true</span><span class="p">)</span>
-  <span class="n">argument</span><span class="p">(</span><span class="ss">:from_name</span><span class="p">,</span> <span class="nb">String</span><span class="p">,</span> <span class="ss">required</span><span class="p">:</span> <span class="kp">false</span><span class="p">)</span>
-<span class="k">end</span>
-
-<span class="k">class</span> <span class="nc">Api</span><span class="o">::</span><span class="no">MutationRoot</span> <span class="o">&lt;</span> <span class="no">GraphQL</span><span class="o">::</span><span class="no">Schema</span><span class="o">::</span><span class="no">Object</span>
-  <span class="kp">extend</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="no">Sig</span><span class="p">)</span>
-
-  <span class="n">field</span><span class="p">(</span><span class="ss">:message_create</span><span class="p">,</span> <span class="no">Api</span><span class="o">::</span><span class="no">Message</span><span class="p">,</span> <span class="ss">null</span><span class="p">:</span> <span class="kp">false</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="ss">:message_input</span><span class="p">,</span> <span class="no">Api</span><span class="o">::</span><span class="no">MessageInput</span><span class="p">,</span> <span class="ss">required</span><span class="p">:</span> <span class="kp">true</span><span class="p">)</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="c1"># For this example, we&#39;ll be using mostly</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># the `MutationRoot`, but the graphql-ruby</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># gem requires a valid `QueryRoot`, so we&#39;ll</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># provide it with a dummy one.</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Api</span><span class="o">::</span><span class="no">QueryRoot</span> <span class="o">&lt;</span> <span class="no">GraphQL</span><span class="o">::</span><span class="no">Schema</span><span class="o">::</span><span class="no">Object</span>
+</span></span><span class="line"><span class="cl">  <span class="n">field</span><span class="p">(</span><span class="ss">:version</span><span class="p">,</span> <span class="nb">Integer</span><span class="p">,</span> <span class="ss">null</span><span class="p">:</span> <span class="kp">false</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Api</span><span class="o">::</span><span class="no">Message</span> <span class="o">&lt;</span> <span class="no">GraphQL</span><span class="o">::</span><span class="no">Schema</span><span class="o">::</span><span class="no">Object</span>
+</span></span><span class="line"><span class="cl">  <span class="kp">extend</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="no">Sig</span><span class="p">)</span> <span class="c1"># sigs will be added later</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">field</span><span class="p">(</span><span class="ss">:content</span><span class="p">,</span> <span class="nb">String</span><span class="p">,</span> <span class="ss">null</span><span class="p">:</span> <span class="kp">false</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">field</span><span class="p">(</span><span class="ss">:from_name</span><span class="p">,</span> <span class="nb">String</span><span class="p">,</span> <span class="ss">null</span><span class="p">:</span> <span class="kp">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Api</span><span class="o">::</span><span class="no">MessageInput</span> <span class="o">&lt;</span> <span class="no">GraphQL</span><span class="o">::</span><span class="no">Schema</span><span class="o">::</span><span class="no">InputObject</span>
+</span></span><span class="line"><span class="cl">  <span class="kp">extend</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="no">Sig</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">argument</span><span class="p">(</span><span class="ss">:content</span><span class="p">,</span> <span class="nb">String</span><span class="p">,</span> <span class="ss">required</span><span class="p">:</span> <span class="kp">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">argument</span><span class="p">(</span><span class="ss">:from_name</span><span class="p">,</span> <span class="nb">String</span><span class="p">,</span> <span class="ss">required</span><span class="p">:</span> <span class="kp">false</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Api</span><span class="o">::</span><span class="no">MutationRoot</span> <span class="o">&lt;</span> <span class="no">GraphQL</span><span class="o">::</span><span class="no">Schema</span><span class="o">::</span><span class="no">Object</span>
+</span></span><span class="line"><span class="cl">  <span class="kp">extend</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="no">Sig</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">field</span><span class="p">(</span><span class="ss">:message_create</span><span class="p">,</span> <span class="no">Api</span><span class="o">::</span><span class="no">Message</span><span class="p">,</span> <span class="ss">null</span><span class="p">:</span> <span class="kp">false</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="ss">:message_input</span><span class="p">,</span> <span class="no">Api</span><span class="o">::</span><span class="no">MessageInput</span><span class="p">,</span> <span class="ss">required</span><span class="p">:</span> <span class="kp">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>This will generate the following GraphQL IDL:</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -441,35 +446,35 @@ Output = PositiveInteger
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-graphql" data-lang="graphql"><span class="kd">schema</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">  </span><span class="kd">query</span><span class="p">:</span><span class="w"> </span><span class="nc">QueryRoot</span><span class="w">
-</span><span class="w">  </span><span class="nc">mutation</span><span class="p">:</span><span class="w"> </span><span class="nc">MutationRoot</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="kd">type</span><span class="w"> </span><span class="nc">Message</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">  </span><span class="py">content</span><span class="p">:</span><span class="w"> </span><span class="nc">String</span><span class="p">!</span><span class="w">
-</span><span class="w">  </span><span class="py">fromName</span><span class="p">:</span><span class="w"> </span><span class="nc">String</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="kd">input</span><span class="w"> </span><span class="nc">MessageInput</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">  </span><span class="py">content</span><span class="p">:</span><span class="w"> </span><span class="nc">String</span><span class="p">!</span><span class="w">
-</span><span class="w">  </span><span class="py">fromName</span><span class="p">:</span><span class="w"> </span><span class="nc">String</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="kd">type</span><span class="w"> </span><span class="nc">MutationRoot</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">  </span><span class="py">messageCreate</span><span class="p">(</span><span class="py">messageInput</span><span class="p">:</span><span class="w"> </span><span class="nc">MessageInput</span><span class="p">!):</span><span class="w"> </span><span class="nc">Message</span><span class="p">!</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="kd">type</span><span class="w"> </span><span class="nc">QueryRoot</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">  </span><span class="py">version</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="p">!</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-graphql" data-lang="graphql"><span class="line"><span class="cl"><span class="kd">schema</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kd">query</span><span class="p">:</span><span class="w"> </span><span class="nc">QueryRoot</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nc">mutation</span><span class="p">:</span><span class="w"> </span><span class="nc">MutationRoot</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">type</span><span class="w"> </span><span class="nc">Message</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="py">content</span><span class="p">:</span><span class="w"> </span><span class="nc">String</span><span class="p">!</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="py">fromName</span><span class="p">:</span><span class="w"> </span><span class="nc">String</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">input</span><span class="w"> </span><span class="nc">MessageInput</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="py">content</span><span class="p">:</span><span class="w"> </span><span class="nc">String</span><span class="p">!</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="py">fromName</span><span class="p">:</span><span class="w"> </span><span class="nc">String</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">type</span><span class="w"> </span><span class="nc">MutationRoot</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="py">messageCreate</span><span class="p">(</span><span class="py">messageInput</span><span class="p">:</span><span class="w"> </span><span class="nc">MessageInput</span><span class="p">!):</span><span class="w"> </span><span class="nc">Message</span><span class="p">!</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">type</span><span class="w"> </span><span class="nc">QueryRoot</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="py">version</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="p">!</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div>
 </div>
 </div><h2 id="testing-inputs"><a href="#testing-inputs" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Testing Inputs</h2>
 <p>Input types need to be mapped to domain types, and we would very much like to test that they can be mapped correctly. The <code>graphql-ruby</code> gem allows the definition of a <code>prepare</code> method that does this mapping. Unfortunately, for Sorbet&rsquo;s benefits, we&rsquo;ll also need to define the fields as private methods. The upside is that we&rsquo;ll also benefit from runtime type checking (albeit incomplete) in addition to static analysis.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -494,35 +499,35 @@ Output = PositiveInteger
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Api</span><span class="o">::</span><span class="no">MessageInput</span> <span class="o">&lt;</span> <span class="no">GraphQL</span><span class="o">::</span><span class="no">Schema</span><span class="o">::</span><span class="no">InputObject</span>
-  <span class="c1"># snip</span>
-
-  <span class="n">sig</span> <span class="p">{</span> <span class="n">returns</span><span class="p">(</span><span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="p">)</span> <span class="p">}</span>
-  <span class="k">def</span> <span class="nf">prepare</span>
-    <span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
-      <span class="ss">content</span><span class="p">:</span> <span class="n">content</span><span class="p">,</span>
-      <span class="ss">from_name</span><span class="p">:</span> <span class="n">from_name</span><span class="p">,</span>
-    <span class="p">)</span>
-  <span class="k">end</span>
-
-  <span class="kp">private</span>
-
-  <span class="n">sig</span> <span class="p">{</span> <span class="n">returns</span><span class="p">(</span><span class="nb">String</span><span class="p">)</span> <span class="p">}</span>
-  <span class="k">def</span> <span class="nf">content</span>
-    <span class="nb">self</span><span class="o">[</span><span class="ss">:content</span><span class="o">]</span>
-  <span class="k">end</span>
-
-  <span class="n">sig</span> <span class="p">{</span> <span class="n">returns</span><span class="p">(</span><span class="n">T</span><span class="o">.</span><span class="n">nilable</span><span class="p">(</span><span class="nb">String</span><span class="p">))</span> <span class="p">}</span>
-  <span class="k">def</span> <span class="nf">from_name</span>
-    <span class="nb">self</span><span class="o">[</span><span class="ss">:from_name</span><span class="o">]</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Api</span><span class="o">::</span><span class="no">MessageInput</span> <span class="o">&lt;</span> <span class="no">GraphQL</span><span class="o">::</span><span class="no">Schema</span><span class="o">::</span><span class="no">InputObject</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># snip</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">sig</span> <span class="p">{</span> <span class="n">returns</span><span class="p">(</span><span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">prepare</span>
+</span></span><span class="line"><span class="cl">    <span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="ss">content</span><span class="p">:</span> <span class="n">content</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="ss">from_name</span><span class="p">:</span> <span class="n">from_name</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kp">private</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">sig</span> <span class="p">{</span> <span class="n">returns</span><span class="p">(</span><span class="nb">String</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">content</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">self</span><span class="o">[</span><span class="ss">:content</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">sig</span> <span class="p">{</span> <span class="n">returns</span><span class="p">(</span><span class="n">T</span><span class="o">.</span><span class="n">nilable</span><span class="p">(</span><span class="nb">String</span><span class="p">))</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">from_name</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">self</span><span class="o">[</span><span class="ss">:from_name</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>Unfortunately, adding tests to <code>Api::MessageInput#prepare</code> requires a bit of boilerplate to instantiate the objects. We can nonetheless test that all inputs will be mapped correctly.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -565,51 +570,51 @@ Output = PositiveInteger
 </span><span class="lnt">41
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="no">RSpec</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="s2">&#34;Api::MessageInput&#34;</span><span class="p">)</span> <span class="k">do</span>
-  <span class="n">describe</span><span class="p">(</span><span class="s2">&#34;#prepare&#34;</span><span class="p">)</span> <span class="k">do</span>
-    <span class="n">it</span><span class="p">(</span><span class="s2">&#34;can map to a Domain::Message when all values are present&#34;</span><span class="p">)</span> <span class="k">do</span>
-      <span class="n">input</span> <span class="o">=</span>
-        <span class="no">Api</span><span class="o">::</span><span class="no">MessageInput</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
-          <span class="kp">nil</span><span class="p">,</span>
-          <span class="ss">ruby_kwargs</span><span class="p">:</span> <span class="p">{</span>
-            <span class="ss">content</span><span class="p">:</span> <span class="s2">&#34;Hello Joe&#34;</span><span class="p">,</span>
-            <span class="ss">from_name</span><span class="p">:</span> <span class="s2">&#34;Guillaume&#34;</span><span class="p">,</span>
-          <span class="p">},</span>
-          <span class="ss">context</span><span class="p">:</span> <span class="kp">nil</span><span class="p">,</span>
-          <span class="ss">defaults_used</span><span class="p">:</span> <span class="no">Set</span><span class="o">.</span><span class="n">new</span><span class="p">,</span>
-        <span class="p">)</span>
-
-      <span class="n">message</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="n">prepare</span>
-
-      <span class="n">expect</span><span class="p">(</span><span class="n">message</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">be_kind_of</span><span class="p">(</span><span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="p">))</span>
-      <span class="n">expect</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">eq</span><span class="p">(</span><span class="s2">&#34;Hello Joe&#34;</span><span class="p">))</span>
-      <span class="n">expect</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">from_name</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">eq</span><span class="p">(</span><span class="s2">&#34;Guillaume&#34;</span><span class="p">))</span>
-    <span class="k">end</span>
-
-    <span class="n">it</span><span class="p">(</span><span class="s2">&#34;can map to a Domain::Message with a nil from_name&#34;</span><span class="p">)</span> <span class="k">do</span>
-      <span class="n">input</span> <span class="o">=</span>
-        <span class="no">Api</span><span class="o">::</span><span class="no">MessageInput</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
-          <span class="kp">nil</span><span class="p">,</span>
-          <span class="ss">ruby_kwargs</span><span class="p">:</span> <span class="p">{</span>
-            <span class="ss">content</span><span class="p">:</span> <span class="s2">&#34;Hello Joe&#34;</span><span class="p">,</span>
-            <span class="ss">from_name</span><span class="p">:</span> <span class="kp">nil</span><span class="p">,</span>
-          <span class="p">},</span>
-          <span class="ss">context</span><span class="p">:</span> <span class="kp">nil</span><span class="p">,</span>
-          <span class="ss">defaults_used</span><span class="p">:</span> <span class="no">Set</span><span class="o">.</span><span class="n">new</span><span class="p">,</span>
-        <span class="p">)</span>
-
-      <span class="n">message</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="n">prepare</span>
-
-      <span class="n">expect</span><span class="p">(</span><span class="n">message</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">be_kind_of</span><span class="p">(</span><span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="p">))</span>
-      <span class="n">expect</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">eq</span><span class="p">(</span><span class="s2">&#34;Hello Joe&#34;</span><span class="p">))</span>
-      <span class="n">expect</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">from_name</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">be_nil</span><span class="p">)</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="no">RSpec</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="s2">&#34;Api::MessageInput&#34;</span><span class="p">)</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">  <span class="n">describe</span><span class="p">(</span><span class="s2">&#34;#prepare&#34;</span><span class="p">)</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="n">it</span><span class="p">(</span><span class="s2">&#34;can map to a Domain::Message when all values are present&#34;</span><span class="p">)</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">      <span class="n">input</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">        <span class="no">Api</span><span class="o">::</span><span class="no">MessageInput</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">          <span class="kp">nil</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="ss">ruby_kwargs</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="ss">content</span><span class="p">:</span> <span class="s2">&#34;Hello Joe&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="ss">from_name</span><span class="p">:</span> <span class="s2">&#34;Guillaume&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="ss">context</span><span class="p">:</span> <span class="kp">nil</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="ss">defaults_used</span><span class="p">:</span> <span class="no">Set</span><span class="o">.</span><span class="n">new</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="n">message</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="n">prepare</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="n">expect</span><span class="p">(</span><span class="n">message</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">be_kind_of</span><span class="p">(</span><span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">      <span class="n">expect</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">eq</span><span class="p">(</span><span class="s2">&#34;Hello Joe&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">      <span class="n">expect</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">from_name</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">eq</span><span class="p">(</span><span class="s2">&#34;Guillaume&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">it</span><span class="p">(</span><span class="s2">&#34;can map to a Domain::Message with a nil from_name&#34;</span><span class="p">)</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">      <span class="n">input</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">        <span class="no">Api</span><span class="o">::</span><span class="no">MessageInput</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">          <span class="kp">nil</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="ss">ruby_kwargs</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="ss">content</span><span class="p">:</span> <span class="s2">&#34;Hello Joe&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="ss">from_name</span><span class="p">:</span> <span class="kp">nil</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="ss">context</span><span class="p">:</span> <span class="kp">nil</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="ss">defaults_used</span><span class="p">:</span> <span class="no">Set</span><span class="o">.</span><span class="n">new</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="n">message</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="n">prepare</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="n">expect</span><span class="p">(</span><span class="n">message</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">be_kind_of</span><span class="p">(</span><span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">      <span class="n">expect</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">eq</span><span class="p">(</span><span class="s2">&#34;Hello Joe&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">      <span class="n">expect</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">from_name</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">be_nil</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>Running tests show that this works as expected.</p>
-<pre><code>$ rspec
+<pre tabindex="0"><code>$ rspec
 
 Api::MessageInput
   #prepare
@@ -625,7 +630,7 @@ Api::MessageInput
 <p><em>Note: In our project we&rsquo;ve also found that we needed to pass the <code>context</code> in some situations, mainly for dependency injection. <code>context</code> will not be needed in this example, but I&rsquo;m going to include it nonetheless, in case someone is tempted to try this approach on their own project. Our implementation is much longer and contains many verifications to remove affordances: the <code>field</code> must exist, the method must exist on the delegate, its arity must be correct, etc. I can provide a more thorough implementation if there&rsquo;s interest.</em></p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -651,36 +656,36 @@ Api::MessageInput
 </span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># typed: false</span>
-
-<span class="c1"># Unfortunately, Sorbet doesn&#39;t understand</span>
-<span class="c1"># refinements for the moment, so this file</span>
-<span class="c1"># has to be untyped. We&#39;ll also need to</span>
-<span class="c1"># define a shim for `GraphQL::Schema::Object`,</span>
-<span class="c1"># defining `delegate_to`.</span>
-<span class="k">module</span> <span class="nn">Api::GraphQLDelegation</span>
-  <span class="n">refine</span><span class="p">(</span><span class="no">GraphQL</span><span class="o">::</span><span class="no">Schema</span><span class="o">::</span><span class="no">Object</span><span class="o">.</span><span class="n">singleton_class</span><span class="p">)</span> <span class="k">do</span>
-    <span class="k">def</span> <span class="nf">delegate_to</span><span class="p">(</span><span class="n">delegate</span><span class="p">,</span> <span class="nb">methods</span><span class="p">:)</span>
-      <span class="nb">methods</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">method_name</span><span class="o">|</span>
-        <span class="n">delegate_method</span> <span class="o">=</span> <span class="n">delegate</span><span class="o">.</span><span class="n">method</span><span class="p">(</span><span class="n">method_name</span><span class="p">)</span>
-
-        <span class="n">define_method</span><span class="p">(</span><span class="n">method_name</span><span class="p">)</span> <span class="k">do</span> <span class="o">|**</span><span class="n">args</span><span class="o">|</span>
-          <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">empty?</span>
-            <span class="n">delegate_method</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">object</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
-          <span class="k">else</span>
-            <span class="n">delegate_method</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">object</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
-          <span class="k">end</span>
-        <span class="k">end</span>
-      <span class="k">end</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="c1"># typed: false</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Unfortunately, Sorbet doesn&#39;t understand</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># refinements for the moment, so this file</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># has to be untyped. We&#39;ll also need to</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># define a shim for `GraphQL::Schema::Object`,</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># defining `delegate_to`.</span>
+</span></span><span class="line"><span class="cl"><span class="k">module</span> <span class="nn">Api::GraphQLDelegation</span>
+</span></span><span class="line"><span class="cl">  <span class="n">refine</span><span class="p">(</span><span class="no">GraphQL</span><span class="o">::</span><span class="no">Schema</span><span class="o">::</span><span class="no">Object</span><span class="o">.</span><span class="n">singleton_class</span><span class="p">)</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">delegate_to</span><span class="p">(</span><span class="n">delegate</span><span class="p">,</span> <span class="nb">methods</span><span class="p">:)</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">methods</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">method_name</span><span class="o">|</span>
+</span></span><span class="line"><span class="cl">        <span class="n">delegate_method</span> <span class="o">=</span> <span class="n">delegate</span><span class="o">.</span><span class="n">method</span><span class="p">(</span><span class="n">method_name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">define_method</span><span class="p">(</span><span class="n">method_name</span><span class="p">)</span> <span class="k">do</span> <span class="o">|**</span><span class="n">args</span><span class="o">|</span>
+</span></span><span class="line"><span class="cl">          <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">empty?</span>
+</span></span><span class="line"><span class="cl">            <span class="n">delegate_method</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">object</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">          <span class="k">else</span>
+</span></span><span class="line"><span class="cl">            <span class="n">delegate_method</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">object</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">          <span class="k">end</span>
+</span></span><span class="line"><span class="cl">        <span class="k">end</span>
+</span></span><span class="line"><span class="cl">      <span class="k">end</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>Our implementation of the <code>Resolvers</code> module defines a lot of boilerplate, and I wish this pattern was supported directly in the <code>graphql-ruby</code> gem: using delegates instead of instantiating unnecessary objects would put less pressure on the garbage collector.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -713,44 +718,44 @@ Api::MessageInput
 </span><span class="lnt">31
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Api</span><span class="o">::</span><span class="no">Message</span> <span class="o">&lt;</span> <span class="no">GraphQL</span><span class="o">::</span><span class="no">Schema</span><span class="o">::</span><span class="no">Object</span>
-  <span class="n">using</span><span class="p">(</span><span class="no">Api</span><span class="o">::</span><span class="no">GraphQLDelegation</span><span class="p">)</span>
-
-  <span class="c1"># fields omitted</span>
-
-  <span class="c1"># The Resolvers module defines one strongly</span>
-  <span class="c1"># typed functions for all `fields`.</span>
-  <span class="k">module</span> <span class="nn">Resolvers</span>
-    <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
-      <span class="kp">extend</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="no">Sig</span><span class="p">)</span>
-
-      <span class="n">sig</span> <span class="k">do</span>
-        <span class="n">params</span><span class="p">(</span><span class="ss">object</span><span class="p">:</span> <span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="p">,</span> <span class="ss">_</span><span class="p">:</span> <span class="no">BasicObject</span><span class="p">)</span>
-          <span class="o">.</span><span class="n">returns</span><span class="p">(</span><span class="nb">String</span><span class="p">)</span>
-      <span class="k">end</span>
-      <span class="k">def</span> <span class="nf">content</span><span class="p">(</span><span class="n">object</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span>
-        <span class="n">object</span><span class="o">.</span><span class="n">content</span>
-      <span class="k">end</span>
-
-      <span class="n">sig</span> <span class="k">do</span>
-        <span class="n">params</span><span class="p">(</span><span class="ss">object</span><span class="p">:</span> <span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="p">,</span> <span class="ss">_</span><span class="p">:</span> <span class="no">BasicObject</span><span class="p">)</span>
-          <span class="o">.</span><span class="n">returns</span><span class="p">(</span><span class="n">T</span><span class="o">.</span><span class="n">nilable</span><span class="p">(</span><span class="nb">String</span><span class="p">))</span>
-      <span class="k">end</span>
-      <span class="k">def</span> <span class="nf">from_name</span><span class="p">(</span><span class="n">object</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span>
-        <span class="n">object</span><span class="o">.</span><span class="n">from_name</span>
-      <span class="k">end</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-
-  <span class="n">delegate_to</span><span class="p">(</span><span class="no">Resolvers</span><span class="p">,</span> <span class="nb">methods</span><span class="p">:</span> <span class="o">[</span><span class="ss">:content</span><span class="p">,</span> <span class="ss">:from_name</span><span class="o">]</span><span class="p">)</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Api</span><span class="o">::</span><span class="no">Message</span> <span class="o">&lt;</span> <span class="no">GraphQL</span><span class="o">::</span><span class="no">Schema</span><span class="o">::</span><span class="no">Object</span>
+</span></span><span class="line"><span class="cl">  <span class="n">using</span><span class="p">(</span><span class="no">Api</span><span class="o">::</span><span class="no">GraphQLDelegation</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># fields omitted</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># The Resolvers module defines one strongly</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># typed functions for all `fields`.</span>
+</span></span><span class="line"><span class="cl">  <span class="k">module</span> <span class="nn">Resolvers</span>
+</span></span><span class="line"><span class="cl">    <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
+</span></span><span class="line"><span class="cl">      <span class="kp">extend</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="no">Sig</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="n">sig</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">        <span class="n">params</span><span class="p">(</span><span class="ss">object</span><span class="p">:</span> <span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="p">,</span> <span class="ss">_</span><span class="p">:</span> <span class="no">BasicObject</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">          <span class="o">.</span><span class="n">returns</span><span class="p">(</span><span class="nb">String</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">end</span>
+</span></span><span class="line"><span class="cl">      <span class="k">def</span> <span class="nf">content</span><span class="p">(</span><span class="n">object</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">object</span><span class="o">.</span><span class="n">content</span>
+</span></span><span class="line"><span class="cl">      <span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="n">sig</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">        <span class="n">params</span><span class="p">(</span><span class="ss">object</span><span class="p">:</span> <span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="p">,</span> <span class="ss">_</span><span class="p">:</span> <span class="no">BasicObject</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">          <span class="o">.</span><span class="n">returns</span><span class="p">(</span><span class="n">T</span><span class="o">.</span><span class="n">nilable</span><span class="p">(</span><span class="nb">String</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">      <span class="k">end</span>
+</span></span><span class="line"><span class="cl">      <span class="k">def</span> <span class="nf">from_name</span><span class="p">(</span><span class="n">object</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">object</span><span class="o">.</span><span class="n">from_name</span>
+</span></span><span class="line"><span class="cl">      <span class="k">end</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">delegate_to</span><span class="p">(</span><span class="no">Resolvers</span><span class="p">,</span> <span class="nb">methods</span><span class="p">:</span> <span class="o">[</span><span class="ss">:content</span><span class="p">,</span> <span class="ss">:from_name</span><span class="o">]</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>The Sorbet annotations in this code are enough for Sorbet to notify us if we ever use a method that doesn&rsquo;t exist (or no longer exists!), or if the types don&rsquo;t line up like we expect them to.</p>
 <p>This code also makes it easy to test that the <code>Resolvers</code> module can map from a domain type to types that GraphQL can represent.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -790,48 +795,48 @@ Api::MessageInput
 </span><span class="lnt">38
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="no">RSpec</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="s2">&#34;Api::Message&#34;</span><span class="p">)</span> <span class="k">do</span>
-  <span class="n">describe</span><span class="p">(</span><span class="s2">&#34;#from_name&#34;</span><span class="p">)</span> <span class="k">do</span>
-    <span class="n">it</span><span class="p">(</span><span class="s2">&#34;returns the message author&#39;s name&#34;</span><span class="p">)</span> <span class="k">do</span>
-      <span class="n">message</span> <span class="o">=</span>
-        <span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
-          <span class="ss">content</span><span class="p">:</span> <span class="s2">&#34;Hello Joe&#34;</span><span class="p">,</span>
-          <span class="ss">from_name</span><span class="p">:</span> <span class="s2">&#34;Guillaume&#34;</span><span class="p">,</span>
-        <span class="p">)</span>
-
-      <span class="n">expect</span><span class="p">(</span><span class="no">Api</span><span class="o">::</span><span class="no">Message</span><span class="o">::</span><span class="no">Resolvers</span><span class="o">.</span><span class="n">from_name</span><span class="p">(</span><span class="n">message</span><span class="p">))</span>
-        <span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">eq</span><span class="p">(</span><span class="s2">&#34;Guillaume&#34;</span><span class="p">))</span>
-    <span class="k">end</span>
-
-    <span class="n">it</span><span class="p">(</span><span class="s2">&#34;can be nil&#34;</span><span class="p">)</span> <span class="k">do</span>
-      <span class="n">message</span> <span class="o">=</span>
-        <span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
-          <span class="ss">content</span><span class="p">:</span> <span class="s2">&#34;Hello Joe&#34;</span><span class="p">,</span>
-          <span class="ss">from_name</span><span class="p">:</span> <span class="kp">nil</span><span class="p">,</span>
-        <span class="p">)</span>
-
-      <span class="n">expect</span><span class="p">(</span><span class="no">Api</span><span class="o">::</span><span class="no">Message</span><span class="o">::</span><span class="no">Resolvers</span><span class="o">.</span><span class="n">from_name</span><span class="p">(</span><span class="n">message</span><span class="p">))</span>
-        <span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">be_nil</span><span class="p">)</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-
-  <span class="n">describe</span><span class="p">(</span><span class="s2">&#34;#content&#34;</span><span class="p">)</span> <span class="k">do</span>
-    <span class="n">it</span><span class="p">(</span><span class="s2">&#34;returns the message&#39;s content&#34;</span><span class="p">)</span> <span class="k">do</span>
-      <span class="n">message</span> <span class="o">=</span>
-        <span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
-          <span class="ss">content</span><span class="p">:</span> <span class="s2">&#34;Hello Joe&#34;</span><span class="p">,</span>
-          <span class="ss">from_name</span><span class="p">:</span> <span class="s2">&#34;Guillaume&#34;</span><span class="p">,</span>
-        <span class="p">)</span>
-
-      <span class="n">expect</span><span class="p">(</span><span class="no">Api</span><span class="o">::</span><span class="no">Message</span><span class="o">::</span><span class="no">Resolvers</span><span class="o">.</span><span class="n">content</span><span class="p">(</span><span class="n">message</span><span class="p">))</span>
-        <span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">eq</span><span class="p">(</span><span class="s2">&#34;Hello Joe&#34;</span><span class="p">))</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="no">RSpec</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="s2">&#34;Api::Message&#34;</span><span class="p">)</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">  <span class="n">describe</span><span class="p">(</span><span class="s2">&#34;#from_name&#34;</span><span class="p">)</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="n">it</span><span class="p">(</span><span class="s2">&#34;returns the message author&#39;s name&#34;</span><span class="p">)</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">      <span class="n">message</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">        <span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">          <span class="ss">content</span><span class="p">:</span> <span class="s2">&#34;Hello Joe&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="ss">from_name</span><span class="p">:</span> <span class="s2">&#34;Guillaume&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="n">expect</span><span class="p">(</span><span class="no">Api</span><span class="o">::</span><span class="no">Message</span><span class="o">::</span><span class="no">Resolvers</span><span class="o">.</span><span class="n">from_name</span><span class="p">(</span><span class="n">message</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">eq</span><span class="p">(</span><span class="s2">&#34;Guillaume&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">it</span><span class="p">(</span><span class="s2">&#34;can be nil&#34;</span><span class="p">)</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">      <span class="n">message</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">        <span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">          <span class="ss">content</span><span class="p">:</span> <span class="s2">&#34;Hello Joe&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="ss">from_name</span><span class="p">:</span> <span class="kp">nil</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="n">expect</span><span class="p">(</span><span class="no">Api</span><span class="o">::</span><span class="no">Message</span><span class="o">::</span><span class="no">Resolvers</span><span class="o">.</span><span class="n">from_name</span><span class="p">(</span><span class="n">message</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">be_nil</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">describe</span><span class="p">(</span><span class="s2">&#34;#content&#34;</span><span class="p">)</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="n">it</span><span class="p">(</span><span class="s2">&#34;returns the message&#39;s content&#34;</span><span class="p">)</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">      <span class="n">message</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">        <span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">          <span class="ss">content</span><span class="p">:</span> <span class="s2">&#34;Hello Joe&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="ss">from_name</span><span class="p">:</span> <span class="s2">&#34;Guillaume&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="n">expect</span><span class="p">(</span><span class="no">Api</span><span class="o">::</span><span class="no">Message</span><span class="o">::</span><span class="no">Resolvers</span><span class="o">.</span><span class="n">content</span><span class="p">(</span><span class="n">message</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">eq</span><span class="p">(</span><span class="s2">&#34;Hello Joe&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>And run it!</p>
-<pre><code>$ rspec
+<pre tabindex="0"><code>$ rspec
 
 Api::MessageInput
   #prepare
@@ -840,10 +845,10 @@ Api::MessageInput
 
 Api::Message
   #from_name
-    returns the message author's name
+    returns the message author&#39;s name
     can be nil
   #content
-    returns the message's content
+    returns the message&#39;s content
 
 Finished in 0.00612 seconds (files took 0.33929 seconds to load)
 5 examples, 0 failures
@@ -851,7 +856,7 @@ Finished in 0.00612 seconds (files took 0.33929 seconds to load)
 <p>We will implement and test the <code>MutationRoot</code> in the same way. There are two differences here, however. First, the <code>object</code> delegated by the <code>MutationRoot</code> has no semantic value, so we&rsquo;ll just treat it as a <code>BasicObject</code>. Second, the <code>graphql-ruby</code> gem passes the field arguments as named parameters, so we&rsquo;ll need to define them explicitly. Finally, we&rsquo;ll define <code>_context</code> explicitly, only because using a splat (<code>*</code>) could cause confusion with named arguments.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -877,36 +882,36 @@ Finished in 0.00612 seconds (files took 0.33929 seconds to load)
 </span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Api</span><span class="o">::</span><span class="no">MutationRoot</span> <span class="o">&lt;</span> <span class="no">GraphQL</span><span class="o">::</span><span class="no">Schema</span><span class="o">::</span><span class="no">Object</span>
-  <span class="n">using</span><span class="p">(</span><span class="no">Api</span><span class="o">::</span><span class="no">GraphQLDelegation</span><span class="p">)</span>
-
-  <span class="c1"># fields omitted</span>
-
-  <span class="k">module</span> <span class="nn">Resolvers</span>
-    <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
-      <span class="kp">extend</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="no">Sig</span><span class="p">)</span>
-
-      <span class="n">sig</span> <span class="k">do</span>
-        <span class="n">params</span><span class="p">(</span>
-          <span class="ss">_obj</span><span class="p">:</span> <span class="no">BasicObject</span><span class="p">,</span>
-          <span class="ss">_context</span><span class="p">:</span> <span class="no">BasicObject</span><span class="p">,</span>
-          <span class="ss">message_input</span><span class="p">:</span> <span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="p">,</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">returns</span><span class="p">(</span><span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="p">)</span>
-      <span class="k">end</span>
-      <span class="k">def</span> <span class="nf">message_create</span><span class="p">(</span><span class="n">_obj</span><span class="p">,</span> <span class="n">_context</span><span class="p">,</span> <span class="ss">message_input</span><span class="p">:)</span>
-        <span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">message_input</span><span class="p">)</span>
-      <span class="k">end</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-
-  <span class="n">delegate_to</span><span class="p">(</span><span class="no">Resolvers</span><span class="p">,</span> <span class="nb">methods</span><span class="p">:</span> <span class="o">[</span><span class="ss">:message_create</span><span class="o">]</span><span class="p">)</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Api</span><span class="o">::</span><span class="no">MutationRoot</span> <span class="o">&lt;</span> <span class="no">GraphQL</span><span class="o">::</span><span class="no">Schema</span><span class="o">::</span><span class="no">Object</span>
+</span></span><span class="line"><span class="cl">  <span class="n">using</span><span class="p">(</span><span class="no">Api</span><span class="o">::</span><span class="no">GraphQLDelegation</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># fields omitted</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">module</span> <span class="nn">Resolvers</span>
+</span></span><span class="line"><span class="cl">    <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
+</span></span><span class="line"><span class="cl">      <span class="kp">extend</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="no">Sig</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="n">sig</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">        <span class="n">params</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">          <span class="ss">_obj</span><span class="p">:</span> <span class="no">BasicObject</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="ss">_context</span><span class="p">:</span> <span class="no">BasicObject</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="ss">message_input</span><span class="p">:</span> <span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span><span class="o">.</span><span class="n">returns</span><span class="p">(</span><span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">end</span>
+</span></span><span class="line"><span class="cl">      <span class="k">def</span> <span class="nf">message_create</span><span class="p">(</span><span class="n">_obj</span><span class="p">,</span> <span class="n">_context</span><span class="p">,</span> <span class="ss">message_input</span><span class="p">:)</span>
+</span></span><span class="line"><span class="cl">        <span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">message_input</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">end</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">delegate_to</span><span class="p">(</span><span class="no">Resolvers</span><span class="p">,</span> <span class="nb">methods</span><span class="p">:</span> <span class="o">[</span><span class="ss">:message_create</span><span class="o">]</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>Similarly to <code>Api::Message</code>, we can write unit tests for the <code>Api::MutationRoot</code>.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -925,27 +930,27 @@ Finished in 0.00612 seconds (files took 0.33929 seconds to load)
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="no">RSpec</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="s2">&#34;Api::MutationRoot&#34;</span><span class="p">)</span> <span class="k">do</span>
-  <span class="n">describe</span><span class="p">(</span><span class="s2">&#34;#message_create&#34;</span><span class="p">)</span> <span class="k">do</span>
-    <span class="n">it</span><span class="p">(</span><span class="s2">&#34;calls Domain::Message with the message&#34;</span><span class="p">)</span> <span class="k">do</span>
-      <span class="n">message</span> <span class="o">=</span>
-        <span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
-          <span class="ss">content</span><span class="p">:</span> <span class="s2">&#34;Hello Joe&#34;</span><span class="p">,</span>
-          <span class="ss">from_name</span><span class="p">:</span> <span class="s2">&#34;Guillaume&#34;</span><span class="p">,</span>
-        <span class="p">)</span>
-
-      <span class="n">expect</span><span class="p">(</span><span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="p">)</span>
-        <span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">receive</span><span class="p">(</span><span class="ss">:create</span><span class="p">)</span><span class="o">.</span><span class="n">with</span><span class="p">(</span><span class="n">message</span><span class="p">)</span><span class="o">.</span><span class="n">and_return</span><span class="p">(</span><span class="n">message</span><span class="p">))</span>
-
-      <span class="no">Api</span><span class="o">::</span><span class="no">MutationRoot</span><span class="o">::</span><span class="no">Resolvers</span>
-        <span class="o">.</span><span class="n">message_create</span><span class="p">(</span><span class="kp">nil</span><span class="p">,</span> <span class="kp">nil</span><span class="p">,</span> <span class="ss">message_input</span><span class="p">:</span> <span class="n">message</span><span class="p">)</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="no">RSpec</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="s2">&#34;Api::MutationRoot&#34;</span><span class="p">)</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">  <span class="n">describe</span><span class="p">(</span><span class="s2">&#34;#message_create&#34;</span><span class="p">)</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="n">it</span><span class="p">(</span><span class="s2">&#34;calls Domain::Message with the message&#34;</span><span class="p">)</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">      <span class="n">message</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">        <span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">          <span class="ss">content</span><span class="p">:</span> <span class="s2">&#34;Hello Joe&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="ss">from_name</span><span class="p">:</span> <span class="s2">&#34;Guillaume&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="n">expect</span><span class="p">(</span><span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">receive</span><span class="p">(</span><span class="ss">:create</span><span class="p">)</span><span class="o">.</span><span class="n">with</span><span class="p">(</span><span class="n">message</span><span class="p">)</span><span class="o">.</span><span class="n">and_return</span><span class="p">(</span><span class="n">message</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="no">Api</span><span class="o">::</span><span class="no">MutationRoot</span><span class="o">::</span><span class="no">Resolvers</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="n">message_create</span><span class="p">(</span><span class="kp">nil</span><span class="p">,</span> <span class="kp">nil</span><span class="p">,</span> <span class="ss">message_input</span><span class="p">:</span> <span class="n">message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p><em>Note: If you&rsquo;d rather not use <code>expect</code>, you can use the <code>context</code> object to allow dependency injection. We do this extensively and it works well.</em></p>
-<pre><code>$ rspec
+<pre tabindex="0"><code>$ rspec
 
 Api::MutationRoot
   #message_create
@@ -954,12 +959,12 @@ Api::MutationRoot
 Finished in 0.0111 seconds (files took 0.34917 seconds to load)
 1 examples, 0 failures
 </code></pre><p>While we&rsquo;re at it, let&rsquo;s see what Sorbet has to say.</p>
-<pre><code>$ srb tc
+<pre tabindex="0"><code>$ srb tc
 No errors! Great job.
 </code></pre><p>Sweet! However, this isn&rsquo;t very surprising, since we haven&rsquo;t told Sorbet about the links between the API classes. For example, it would be possible for <code>Api::MessageInput#prepare</code> to return a value that&rsquo;s incompatible with <code>message_create</code>.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -974,23 +979,23 @@ No errors! Great job.
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-diff" data-lang="diff"> class Api::MessageInput &lt; GraphQL::Schema::InputObject
-   # snip
-
-<span class="gd">-  sig { returns(Domain::Message) }
-</span><span class="gd"></span><span class="gi">+  sig { returns(Integer)) }
-</span><span class="gi"></span>   def prepare
-<span class="gd">-    Domain::Message.new(
-</span><span class="gd">-      content: content,
-</span><span class="gd">-      from_name: from_name,
-</span><span class="gd">-    )
-</span><span class="gd"></span><span class="gi">+    1
-</span><span class="gi"></span>   end
- end
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"> class Api::MessageInput &lt; GraphQL::Schema::InputObject
+</span></span><span class="line"><span class="cl">   # snip
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gd">-  sig { returns(Domain::Message) }
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+  sig { returns(Integer)) }
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>   def prepare
+</span></span><span class="line"><span class="cl"><span class="gd">-    Domain::Message.new(
+</span></span></span><span class="line"><span class="cl"><span class="gd">-      content: content,
+</span></span></span><span class="line"><span class="cl"><span class="gd">-      from_name: from_name,
+</span></span></span><span class="line"><span class="cl"><span class="gd">-    )
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+    1
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>   end
+</span></span><span class="line"><span class="cl"> end
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>Sorbet isn&rsquo;t able to tell us that this produces an invalid value.</p>
-<pre><code>$ srb tc
+<pre tabindex="0"><code>$ srb tc
 No errors! Great job.
 </code></pre><p>Luckily, our test suite would catch this error, but it would be even better if Sorbet could tell us. Let&rsquo;s do just that.</p>
 <h2 id="adding-types"><a href="#adding-types" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Adding Types</h2>
@@ -1004,7 +1009,7 @@ No errors! Great job.
 <p>On <code>Api::MessageInput</code>, we will define a <code>PrepareType</code> type alias, and use it (rule #1).</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1020,26 +1025,26 @@ No errors! Great job.
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-diff" data-lang="diff"> class Api::MessageInput &lt; GraphQL::Schema::InputObject
-   # snip
-
-<span class="gi">+  PrepareType = T.type_alias { Domain::Message }
-</span><span class="gi"></span>
-<span class="gd">-  sig { returns(Domain::Message) }
-</span><span class="gd"></span><span class="gi">+  sig { returns(PrepareType) }
-</span><span class="gi"></span>   def prepare
-     Domain::Message.new(
-       content: content,
-       from_name: from_name,
-     )
-   end
- end
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"> class Api::MessageInput &lt; GraphQL::Schema::InputObject
+</span></span><span class="line"><span class="cl">   # snip
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gi">+  PrepareType = T.type_alias { Domain::Message }
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>
+</span></span><span class="line"><span class="cl"><span class="gd">-  sig { returns(Domain::Message) }
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+  sig { returns(PrepareType) }
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>   def prepare
+</span></span><span class="line"><span class="cl">     Domain::Message.new(
+</span></span><span class="line"><span class="cl">       content: content,
+</span></span><span class="line"><span class="cl">       from_name: from_name,
+</span></span><span class="line"><span class="cl">     )
+</span></span><span class="line"><span class="cl">   end
+</span></span><span class="line"><span class="cl"> end
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>On <code>Api::Message</code>, define an <code>ObjectType</code> and use it (rule #2).</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1074,45 +1079,45 @@ No errors! Great job.
 </span><span class="lnt">33
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-diff" data-lang="diff"> class Api::Message &lt; GraphQL::Schema::Object
-   using(Api::GraphQLDelegation)
-
-   # fields omitted
-
-<span class="gi">+  ObjectType = T.type_alias { Domain::Message }
-</span><span class="gi"></span>
-   module Resolvers
-     class &lt;&lt; self
-       extend(T::Sig)
-
-       sig do
-<span class="gd">-        params(object: Domain::Message, _: BasicObject)
-</span><span class="gd"></span><span class="gi">+        params(object: ObjectType, _: BasicObject)
-</span><span class="gi"></span>           .returns(String)
-       end
-       def content(object, *_)
-         object.content
-       end
-
-       sig do
-<span class="gd">-        params(object: Domain::Message, _: BasicObject)
-</span><span class="gd"></span><span class="gi">+        params(object: ObjectType, _: BasicObject)
-</span><span class="gi"></span>           .returns(T.nilable(String))
-       end
-       def from_name(object, *_)
-         object.from_name
-       end
-     end
-   end
-
-   delegate_to(Resolvers, methods: [:content, :from_name])
- end
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"> class Api::Message &lt; GraphQL::Schema::Object
+</span></span><span class="line"><span class="cl">   using(Api::GraphQLDelegation)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   # fields omitted
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gi">+  ObjectType = T.type_alias { Domain::Message }
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>
+</span></span><span class="line"><span class="cl">   module Resolvers
+</span></span><span class="line"><span class="cl">     class &lt;&lt; self
+</span></span><span class="line"><span class="cl">       extend(T::Sig)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       sig do
+</span></span><span class="line"><span class="cl"><span class="gd">-        params(object: Domain::Message, _: BasicObject)
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+        params(object: ObjectType, _: BasicObject)
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>           .returns(String)
+</span></span><span class="line"><span class="cl">       end
+</span></span><span class="line"><span class="cl">       def content(object, *_)
+</span></span><span class="line"><span class="cl">         object.content
+</span></span><span class="line"><span class="cl">       end
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       sig do
+</span></span><span class="line"><span class="cl"><span class="gd">-        params(object: Domain::Message, _: BasicObject)
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+        params(object: ObjectType, _: BasicObject)
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>           .returns(T.nilable(String))
+</span></span><span class="line"><span class="cl">       end
+</span></span><span class="line"><span class="cl">       def from_name(object, *_)
+</span></span><span class="line"><span class="cl">         object.from_name
+</span></span><span class="line"><span class="cl">       end
+</span></span><span class="line"><span class="cl">     end
+</span></span><span class="line"><span class="cl">   end
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   delegate_to(Resolvers, methods: [:content, :from_name])
+</span></span><span class="line"><span class="cl"> end
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>Finally, on <code>Api::MutationRoot</code>, we&rsquo;ll use the type aliases (rule #3).</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1140,36 +1145,36 @@ No errors! Great job.
 </span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-diff" data-lang="diff"> class Api::MutationRoot &lt; GraphQL::Schema::Object
-   using(Api::GraphQLDelegation)
-
-   # fields omitted
-
-   module Resolvers
-     class &lt;&lt; self
-       extend(T::Sig)
-
-       sig do
-         params(
-           _obj: BasicObject,
-           _context: BasicObject,
-<span class="gd">-          message_input: Domain::Message,
-</span><span class="gd"></span><span class="gi">+          message_input: Api::MessageInput::PrepareType,
-</span><span class="gi"></span><span class="gd">-        ).returns(Domain::Message)
-</span><span class="gd"></span><span class="gi">+        ).returns(Api::Message::ObjectType)
-</span><span class="gi"></span>       end
-       def message_create(_obj, _context, message_input:)
-         Domain::Message.create(message_input)
-       end
-     end
-   end
-
-   delegate_to(Resolvers, methods: [:message_create])
- end
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"> class Api::MutationRoot &lt; GraphQL::Schema::Object
+</span></span><span class="line"><span class="cl">   using(Api::GraphQLDelegation)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   # fields omitted
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   module Resolvers
+</span></span><span class="line"><span class="cl">     class &lt;&lt; self
+</span></span><span class="line"><span class="cl">       extend(T::Sig)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       sig do
+</span></span><span class="line"><span class="cl">         params(
+</span></span><span class="line"><span class="cl">           _obj: BasicObject,
+</span></span><span class="line"><span class="cl">           _context: BasicObject,
+</span></span><span class="line"><span class="cl"><span class="gd">-          message_input: Domain::Message,
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+          message_input: Api::MessageInput::PrepareType,
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span><span class="gd">-        ).returns(Domain::Message)
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+        ).returns(Api::Message::ObjectType)
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>       end
+</span></span><span class="line"><span class="cl">       def message_create(_obj, _context, message_input:)
+</span></span><span class="line"><span class="cl">         Domain::Message.create(message_input)
+</span></span><span class="line"><span class="cl">       end
+</span></span><span class="line"><span class="cl">     end
+</span></span><span class="line"><span class="cl">   end
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   delegate_to(Resolvers, methods: [:message_create])
+</span></span><span class="line"><span class="cl"> end
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>With those changes, our types are properly coupled together, and applying the same erroneous changes as before (<code>prepare</code> returning <code>Integer</code>) will produce errors:</p>
-<pre><code>$ srb tc
+<pre tabindex="0"><code>$ srb tc
 
 sorbet.rb:236: Expected Domain::Message but found Integer for argument message https://srb.help/7002
      236 |        Domain::Message.create(message_input)
@@ -1192,7 +1197,7 @@ Errors: 1
 <p>In some cases, it may make sense to narrow the inputs of a method. For example, maybe anonymous messages have been removed from the scope, and the team wants to narrow the input type of <code>fromName</code> to just <code>String</code>.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1215,31 +1220,31 @@ Errors: 1
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-diff" data-lang="diff"> class Domain::Message
-   extend(T::Sig)
-
-   # snip
-
-   sig do
-<span class="gd">-    params(content: String, from_name: T.nilable(String))
-</span><span class="gd"></span><span class="gi">+    params(content: String, from_name: String)
-</span><span class="gi"></span>       .void
-   end
-   def initialize(content:, from_name:)
-     @content = content
-     @from_name = from_name
-   end
-
-   # snip
-
-<span class="gd">-  sig { returns(T.nilable(String)) }
-</span><span class="gd"></span><span class="gi">+  sig { returns(String) }
-</span><span class="gi"></span>   attr_reader(:from_name)
- end
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"> class Domain::Message
+</span></span><span class="line"><span class="cl">   extend(T::Sig)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   # snip
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   sig do
+</span></span><span class="line"><span class="cl"><span class="gd">-    params(content: String, from_name: T.nilable(String))
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+    params(content: String, from_name: String)
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>       .void
+</span></span><span class="line"><span class="cl">   end
+</span></span><span class="line"><span class="cl">   def initialize(content:, from_name:)
+</span></span><span class="line"><span class="cl">     @content = content
+</span></span><span class="line"><span class="cl">     @from_name = from_name
+</span></span><span class="line"><span class="cl">   end
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   # snip
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gd">-  sig { returns(T.nilable(String)) }
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+  sig { returns(String) }
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>   attr_reader(:from_name)
+</span></span><span class="line"><span class="cl"> end
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>It&rsquo;s entirely possible that, writing integration tests only, we wouldn&rsquo;t have written a test for <code>fromName = nil</code>. Luckily, we wrote unit tests, so this change wouldn&rsquo;t go unnoticed, and it would signal to the domain team that they need to communicate with our team about these changes.</p>
-<pre><code>$ rspec
+<pre tabindex="0"><code>$ rspec
 
 Api::MessageInput
   #prepare
@@ -1248,10 +1253,10 @@ Api::MessageInput
 
 Api::Message
   #from_name
-    returns the message author's name
+    returns the message author&#39;s name
     can be nil (FAILED - 2)
   #content
-    returns the message's content
+    returns the message&#39;s content
 
 Api::MutationRoot
   #message_create
@@ -1260,7 +1265,7 @@ Api::MutationRoot
 Finished in 0.01886 seconds (files took 0.33419 seconds to load)
 6 examples, 2 failures
 </code></pre><p>Even in the event that we had omitted to write any test, Sorbet would still catch the problem.</p>
-<pre><code>sorbet.rb:92: Expected String but found T.nilable(String) for argument from_name https://srb.help/7002
+<pre tabindex="0"><code>sorbet.rb:92: Expected String but found T.nilable(String) for argument from_name https://srb.help/7002
     92 |      content: content,
     93 |      from_name: from_name,
     sorbet.rb:25: Method Domain::Message#initialize has specified from_name as String
@@ -1276,7 +1281,7 @@ Errors: 1
 <p>For example, imagine that, in certain scenarios, <code>Domain::Message.create</code> will not be able to return a <code>Domain::Message</code>. This could happen if the datastore is overwhelmed, for example. The domain team choses to instead buffer the write, and return a <code>Domain::Pending</code> value, indicating that the write will happen at a later time.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1311,43 +1316,43 @@ Errors: 1
 </span><span class="lnt">33
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-diff" data-lang="diff"> class Domain::Message
-   extend(T::Sig)
-
-<span class="gi">+  class Pending; end
-</span><span class="gi">+
-</span><span class="gi">+  # Buffer will be a class variable
-</span><span class="gi">+  # just so we can make a working example
-</span><span class="gi">+  @buffer = T.let([], T::Array[Domain::Message])
-</span><span class="gi">+
-</span><span class="gi"></span>   sig do
-     params(message: Domain::Message)
-<span class="gd">-      .returns(Domain::Message)
-</span><span class="gd"></span><span class="gi">+      .returns(T.any(Domain::Message, Pending))
-</span><span class="gi"></span>   end
-   def self.create(message)
-<span class="gd">-    # omitted
-</span><span class="gd">-    message
-</span><span class="gd"></span><span class="gi">+    if overwhelmed?
-</span><span class="gi">+      @buffer.push(message)
-</span><span class="gi">+      Pending.new
-</span><span class="gi">+    else
-</span><span class="gi">+      # omitted
-</span><span class="gi">+      message
-</span><span class="gi">+    end
-</span><span class="gi"></span>   end
-
-<span class="gi">+   sig { returns(T::Boolean) }
-</span><span class="gi">+   def self.overwhelmed?
-</span><span class="gi">+     false
-</span><span class="gi">+   end
-</span><span class="gi"></span>
-   # snip
- end
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"> class Domain::Message
+</span></span><span class="line"><span class="cl">   extend(T::Sig)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gi">+  class Pending; end
+</span></span></span><span class="line"><span class="cl"><span class="gi">+
+</span></span></span><span class="line"><span class="cl"><span class="gi">+  # Buffer will be a class variable
+</span></span></span><span class="line"><span class="cl"><span class="gi">+  # just so we can make a working example
+</span></span></span><span class="line"><span class="cl"><span class="gi">+  @buffer = T.let([], T::Array[Domain::Message])
+</span></span></span><span class="line"><span class="cl"><span class="gi">+
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>   sig do
+</span></span><span class="line"><span class="cl">     params(message: Domain::Message)
+</span></span><span class="line"><span class="cl"><span class="gd">-      .returns(Domain::Message)
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+      .returns(T.any(Domain::Message, Pending))
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>   end
+</span></span><span class="line"><span class="cl">   def self.create(message)
+</span></span><span class="line"><span class="cl"><span class="gd">-    # omitted
+</span></span></span><span class="line"><span class="cl"><span class="gd">-    message
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+    if overwhelmed?
+</span></span></span><span class="line"><span class="cl"><span class="gi">+      @buffer.push(message)
+</span></span></span><span class="line"><span class="cl"><span class="gi">+      Pending.new
+</span></span></span><span class="line"><span class="cl"><span class="gi">+    else
+</span></span></span><span class="line"><span class="cl"><span class="gi">+      # omitted
+</span></span></span><span class="line"><span class="cl"><span class="gi">+      message
+</span></span></span><span class="line"><span class="cl"><span class="gi">+    end
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>   end
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gi">+   sig { returns(T::Boolean) }
+</span></span></span><span class="line"><span class="cl"><span class="gi">+   def self.overwhelmed?
+</span></span></span><span class="line"><span class="cl"><span class="gi">+     false
+</span></span></span><span class="line"><span class="cl"><span class="gi">+   end
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>
+</span></span><span class="line"><span class="cl">   # snip
+</span></span><span class="line"><span class="cl"> end
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>Once again, Sorbet will find the problem and tell us that the return value of <code>Domain::Message.create</code> is incompatible with <code>Api::MutationRoot#message_create</code>.</p>
-<pre><code>$ srb tc
+<pre tabindex="0"><code>$ srb tc
 
 sorbet.rb:143: Returning value that does not conform to method result type https://srb.help/7005
      143 |        Domain::Message.create(message_input)
@@ -1365,7 +1370,7 @@ Errors: 1
 <p>For our example we want to expose the <code>Pending</code> message creation in the GraphQL API, and so we need to introduce a <code>Api::MessagePending</code> type to represent it.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1390,36 +1395,36 @@ Errors: 1
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Api</span><span class="o">::</span><span class="no">MessagePending</span> <span class="o">&lt;</span> <span class="no">GraphQL</span><span class="o">::</span><span class="no">Schema</span><span class="o">::</span><span class="no">Object</span>
-  <span class="n">using</span><span class="p">(</span><span class="no">Api</span><span class="o">::</span><span class="no">GraphQLDelegation</span><span class="p">)</span>
-
-  <span class="n">field</span><span class="p">(</span><span class="ss">:_singleton_value</span><span class="p">,</span> <span class="ss">:bool</span><span class="p">,</span> <span class="ss">null</span><span class="p">:</span> <span class="kp">false</span><span class="p">)</span>
-
-  <span class="no">ObjectType</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">type_alias</span> <span class="p">{</span> <span class="no">Domain</span><span class="o">::</span><span class="no">Pending</span> <span class="p">}</span>
-
-  <span class="k">module</span> <span class="nn">Resolvers</span>
-    <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
-      <span class="kp">extend</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="no">Sig</span><span class="p">)</span>
-
-      <span class="n">sig</span> <span class="k">do</span>
-        <span class="n">params</span><span class="p">(</span><span class="ss">object</span><span class="p">:</span> <span class="no">ObjectType</span><span class="p">,</span> <span class="ss">_</span><span class="p">:</span> <span class="no">BasicObject</span><span class="p">)</span>
-          <span class="o">.</span><span class="n">returns</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="no">Boolean</span><span class="p">)</span>
-      <span class="k">end</span>
-      <span class="k">def</span> <span class="nf">_singleton_value</span><span class="p">(</span><span class="n">object</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span><span class="p">)</span>
-        <span class="kp">true</span>
-      <span class="k">end</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-
-  <span class="n">delegate_to</span><span class="p">(</span><span class="no">Resolvers</span><span class="p">,</span> <span class="nb">methods</span><span class="p">:</span> <span class="o">[</span><span class="ss">:_singleton_value</span><span class="o">]</span><span class="p">)</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Api</span><span class="o">::</span><span class="no">MessagePending</span> <span class="o">&lt;</span> <span class="no">GraphQL</span><span class="o">::</span><span class="no">Schema</span><span class="o">::</span><span class="no">Object</span>
+</span></span><span class="line"><span class="cl">  <span class="n">using</span><span class="p">(</span><span class="no">Api</span><span class="o">::</span><span class="no">GraphQLDelegation</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">field</span><span class="p">(</span><span class="ss">:_singleton_value</span><span class="p">,</span> <span class="ss">:bool</span><span class="p">,</span> <span class="ss">null</span><span class="p">:</span> <span class="kp">false</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="no">ObjectType</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">type_alias</span> <span class="p">{</span> <span class="no">Domain</span><span class="o">::</span><span class="no">Pending</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">module</span> <span class="nn">Resolvers</span>
+</span></span><span class="line"><span class="cl">    <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
+</span></span><span class="line"><span class="cl">      <span class="kp">extend</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="no">Sig</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="n">sig</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">        <span class="n">params</span><span class="p">(</span><span class="ss">object</span><span class="p">:</span> <span class="no">ObjectType</span><span class="p">,</span> <span class="ss">_</span><span class="p">:</span> <span class="no">BasicObject</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">          <span class="o">.</span><span class="n">returns</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="no">Boolean</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">end</span>
+</span></span><span class="line"><span class="cl">      <span class="k">def</span> <span class="nf">_singleton_value</span><span class="p">(</span><span class="n">object</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="kp">true</span>
+</span></span><span class="line"><span class="cl">      <span class="k">end</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">delegate_to</span><span class="p">(</span><span class="no">Resolvers</span><span class="p">,</span> <span class="nb">methods</span><span class="p">:</span> <span class="o">[</span><span class="ss">:_singleton_value</span><span class="o">]</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>We also need to change the return value of <code>messageCreate</code> to be a union of <code>Pending</code> and <code>Message</code>, which we can call <code>MessageCreateResult</code>. Luckily, the <code>union</code> types in <code>graphql-ruby</code> make it easy to add Sorbet, so we won&rsquo;t need to rely on the <code>Resolvers</code> module like before. We just need to make sure that its <code>ObjectType</code> is the union of all <code>ObjectType</code> of its <code>possible_values</code>. In the <code>resolve_type</code> method, we can even make use of Sorbet&rsquo;s exhaustiveness checking with <code>T.absurd</code>.</p>
 <p>Our <code>resolve_type</code> will return a <a href="https://github.com/rmosolgo/graphql-ruby/pull/2976">tuple of two values</a>. The first value of the tuple is the GraphQL class that contains the mapping functions. The second values allows unwrapping the value. This isn&rsquo;t super useful in the current code, but if we were using wrapper objects (like a <code>Result</code> type), it would simplify the code a lot, since members of the union wouldn&rsquo;t need to share one type.</p>
 <div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1449,39 +1454,39 @@ Errors: 1
 </span><span class="lnt">28
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Api</span><span class="o">::</span><span class="no">MessageCreateResult</span> <span class="o">&lt;</span> <span class="no">GraphQL</span><span class="o">::</span><span class="no">Schema</span><span class="o">::</span><span class="no">Union</span>
-  <span class="kp">extend</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="no">Sig</span><span class="p">)</span>
-
-  <span class="n">possible_types</span><span class="p">(</span><span class="no">Api</span><span class="o">::</span><span class="no">Message</span><span class="p">,</span> <span class="no">Api</span><span class="o">::</span><span class="no">MessagePending</span><span class="p">)</span>
-
-  <span class="no">ObjectType</span> <span class="o">=</span>
-    <span class="n">T</span><span class="o">.</span><span class="n">type_alias</span> <span class="k">do</span>
-      <span class="n">T</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="no">Api</span><span class="o">::</span><span class="no">Message</span><span class="o">::</span><span class="no">ObjectType</span><span class="p">,</span> <span class="no">Api</span><span class="o">::</span><span class="no">MessagePending</span><span class="o">::</span><span class="no">ObjectType</span><span class="p">)</span>
-    <span class="k">end</span>
-
-  <span class="n">sig</span> <span class="k">do</span>
-    <span class="n">params</span><span class="p">(</span><span class="ss">object</span><span class="p">:</span> <span class="no">ObjectType</span><span class="p">,</span> <span class="ss">_</span><span class="p">:</span> <span class="no">BasicObject</span><span class="p">)</span>
-      <span class="o">.</span><span class="n">returns</span><span class="p">(</span><span class="n">T</span><span class="o">.</span><span class="n">any</span><span class="p">(</span>
-        <span class="o">[</span><span class="n">T</span><span class="o">.</span><span class="n">class_of</span><span class="p">(</span><span class="no">Api</span><span class="o">::</span><span class="no">Message</span><span class="p">),</span> <span class="no">Api</span><span class="o">::</span><span class="no">Message</span><span class="o">::</span><span class="no">ObjectType</span><span class="o">]</span><span class="p">,</span>
-        <span class="o">[</span><span class="n">T</span><span class="o">.</span><span class="n">class_of</span><span class="p">(</span><span class="no">Api</span><span class="o">::</span><span class="no">MessagePending</span><span class="p">),</span> <span class="no">Api</span><span class="o">::</span><span class="no">MessagePending</span><span class="o">::</span><span class="no">ObjectType</span><span class="o">]</span><span class="p">,</span>
-      <span class="p">))</span>
-  <span class="k">end</span>
-  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">resolve_type</span><span class="p">(</span><span class="n">object</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span><span class="p">)</span>
-    <span class="k">case</span> <span class="n">object</span>
-    <span class="k">when</span> <span class="no">Domain</span><span class="o">::</span><span class="no">Message</span>
-      <span class="o">[</span><span class="no">Api</span><span class="o">::</span><span class="no">Message</span><span class="p">,</span> <span class="n">object</span><span class="o">]</span>
-    <span class="k">when</span> <span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="o">::</span><span class="no">Pending</span>
-      <span class="o">[</span><span class="no">Api</span><span class="o">::</span><span class="no">MessagePending</span><span class="p">,</span> <span class="n">object</span><span class="o">]</span>
-    <span class="k">else</span>
-      <span class="n">T</span><span class="o">.</span><span class="n">absurd</span><span class="p">(</span><span class="n">object</span><span class="p">)</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Api</span><span class="o">::</span><span class="no">MessageCreateResult</span> <span class="o">&lt;</span> <span class="no">GraphQL</span><span class="o">::</span><span class="no">Schema</span><span class="o">::</span><span class="no">Union</span>
+</span></span><span class="line"><span class="cl">  <span class="kp">extend</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="no">Sig</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">possible_types</span><span class="p">(</span><span class="no">Api</span><span class="o">::</span><span class="no">Message</span><span class="p">,</span> <span class="no">Api</span><span class="o">::</span><span class="no">MessagePending</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="no">ObjectType</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="n">T</span><span class="o">.</span><span class="n">type_alias</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">      <span class="n">T</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="no">Api</span><span class="o">::</span><span class="no">Message</span><span class="o">::</span><span class="no">ObjectType</span><span class="p">,</span> <span class="no">Api</span><span class="o">::</span><span class="no">MessagePending</span><span class="o">::</span><span class="no">ObjectType</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">sig</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="n">params</span><span class="p">(</span><span class="ss">object</span><span class="p">:</span> <span class="no">ObjectType</span><span class="p">,</span> <span class="ss">_</span><span class="p">:</span> <span class="no">BasicObject</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="o">.</span><span class="n">returns</span><span class="p">(</span><span class="n">T</span><span class="o">.</span><span class="n">any</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="o">[</span><span class="n">T</span><span class="o">.</span><span class="n">class_of</span><span class="p">(</span><span class="no">Api</span><span class="o">::</span><span class="no">Message</span><span class="p">),</span> <span class="no">Api</span><span class="o">::</span><span class="no">Message</span><span class="o">::</span><span class="no">ObjectType</span><span class="o">]</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="o">[</span><span class="n">T</span><span class="o">.</span><span class="n">class_of</span><span class="p">(</span><span class="no">Api</span><span class="o">::</span><span class="no">MessagePending</span><span class="p">),</span> <span class="no">Api</span><span class="o">::</span><span class="no">MessagePending</span><span class="o">::</span><span class="no">ObjectType</span><span class="o">]</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">resolve_type</span><span class="p">(</span><span class="n">object</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="n">object</span>
+</span></span><span class="line"><span class="cl">    <span class="k">when</span> <span class="no">Domain</span><span class="o">::</span><span class="no">Message</span>
+</span></span><span class="line"><span class="cl">      <span class="o">[</span><span class="no">Api</span><span class="o">::</span><span class="no">Message</span><span class="p">,</span> <span class="n">object</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">when</span> <span class="no">Domain</span><span class="o">::</span><span class="no">Message</span><span class="o">::</span><span class="no">Pending</span>
+</span></span><span class="line"><span class="cl">      <span class="o">[</span><span class="no">Api</span><span class="o">::</span><span class="no">MessagePending</span><span class="p">,</span> <span class="n">object</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">      <span class="n">T</span><span class="o">.</span><span class="n">absurd</span><span class="p">(</span><span class="n">object</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><div class="highlight"><div class="chroma">
 <div class="table-container"><table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1507,34 +1512,34 @@ Errors: 1
 </span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-diff" data-lang="diff"> class Api::MutationRoot &lt; GraphQL::Schema::Object
-   using(Api::GraphQLDelegation)
-
-   # fields omitted
-
-   module Resolvers
-     class &lt;&lt; self
-       extend(T::Sig)
-
-       sig do
-         params(
-           _obj: BasicObject,
-           _context: BasicObject,
-<span class="gd">-        ).returns(Api::Message::ObjectType)
-</span><span class="gd"></span><span class="gi">+        ).returns(Api::MessageCreateResult::ObjectType)
-</span><span class="gi"></span>       end
-       def message_create(_obj, _context, message_input:)
-         Domain::Message.create(message_input)
-       end
-     end
-   end
-
-   delegate_to(Resolvers, methods: [:message_create])
- end
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"> class Api::MutationRoot &lt; GraphQL::Schema::Object
+</span></span><span class="line"><span class="cl">   using(Api::GraphQLDelegation)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   # fields omitted
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   module Resolvers
+</span></span><span class="line"><span class="cl">     class &lt;&lt; self
+</span></span><span class="line"><span class="cl">       extend(T::Sig)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       sig do
+</span></span><span class="line"><span class="cl">         params(
+</span></span><span class="line"><span class="cl">           _obj: BasicObject,
+</span></span><span class="line"><span class="cl">           _context: BasicObject,
+</span></span><span class="line"><span class="cl"><span class="gd">-        ).returns(Api::Message::ObjectType)
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+        ).returns(Api::MessageCreateResult::ObjectType)
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>       end
+</span></span><span class="line"><span class="cl">       def message_create(_obj, _context, message_input:)
+</span></span><span class="line"><span class="cl">         Domain::Message.create(message_input)
+</span></span><span class="line"><span class="cl">       end
+</span></span><span class="line"><span class="cl">     end
+</span></span><span class="line"><span class="cl">   end
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   delegate_to(Resolvers, methods: [:message_create])
+</span></span><span class="line"><span class="cl"> end
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>Sorbet will understand this correctly, and notify us if the return type of <code>Domain::Message.create</code> is once again changed.</p>
-<pre><code>$ srb tc
+<pre tabindex="0"><code>$ srb tc
 No errors! Great job.
 </code></pre><h1 id="conclusion"><a href="#conclusion" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>Conclusion</h1>
 <p>In this post, we&rsquo;ve seen a few ways in which we can define GraphQL schemas in Ruby, unit test them, and add Sorbet static analysis. We&rsquo;ve seen a few ways in which unit tests and Sorbet would be able to catch breaking changes, which would be next to impossible to catch using integration tests only.</p>
@@ -1543,12 +1548,12 @@ No errors! Great job.
 
             </div>
 
+            
+
+
         </article>
 
         
-
-        
-
 
         
 
@@ -1592,9 +1597,9 @@ No errors! Great job.
                     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
 
 <script>
-    var typeNumber = 0;
-    var errorCorrectionLevel = 'L';
-    var qr = qrcode(typeNumber, errorCorrectionLevel);
+    const typeNumber = 0;
+    const errorCorrectionLevel = 'L';
+    const qr = qrcode(typeNumber, errorCorrectionLevel);
     qr.addData('https:\/\/gmalette.dev\/posts\/graphql-and-sorbet-and-unit-tests\/');
     qr.make();
     document.getElementById('qrcode-img').innerHTML = qr.createImgTag();
@@ -1677,9 +1682,11 @@ No errors! Great job.
         
     
 
-        <div class="load-comments">
-            <div id="load-comments">Load Comments?</div>
-        </div>
+        
+            <div class="load-comments">
+                <div id="load-comments">Load Comments?</div>
+            </div>
+        
 
         
 
@@ -1689,6 +1696,7 @@ No errors! Great job.
             <div id="utterances"></div>
         
 
+        
     
 
 
@@ -1702,7 +1710,7 @@ No errors! Great job.
             
     <footer id="footer" class="footer">
         <div class="footer-inner">
-            <div class="site-info">©&nbsp;2015–2020&nbsp;Guillaume Malette</div>
+            <div class="site-info">©&nbsp;2015–2022&nbsp;Guillaume Malette</div>
 
             
     
@@ -1710,6 +1718,8 @@ No errors! Great job.
                     <a href="/rss.xml" target="_blank" rel="external noopener" title="RSS"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon social-icon"><path d="M19.199 24C19.199 13.467 10.533 4.8 0 4.8V0c13.165 0 24 10.835 24 24h-4.801zM3.291 17.415c1.814 0 3.293 1.479 3.293 3.295 0 1.813-1.485 3.29-3.301 3.29C1.47 24 0 22.526 0 20.71s1.475-3.294 3.291-3.295zM15.909 24h-4.665c0-6.169-5.075-11.245-11.244-11.245V8.09c8.727 0 15.909 7.184 15.909 15.91z"/></svg></a>
                 </li><li class="socials-item">
                     <a href="https://github.com/gmalette" target="_blank" rel="external noopener" title="GitHub"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon social-icon"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+                </li><li class="socials-item">
+                    <a href="https://hachyderm.io/@gmalette" target="_blank" rel="me" title="Mastodon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 417.8 512" class="icon social-icon"><path d="M417.8 179.1c0-97.2-63.7-125.7-63.7-125.7-62.5-28.7-228.5-28.4-290.4 0 0 0-63.7 28.5-63.7 125.7 0 115.7-6.6 259.4 105.6 289.1 40.5 10.7 75.3 13 103.3 11.4 50.8-2.8 79.3-18.1 79.3-18.1l-1.7-36.9s-36.3 11.4-77.1 10.1c-40.4-1.4-83-4.4-89.6-54-.6-4.4-.9-9-.9-13.9 85.6 20.9 158.6 9.1 178.7 6.7 56.1-6.7 105-41.3 111.2-72.9 9.8-49.8 9-121.5 9-121.5zm-75.1 125.2h-46.6V190.1c0-49.7-64-51.6-64 6.9v62.5h-46.3V197c0-58.5-64-56.6-64-6.9v114.2H75.1c0-122.1-5.2-147.9 18.4-175 25.9-28.9 79.8-30.8 103.8 6.1l11.6 19.5 11.6-19.5c24.1-37.1 78.1-34.8 103.8-6.1 23.7 27.3 18.4 53 18.4 175z"/></svg></a>
                 </li><li class="socials-item">
                     <a href="https://twitter.com/gmalette" target="_blank" rel="external noopener" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon social-icon"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg></a>
                 </li></ul>
@@ -1724,18 +1734,8 @@ No errors! Great job.
 
         </div>
         
-    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
 
-<script>
-    var scroll = new SmoothScroll('a[href*="#"]', {
-        speedAsDuration: true,
-        header: '[data-scroll-header]'
-    });
-</script>
-
-
-
-
+        
 
 
 
@@ -1752,9 +1752,12 @@ No errors! Great job.
             <script>
     function loadComments() {
         (function() {
-            var utterances = document.getElementById("utterances");
-            var script = document.createElement('script');
-            script.src = 'https://utteranc.es/client.js';
+            const utterances = document.getElementById("utterances");
+            if (!utterances) {
+                return;
+            }
+            const script = document.createElement('script');
+            script.src = 'https:\/\/utteranc.es\/client.js';
             script.async = true;
             script.crossOrigin = 'anonymous';
             script.setAttribute('repo', 'gmalette\/gmalette.github.io-src');
@@ -1767,6 +1770,8 @@ No errors! Great job.
 </script>
         
 
+        
+
     
 
 
@@ -1774,7 +1779,10 @@ No errors! Great job.
     <script src="https://cdn.jsdelivr.net/npm/medium-zoom@latest/dist/medium-zoom.min.js"></script>
 
 <script>
-    mediumZoom(document.querySelectorAll('div.post-body img'), {
+    let imgNodes = document.querySelectorAll('div.post-body img');
+    imgNodes = Array.from(imgNodes).filter(node => node.parentNode.tagName !== "A");
+
+    mediumZoom(imgNodes, {
         background: 'hsla(var(--color-bg-h), var(--color-bg-s), var(--color-bg-l), 0.95)'
     })
 </script>
@@ -1782,11 +1790,7 @@ No errors! Great job.
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/instant.page@3.0.0/instantpage.min.js" type="module" defer></script>
-
-
-
-
+    <script src="https://cdn.jsdelivr.net/npm/instant.page@5.1.0/instantpage.min.js" type="module" defer></script>
 
 
 
