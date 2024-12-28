@@ -2,13 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://gmalette.dev/posts/guillaume-rant-palace/</loc>
+  </url><url>
     <loc>https://gmalette.dev/categories/</loc>
   </url><url>
-    <loc>https://gmalette.dev/posts/graphql-and-sorbet-and-unit-tests/</loc>
+    <loc>https://gmalette.dev/categories/general/</loc>
   </url><url>
     <loc>https://gmalette.dev/</loc>
   </url><url>
     <loc>https://gmalette.dev/posts/</loc>
+  </url><url>
+    <loc>https://gmalette.dev/posts/graphql-and-sorbet-and-unit-tests/</loc>
   </url><url>
     <loc>https://gmalette.dev/categories/ruby/</loc>
   </url><url>
@@ -21,8 +25,6 @@
     <loc>https://gmalette.dev/posts/affordance-for-errors-pt1/</loc>
   </url><url>
     <loc>https://gmalette.dev/posts/refactoring-common-activesupport-concern-patterns/</loc>
-  </url><url>
-    <loc>https://gmalette.dev/categories/general/</loc>
   </url><url>
     <loc>https://gmalette.dev/posts/moving-away-from-medium/</loc>
   </url><url>

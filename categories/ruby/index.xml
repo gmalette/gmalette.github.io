@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ruby on Guillaume&#39;s Horrible Code-Along Blog</title>
+    <link>https://gmalette.dev/categories/ruby/</link>
+    <description>Recent content in Ruby on Guillaume&#39;s Horrible Code-Along Blog</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 01 Jan 0001 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://gmalette.dev/categories/ruby/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GraphQL ❤️ Sorbet and Unit Tests</title>
+      <link>https://gmalette.dev/posts/graphql-and-sorbet-and-unit-tests/</link>
+      <pubDate>Thu, 05 Nov 2020 14:00:00 +0400</pubDate>
+      <guid>https://gmalette.dev/posts/graphql-and-sorbet-and-unit-tests/</guid>
+      <description>&lt;p&gt;For the past year, my team has been working on a project that exposes a GraphQL API, and, since we&amp;rsquo;ve been doing things quite differently than the rest of the company, I figured some of our ideas might be worth sharing. We&amp;rsquo;ve been using the &lt;a href=&#34;https://graphql-ruby.org/&#34;&gt;&lt;code&gt;graphql-ruby&lt;/code&gt;&lt;/a&gt; gem, and even though it doesn&amp;rsquo;t lend itself well to unit testing, we&amp;rsquo;ve insisted on writing unit tests. What&amp;rsquo;s more, we&amp;rsquo;ve also used Sorbet to prevent other categories of errors; in fact, most of our code is using &lt;code&gt;typed: strict&lt;/code&gt;! In this post, I&amp;rsquo;ll share why we went out of our way to do this, and how it can be done.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Type Variance Explained To a Ruby Developer</title>
+      <link>https://gmalette.dev/posts/type-variance-explained-to-a-ruby-developer/</link>
+      <pubDate>Sun, 21 Jun 2020 20:00:00 +0400</pubDate>
+      <guid>https://gmalette.dev/posts/type-variance-explained-to-a-ruby-developer/</guid>
+      <description>&lt;p&gt;A few months ago, I found myself trying to explain type variance to a coworker whose experience is mainly Ruby. Dynamically typed languages such as Ruby don&amp;rsquo;t ask the developers to specify the type variance. I found that while they develop an instinct of what usages are acceptable and which aren&amp;rsquo;t, these developers don&amp;rsquo;t codify it in the same way developers in statically typed languages do. In trying to explain, I had great difficulty driving home the difference between covariance and contravariance. Their good instinct made it hard for me to fill the gap in their understanding. After a while, I remembered the way Simon Génier first explained it to me, and that way was a success.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Affordance for Errors, part 3</title>
+      <link>https://gmalette.dev/posts/affordance-for-errors-pt3/</link>
+      <pubDate>Tue, 18 Feb 2020 23:00:00 +0400</pubDate>
+      <guid>https://gmalette.dev/posts/affordance-for-errors-pt3/</guid>
+      <description>&lt;p&gt;In the &lt;a href=&#34;https://gmalette.dev/posts/affordance-for-errors-pt1/&#34;&gt;first post&lt;/a&gt; of this series, I showed how a few APIs afford errors to their users. In the &lt;a href=&#34;https://gmalette.dev/posts/affordance-for-errors-pt2/&#34;&gt;second post&lt;/a&gt;, I showed a few examples of how other APIs or languages have avoided or solved the same problems. In this third and final post, we will work through an example of designing an API.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Affordance for Errors, part 2</title>
+      <link>https://gmalette.dev/posts/affordance-for-errors-pt2/</link>
+      <pubDate>Sun, 16 Feb 2020 15:00:00 +0400</pubDate>
+      <guid>https://gmalette.dev/posts/affordance-for-errors-pt2/</guid>
+      <description>&lt;p&gt;In the first part of this series of three posts, I outlined a few common Ruby and Rails API, and explained the errors they afford their users. In this second post, I&amp;rsquo;ll discuss how other tools have avoided these problems, and how those solutions may apply to Ruby and Rails. I&amp;rsquo;ll be reusing the examples from the previous post. If you haven&amp;rsquo;t read it, I suggest you start there: &lt;a href=&#34;https://gmalette.dev/posts/affordance-for-errors-pt1/&#34;&gt;Affordance for Errors, part 1&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Affordance for Errors, part 1</title>
+      <link>https://gmalette.dev/posts/affordance-for-errors-pt1/</link>
+      <pubDate>Wed, 29 Jan 2020 23:00:00 +0400</pubDate>
+      <guid>https://gmalette.dev/posts/affordance-for-errors-pt1/</guid>
+      <description>&lt;p&gt;A few years ago, I read &lt;a href=&#34;https://www.sandimetz.com/blog/2018/21/what-does-oo-afford&#34;&gt;Sandi Metz&amp;rsquo;s blog post about affordances&lt;/a&gt; and it stuck with me. I started minding how the APIs I write can be misused; I started noticing the surface I leave for the users of my APIs to make errors. Soon after I started noticing how the APIs we use every day are full of affordance for error.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Refactoring Common ActiveSupport::Concern Patterns</title>
+      <link>https://gmalette.dev/posts/refactoring-common-activesupport-concern-patterns/</link>
+      <pubDate>Mon, 25 Feb 2019 20:00:00 +0400</pubDate>
+      <guid>https://gmalette.dev/posts/refactoring-common-activesupport-concern-patterns/</guid>
+      <description>&lt;p&gt;Following my &lt;a href=&#34;https://gmalette.dev/posts/short-rant-about-activesupport-concern/&#34;&gt;Short Rant on &lt;code&gt;ActiveSupport::Concern&lt;/code&gt;&lt;/a&gt;, I&amp;rsquo;ve been asked how to refactor the code to make it stop using it, or write new code without it. I thought I&amp;rsquo;d share the patterns that have worked for me so far.&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-is-activesupportconcern&#34;&gt;What is &lt;code&gt;ActiveSupport::Concern&lt;/code&gt;?&lt;/h2&gt;&#xA;&lt;p&gt;&lt;code&gt;ActiveSupport::Concern&lt;/code&gt; is a module which other modules can &lt;code&gt;extend&lt;/code&gt; to get its features. It allows for easily (note: &lt;em&gt;easy&lt;/em&gt;, not &lt;em&gt;simple&lt;/em&gt;) applying modifications to the receiver module and its singleton class, as well as triggering hooks when the module gets &lt;code&gt;include&lt;/code&gt;&amp;rsquo;d.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>The Ruby Object Model</title>
+      <link>https://gmalette.dev/posts/the-ruby-object-model/</link>
+      <pubDate>Fri, 01 Feb 2019 13:36:00 +0400</pubDate>
+      <guid>https://gmalette.dev/posts/the-ruby-object-model/</guid>
+      <description>&lt;p&gt;Recently I was called out. I hypothesized that some bad patterns in Ruby are caused by developers misunderstanding Ruby&amp;rsquo;s Object Model, but I had not provided them with any learning resources. In fact, I couldn&amp;rsquo;t find anything satisfying, so I decided to write this post.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Revoking the (Parentheses) Privilege</title>
+      <link>https://gmalette.dev/posts/revoking-the-parentheses-privilege/</link>
+      <pubDate>Mon, 03 Dec 2018 21:00:00 +0400</pubDate>
+      <guid>https://gmalette.dev/posts/revoking-the-parentheses-privilege/</guid>
+      <description>&lt;p&gt;For years, Rubyists (including where I work) have enjoyed the privilege of omitting parenthesis around method call arguments. Last week, we merged a pull request to our style guide revoking that privilege: parenthesis will become mandatory for all method calls with arguments.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Short Rant about ActiveSupport::Concern</title>
+      <link>https://gmalette.dev/posts/short-rant-about-activesupport-concern/</link>
+      <pubDate>Mon, 19 Mar 2018 21:00:00 +0400</pubDate>
+      <guid>https://gmalette.dev/posts/short-rant-about-activesupport-concern/</guid>
+      <description>&lt;p&gt;This is a copy/paste of a comment I made on an internal pull request. I had been tagged on it because on my hard stance against &lt;code&gt;ActiveSupport::Concern&lt;/code&gt;, asking me to clarify my objections.&#xA;I’ve reworded my reply where it made sense.&lt;/p&gt;&#xA;&lt;p&gt;Here is the code on which I was asked to comment:&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

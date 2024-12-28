@@ -3,7 +3,7 @@
     <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
     <meta charset="UTF-8" />
 
-    <meta name="generator" content="Hugo 0.106.0"><meta name="theme-color" content="#fff" />
+    <meta name="generator" content="Hugo 0.140.1"><meta name="theme-color" content="#fff" />
     <meta name="color-scheme" content="light dark">
 
     
@@ -17,12 +17,14 @@
 
     <title>Type Variance Explained To a Ruby Developer | Guillaume&#39;s Horrible Code-Along Blog</title>
 
-    <link rel="stylesheet" href="/css/meme.min.e4e70cfe34f9799e569fbe6717e185ae6b650688ecb46ca7e1a724fe4df9803c.css"/>
+    <link rel="stylesheet" href="/css/meme.min.a6a2578b4d0044dd6a1df8ab2a0a2b63e373729fa7ec64f1bfb7a8db5bba81dd.css"/>
 
     
     
-        <script src="/js/meme.min.71d2c3f1dcb1b34a2bb1dd79ebc67f990aa10cbc13af7c337e1b9b54653801f4.js"></script>
+        
+            <script src="/js/meme.min.71d2c3f1dcb1b34a2bb1dd79ebc67f990aa10cbc13af7c337e1b9b54653801f4.js"></script>
 
+        
     
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -30,7 +32,8 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source&#43;Code&#43;Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Comfortaa:wght@700&amp;display=swap" media="print" onload="this.media='all'" />
         <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source&#43;Code&#43;Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Comfortaa:wght@700&amp;display=swap" /></noscript>
 
-    <meta name="author" content="Guillaume Malette" /><meta name="description" content="A few months ago, I found myself trying to explain type variance to a coworker whose experience is mainly Ruby. Dynamically typed languages such as Ruby don’t ask the developers to specify the type variance. I found that while they develop an instinct of what usages are acceptable and which aren’t, these developers don’t codify it in the same way developers in statically typed languages do." />
+    <meta name="author" content="Guillaume Malette" /><meta name="description" content="A few months ago, I found myself trying to explain type variance to a coworker whose experience is mainly Ruby. Dynamically typed languages such as Ruby don’t ask the developers to specify the type variance. I found that while they develop an instinct of what usages are acceptable and which aren’t, these developers don’t codify it in the same way developers in statically typed languages do. In trying to explain, I had great difficulty driving home the difference between covariance and contravariance. Their good instinct made it hard for me to fill the gap in their understanding. After a while, I remembered the way Simon Génier first explained it to me, and that way was a success.
+" />
 
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#2a6df4" />
@@ -49,7 +52,7 @@
     
 
     
-    <link rel="canonical" href="https://gmalette.dev/posts/type-variance-explained-to-a-ruby-developer/" />
+        <link rel="canonical" href="https://gmalette.dev/posts/type-variance-explained-to-a-ruby-developer/" />
     
 
 <script type="application/ld+json">
@@ -60,14 +63,13 @@
         "dateModified": "2015-04-21T20:00:00+00:00",
         "url": "https://gmalette.dev/posts/type-variance-explained-to-a-ruby-developer/",
         "headline": "Type Variance Explained To a Ruby Developer",
-        "description": "A few months ago, I found myself trying to explain type variance to a coworker whose experience is mainly Ruby. Dynamically typed languages such as Ruby don’t ask the developers to specify the type variance. I found that while they develop an instinct of what usages are acceptable and which aren’t, these developers don’t codify it in the same way developers in statically typed languages do.",
+        "description": "A few months ago, I found myself trying to explain type variance to a coworker whose experience is mainly Ruby. Dynamically typed languages such as Ruby don’t ask the developers to specify the type variance. I found that while they develop an instinct of what usages are acceptable and which aren’t, these developers don’t codify it in the same way developers in statically typed languages do. In trying to explain, I had great difficulty driving home the difference between covariance and contravariance. Their good instinct made it hard for me to fill the gap in their understanding. After a while, I remembered the way Simon Génier first explained it to me, and that way was a success.\n",
         "inLanguage" : "en",
         "articleSection": "posts",
         "wordCount":  776 ,
         "image": "https://gmalette.dev/icons/apple-touch-icon.png",
         "author": {
             "@type": "Person",
-            "image": "https://gmalette.dev/icons/apple-touch-icon.png",
             "url": "https://gmalette.dev",
             "name": "Guillaume Malette"
         },
@@ -78,11 +80,11 @@
                 "@type": "ImageObject",
                 "url": "https://gmalette.dev/icons/apple-touch-icon.png"
             },
-            "url": "https://gmalette.dev"
+            "url": "https://gmalette.dev/"
         },
         "mainEntityOfPage": {
             "@type": "WebSite",
-            "@id": "https://gmalette.dev"
+            "@id": "https://gmalette.dev/"
         }
     }
 </script>
@@ -98,7 +100,8 @@
 
 
 <meta property="og:title" content="Type Variance Explained To a Ruby Developer" />
-<meta property="og:description" content="A few months ago, I found myself trying to explain type variance to a coworker whose experience is mainly Ruby. Dynamically typed languages such as Ruby don’t ask the developers to specify the type variance. I found that while they develop an instinct of what usages are acceptable and which aren’t, these developers don’t codify it in the same way developers in statically typed languages do." />
+<meta property="og:description" content="A few months ago, I found myself trying to explain type variance to a coworker whose experience is mainly Ruby. Dynamically typed languages such as Ruby don’t ask the developers to specify the type variance. I found that while they develop an instinct of what usages are acceptable and which aren’t, these developers don’t codify it in the same way developers in statically typed languages do. In trying to explain, I had great difficulty driving home the difference between covariance and contravariance. Their good instinct made it hard for me to fill the gap in their understanding. After a while, I remembered the way Simon Génier first explained it to me, and that way was a success.
+" />
 <meta property="og:url" content="https://gmalette.dev/posts/type-variance-explained-to-a-ruby-developer/" />
 <meta property="og:site_name" content="Guillaume&#39;s Horrible Code-Along Blog" />
 <meta property="og:locale" content="en" /><meta property="og:image" content="https://gmalette.dev/icons/apple-touch-icon.png" />
@@ -149,10 +152,7 @@
                     <nav class="nav">
     <ul class="menu" id="menu">
         
-            
-        
-        
-        
+
         
             
                 <li class="menu-item"><a href="/posts/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon archive"><path d="M32 448c0 17.7 14.3 32 32 32h384c17.7 0 32-14.3 32-32V160H32v288zm160-212c0-6.6 5.4-12 12-12h104c6.6 0 12 5.4 12 12v8c0 6.6-5.4 12-12 12H204c-6.6 0-12-5.4-12-12v-8zM480 32H32C14.3 32 0 46.3 0 64v48c0 8.8 7.2 16 16 16h480c8.8 0 16-7.2 16-16V64c0-17.7-14.3-32-32-32z"/></svg><span class="menu-item-name">Posts</span></a>
@@ -406,58 +406,7 @@
         
 
 
-        <div class="post-share">
-
         
-            <div class="share-text">Share on:</div>
-        
-
-        <div class="share-items">
-
-            
-                <div class="share-item twitter">
-                    
-                    <a href="https://twitter.com/share?url=https://gmalette.dev/posts/type-variance-explained-to-a-ruby-developer/&amp;text=Type%20Variance%20Explained%20To%20a%20Ruby%20Developer&amp;hashtags=&amp;via=gmalette" title="Share on Twitter" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon twitter-icon"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg></a>
-                </div>
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-                <div class="share-item qrcode">
-                    <div class="qrcode-container" title="Share via QR Code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon qrcode-icon"><path d="M0 224h192V32H0v192zM64 96h64v64H64V96zm192-64v192h192V32H256zm128 128h-64V96h64v64zM0 480h192V288H0v192zm64-128h64v64H64v-64zm352-64h32v128h-96v-32h-32v96h-64V288h96v32h64v-32zm0 160h32v32h-32v-32zm-64 0h32v32h-32v-32z"/></svg><div id="qrcode-img"></div>
-                    </div>
-                    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
-
-<script>
-    const typeNumber = 0;
-    const errorCorrectionLevel = 'L';
-    const qr = qrcode(typeNumber, errorCorrectionLevel);
-    qr.addData('https:\/\/gmalette.dev\/posts\/type-variance-explained-to-a-ruby-developer\/');
-    qr.make();
-    document.getElementById('qrcode-img').innerHTML = qr.createImgTag();
-</script>
-
-                </div>
-            
-
-        </div>
-
-    </div>
-
-
 
 
         
@@ -546,6 +495,11 @@
         
 
         
+
+        
+
+        
+
     
 
 
@@ -559,7 +513,7 @@
             
     <footer id="footer" class="footer">
         <div class="footer-inner">
-            <div class="site-info">©&nbsp;2015–2022&nbsp;Guillaume Malette</div>
+            <div class="site-info">©&nbsp;2015–2024</div>
 
             
     
@@ -568,9 +522,7 @@
                 </li><li class="socials-item">
                     <a href="https://github.com/gmalette" target="_blank" rel="external noopener" title="GitHub"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon social-icon"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
                 </li><li class="socials-item">
-                    <a href="https://hachyderm.io/@gmalette" target="_blank" rel="me" title="Mastodon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 417.8 512" class="icon social-icon"><path d="M417.8 179.1c0-97.2-63.7-125.7-63.7-125.7-62.5-28.7-228.5-28.4-290.4 0 0 0-63.7 28.5-63.7 125.7 0 115.7-6.6 259.4 105.6 289.1 40.5 10.7 75.3 13 103.3 11.4 50.8-2.8 79.3-18.1 79.3-18.1l-1.7-36.9s-36.3 11.4-77.1 10.1c-40.4-1.4-83-4.4-89.6-54-.6-4.4-.9-9-.9-13.9 85.6 20.9 158.6 9.1 178.7 6.7 56.1-6.7 105-41.3 111.2-72.9 9.8-49.8 9-121.5 9-121.5zm-75.1 125.2h-46.6V190.1c0-49.7-64-51.6-64 6.9v62.5h-46.3V197c0-58.5-64-56.6-64-6.9v114.2H75.1c0-122.1-5.2-147.9 18.4-175 25.9-28.9 79.8-30.8 103.8 6.1l11.6 19.5 11.6-19.5c24.1-37.1 78.1-34.8 103.8-6.1 23.7 27.3 18.4 53 18.4 175z"/></svg></a>
-                </li><li class="socials-item">
-                    <a href="https://twitter.com/gmalette" target="_blank" rel="external noopener" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon social-icon"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg></a>
+                    <a href="https://bsky.app/profile/gmalette.dev" target="_blank" rel="external noopener" title="Bluesky"><svg class="icon social-icon social-icon social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticon social-icons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zM224 247.4c14.5-30 54-85.8 90.7-113.3c26.5-19.9 69.3-35.2 69.3 13.7c0 9.8-5.6 82.1-8.9 93.8c-11.4 40.8-53 51.2-90 44.9c64.7 11 81.2 47.5 45.6 84c-67.5 69.3-97-17.4-104.6-39.6c0 0 0 0 0 0l-.3-.9c-.9-2.6-1.4-4.1-1.8-4.1s-.9 1.5-1.8 4.1c-.1 .3-.2 .6-.3 .9c0 0 0 0 0 0c-7.6 22.2-37.1 108.8-104.6 39.6c-35.5-36.5-19.1-73 45.6-84c-37 6.3-78.6-4.1-90-44.9c-3.3-11.7-8.9-84-8.9-93.8c0-48.9 42.9-33.5 69.3-13.7c36.7 27.5 76.2 83.4 90.7 113.3z"/></svg></a>
                 </li></ul>
     
 
@@ -617,6 +569,10 @@
         })();
     }
 </script>
+        
+
+        
+
         
 
         

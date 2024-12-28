@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>General on Guillaume&#39;s Horrible Code-Along Blog</title>
+    <link>https://gmalette.dev/categories/general/</link>
+    <description>Recent content in General on Guillaume&#39;s Horrible Code-Along Blog</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 01 Jan 0001 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://gmalette.dev/categories/general/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>#guillaume-rant-palace</title>
+      <link>https://gmalette.dev/posts/guillaume-rant-palace/</link>
+      <pubDate>Fri, 27 Dec 2024 19:17:00 +0400</pubDate>
+      <guid>https://gmalette.dev/posts/guillaume-rant-palace/</guid>
+      <description>&lt;div id=&#34;preamble&#34;&gt;&#xA;&lt;div class=&#34;sectionbody&#34;&gt;&#xA;&lt;div class=&#34;paragraph&#34;&gt;&#xA;&lt;p&gt;I logged into Twitter today. I wanted to download the archive of my data. In doing so, I couldn’t help but be taken back to the days when I was an active user, from Jan 2011 to October 2022.&lt;/p&gt;&#xA;&lt;/div&gt;&#xA;&lt;div class=&#34;paragraph&#34;&gt;&#xA;&lt;p&gt;I didn’t tweet much, but over the years, I had come to use Twitter as an outlet for my frustrations, cynicism, takes about working in–or generally interacting with–tech. Where this blog was the long-form, Twitter was the short. Looking at the archive, I remembered the moments. Some takes aged better than others, some were learning opportunities, and some landed flat.&lt;/p&gt;&#xA;&lt;/div&gt;</description>
+    </item>
+    <item>
+      <title>Moving Away from Medium</title>
+      <link>https://gmalette.dev/posts/moving-away-from-medium/</link>
+      <pubDate>Mon, 11 Feb 2019 20:00:00 +0400</pubDate>
+      <guid>https://gmalette.dev/posts/moving-away-from-medium/</guid>
+      <description>&lt;p&gt;When I started writing, I picked Medium. I didn&amp;rsquo;t want to setup a blog, have choose a template or style, or figure out how to use an analytics platform. I just wanted to write.&lt;/p&gt;&#xA;&lt;p&gt;When writing my &lt;a href=&#34;https://gmalette.dev/posts/revoking-the-parentheses-privilege/&#34;&gt;Revoking the (Parentheses) Privilege&lt;/a&gt; post, it became apparent that Medium failed me. It has no support for syntax highlighting, requiring me to use screenshots from &lt;a href=&#34;https://carbon.now.sh&#34;&gt;Carbon&lt;/a&gt;. I&amp;rsquo;m considering a post which will require JS to create visualizations, and it would be impossible on Medium.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Mistaking Authentication for Identification</title>
+      <link>https://gmalette.dev/posts/mistaking-authentication-for-identification/</link>
+      <pubDate>Tue, 21 Apr 2015 20:00:00 +0400</pubDate>
+      <guid>https://gmalette.dev/posts/mistaking-authentication-for-identification/</guid>
+      <description>&lt;p&gt;&lt;em&gt;Disclaimer: I am not a security expert, nor a systems expert. The following text is tinted by my understanding and experience, and probably contains mistakes or misunderstandings.&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;Earlier this year, I accidentally uncovered a flaw in GitHub, Heroku and many other similar providers. The flaw essentially allows a denial of service to some users with little effort from the attacker. The situation has not been fixed, and it likely will not be. At the center of the problem is the fundamental mistake of thinking that authentication can be a substitute for identification.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
